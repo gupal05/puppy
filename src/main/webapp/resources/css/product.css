@@ -1,0 +1,365 @@
+@charset "UTF-8";
+#productInfoArea{
+	width: 100%;
+	margin: 0 auto;
+}
+#pro-sec-area{
+	width: 1442px;
+	margin: 0 auto;
+	display: flex;
+}
+#title-img-area{
+	width: 747.54px;
+	height: 687.8px;
+	padding: 30px;
+}
+#title-text-area{
+	width: 574.48px;
+	height: 687.8px;
+	padding: 30px;
+}
+#title-img-area-in{
+	width: 747.54px;
+	height: 600px;
+}
+#title-text-area-big{
+	width: 574.47px;
+	height: 43px;
+	padding-top: 10px;
+	font-size: 25px;
+}
+#title-text-area-big-in{
+	width: 513.5px;
+	height: 39px;
+	padding: 4px;
+}
+#title-text-area-price{
+	width: 574.47px;
+	height: 25px;
+	padding: 30px 0px 20px;
+	font-size: 24px;
+	font-weight: bold;
+}
+#detail-text{
+	width: 100%;
+	height: 47.58px;
+}
+#detail-text-bold{
+	width: 65px;
+	height: 27.58px;
+	padding-bottom: 3.2px;
+	display: flex;
+}
+#fontMini{
+	height: 27.58px;
+	font-size: 12.8px;
+	color: #999999;
+}
+#proOtherInfo{
+	width: 100%;
+	height: 50.8px;
+	display: flex;
+}
+#delPrice{
+	width: 152px;
+	height: 18.8px;
+	padding: 16px 0px 16px;
+	display: flex;
+	font-size: 12px;
+	color: #999999;
+}
+#delpriceInt{
+	width: 422.47px;
+	height: 18.8px;
+	padding: 16px 0px 16px;
+	font-size: 12px;
+}
+#dot{
+	padding: 0px 9.6px;
+}
+#dot-sec{
+	padding: 0px 9.6px;
+	line-height: 15px; 
+}
+#pro-text-line-bottom-text{
+	width: 100%;
+	height: 34.91px;
+	padding: 11.475px 0px;
+}
+#pro-text-line-bottom-text-firstLine{
+	width: 100%;
+	height: 50%;
+	display: flex;
+}
+#orderCountInfo{
+	font-size: 12px;
+	color: #999999;
+}
+#pro-text-line-bottom-text-firstLine-slash{
+	margin: 0px 15px;
+	font-size: 12px;
+	color: #999999;
+	line-height: 15.8px;
+}
+#sel-text-title-area{
+	width: 307.64px;
+	height: 31.25px;
+	padding: 14px 0px 14px 18.4px;
+	font-size: 10px;
+	line-height: 31.25px;
+}
+#dot-trd{
+	padding: 0px 9.6px;
+	line-height: 59.25px;
+}
+#productCount-numBox{
+	width: 78.39px;
+	height: 31.25px;
+	padding: 14px 0px;
+	display: flex;
+}
+#count-num-box{
+	width: 25px;
+	height: 26.25px;
+	padding: 0px 12px;
+	background-color: #666666;
+	color: white;
+}
+#up-count-arrow{
+	width: 22px;
+	height: 15.125px;
+	background-color: #444444;
+	color: white;
+	font-size: 12px;
+	text-align: center;
+	border-radius: 0px 3px 0px 0px;
+	cursor: pointer;
+}
+#down-count-arrow{
+	width: 22px;
+	height: 15.125px;
+	background-color: #444444;
+	color: white;
+	font-size: 12px;
+	text-align: center;
+	border-radius: 0px 0px 3px 0px;
+	cursor: pointer;
+}
+#product-total-price{
+	width: 169.33px;
+	height: 31.25px;
+	padding: 14px 0px 14px 0px;
+	margin-right: 5px;
+	font-size: 14px;
+	line-height: 31.25px;
+	text-align: right;
+}
+#total-acc{
+	width: 85.33px;
+	height: 31.25px;
+	padding: 14px 0px 14px 0px;
+	font-size: 14px;
+	line-height: 31.25px;
+	text-align: center;
+}
+#won-icon{
+	width: 13px;
+	height: 13px;
+	padding: 0px 5px;
+	font-size: 13px;
+	line-height: 30.8px;
+}
+#buy-btn{
+	width: 100%;
+	height: 100%;
+	padding: 10.5px 18.5px;
+	background-color: #444444;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+#cart-btn{
+	width: 100%;
+	height: 100%;
+	padding: 0px 18.5px;
+	font-size: 13px;
+	color: #31CAAE;
+	background-color: white;
+	border: 2px solid #31CAAE;
+	border-radius: 3px;
+	cursor: pointer;
+}
+#wish-btn{
+	width: 100%;
+	height: 100%;
+	font-size: 13px;
+	color: #444444;
+	background-color: white;
+	border: 2px solid #444444;
+	border-radius: 3px;
+	cursor: pointer;
+}
+#product-info-content{
+	width: 100%;
+	height: 58.38px;
+	display: flex;
+	justify-content: center;
+}
+#product-info-content-area{
+	width: 83.66%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+#product-info-content-btn-s{
+	width: 5%;
+	height: 20.60px;
+	margin: 17.5px 24.5px;
+	padding: 1.4px 0px;
+	text-align: center;
+	cursor: pointer;
+}
+#product-info-content-btn-b{
+	width: 5%;
+	height: 20.60px;
+	margin: 17.5px 24.5px;
+	padding: 1.4px 0px;
+	text-align: center;
+	cursor: pointer;
+}
+#product-info-content-btn-text{
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	text-align: center;
+	display: flex;
+	font-family: 'Gothic A1', sans-serif;
+}
+#product-info-content-btn-text-line-s-info{
+	width: 68%;
+	height: 1px;
+	background-color: black;
+	margin-top: 5px;
+	display: block;
+}
+#product-info-content-btn-text-line-s-q{
+	width: 68%;
+	height: 1px;
+	background-color: black;
+	margin-top: 5px;
+	display: none;
+}
+#product-info-content-btn-text-line-s-review{
+	width: 68%;
+	height: 1px;
+	background-color: black;
+	margin-top: 5px;
+	display: none;
+}
+#product-info-content-btn-text-line-ss{
+	width: 34%;
+	height: 1px;
+	background-color: black;
+	margin-top: 5px;
+	display: none;
+}
+#review-count{
+	margin-left: 5px;
+	color: #31CAAE;
+}
+#delivery-img-area{
+	width: 1200px;
+	margin: 0 auto;
+}
+#product-info-detail-btn{
+	width: 800px;
+	height: 70px;
+	font-size: 15px;
+	border: 2px solid #444444;
+	background-color: white;
+	cursor: pointer;
+}
+#product-info-detail-btn-area{
+	display: flex;
+	justify-content: center;
+}
+#content-img {
+    /* 요소의 초기 스타일을 여기에 추가하세요 */
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+#content-img.show {
+    display: block;
+    opacity: 1;
+}
+#review-title-text-area{
+	width: 100%;
+	height: 88.78px;
+	padding: 50px 0px;
+}
+#review-text-font{
+	font-size: 22px;
+	width: 100%;
+	height: 25.19px;
+	padding: 10px 0px 3px;
+	text-align: center;
+}
+#review-result{
+	margin: 0 auto;
+	text-align: center;
+	width: 1382px;
+	height: 43.97px;
+	padding: 48px 0px;
+	color: #999999;
+	border: 2px solid #eee;
+	font-size: 16px;
+}
+#review-mini-text{
+	font-size: 13px;
+}
+#go-center-btn{
+	width: 161px;
+	height: 27.19px;
+	padding: 5px 10px;
+	font-size: 11px;
+	border: 1px solid #eee;
+	background-color: white;
+	cursor: pointer;
+}
+#go-review-total-btn{
+	width: 115.75px;
+	height: 29.19px;
+	padding: 5px 10px;
+	font-size: 11px;
+	border: 2px solid #444444;
+	background-color: white;
+	cursor: pointer;
+}
+#go-write-review-total-btn{
+	width: 139.47px;
+	height: 100%;
+	padding: 12.6px 21px;
+	font-size: 13px;
+	background-color: #444444;
+	color: white;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+}
+#return-result{
+	margin: 0 auto;
+	text-align: center;
+	width: 1382px;
+	padding: 20px 0px 20px 0px;
+	color: #black;
+	border: 2px solid #eee;
+	font-size: 20px;
+}
+#return-content{
+	text-align: left;
+	font-size: 13px;
+	color: #444444;
+	padding: 30px 30px;
+}

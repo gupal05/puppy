@@ -1,0 +1,582 @@
+@charset "UTF-8";
+body {
+    margin: 0;
+    padding: 0;
+}
+#miniText{
+	width: 100%;
+	height: 45.19px;
+	display: flex;
+	justify-content: center;
+}
+#miniIn{
+	width: 70%;
+	height: 100%;
+	text-align: right;
+	line-height: 45.19px;
+	font-size: 10px;
+	display: flex;
+	justify-content: right;
+}
+#miniIcon{
+	line-height: 45.5px;
+	color: #777;
+}
+#miniLoginText{
+	margin-left: 7px;
+	color: #777;
+}
+#miniJoinText{
+	margin-left: 7px;
+}
+#miniArrow{
+	margin-left: 10px;
+	color: #777;
+}
+#joinTitle{
+	width: 100%;
+	height: 169.19px;
+	text-align: center;
+	line-height: 169.19px;
+	font-size: 35px;
+	font-family: 'Rethink Sans', sans-serif;
+	font-weight: 500;
+}
+#joinLine{
+	width: 100%;
+	height: 1px;
+	background-color: #eee;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+#diaIcon {
+    font-size: 9px; /* 아이콘의 크기를 조절할 값으로 변경하세요 */
+}
+#joinTextArea{
+	font-family: 'Black Han Sans', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 100%;
+	height: 83.86px;
+	text-align: center;
+	font-size: 22px;
+	margin-top: 40px;
+	margin-bottom: -5px;
+}
+#idCheck-btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 20px;
+	background-color: #31CAAE;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	
+}
+#mail-btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 20px;
+	background-color: #31CAAE;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 4px;
+}
+#mailCode-btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 20px;
+	background-color: #31CAAE;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 15px;
+}
+#findAddr-btn{
+	width: 50px;
+	height: 30px;
+	margin-left: 20px;
+	background-color: #31CAAE;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 8px;
+	
+}
+#joinInput{
+	display: flex;
+	justify-content: center;
+}
+#gubun{
+	margin-top: 10px;
+	width: 900px;
+	height: 86.91px;
+}
+#gubunText{
+	font-family: 'Black Han Sans', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 22px;
+	width: 90%;
+	line-height: 64px;
+	margin-left: 5px;
+}
+#joinInputLine{
+	width: 100%;
+	height: 1px;
+	background-color: #eee;
+}
+#joinInputLineArea{
+	width: 910px;
+	margin: 0 auto;
+	margin-top: -6px;
+}
+#joinInfoInputHead{
+	width: 900px;
+	margin: 0 auto;
+	display: flex;
+}
+#joinInputBody{
+	width: 118px;
+	height: 51px;
+	display: flex;
+	justify-content: left;
+	padding: 16px 16px 16px 5px;
+}
+#idText{
+	font-size: 13px;
+	color: #999999;
+	line-height: 51px;
+}
+#starIcon{
+	font-size: 10px;
+	color: #31caae;
+	margin-left: 10px;
+}
+#id-inputArea{
+	width: 718px;
+	height: 51px;
+	padding: 16px;
+	display: flex;
+}
+#mail-inputArea{
+	width: 718px;
+	height: 51px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+}
+#addr-inputArea{
+	width: 718px;
+	height: 160px;
+	padding: 16px;
+}
+#addrFlex{
+	display: flex;
+}
+#id-input{
+	width: 121px;
+	height: 26px;
+	padding: 5px 14px 5px 14px;
+	margin-top: 5.5px;
+	background-color: #F7F7F7;
+	border: none;
+}
+#userCode-inputArea{
+	width: 718px;
+	height: 51px;
+	padding: 16px;
+	display: flex;
+}
+#userCode-input{
+	width: 121px;
+	height: 26px;
+	padding: 5px 14px 5px 14px;
+	margin-top: 5.5px;
+	background-color: #F7F7F7;
+	border: none;
+}
+#userCode-hypen{
+	margin: 0px 5px 0px 5px;
+	line-height: 45px;
+}
+#ex-textDiv{
+	line-height: 46px;
+	padding: 5px;
+}
+#ex-text{
+	margin-left: 3px;
+	font-size: 11px;
+	color: #999999;
+}
+#ex-text2{
+	margin-left: 3px;
+	font-size: 11px;
+	color: black;
+	display: none;
+}
+#firstPhone{
+	width: 90px;
+	height: 40px;
+	margin-top: 5.5px;
+	background-color: #F7F7F7;
+	border: none;
+	text-align: center;
+}
+#secPhone,#trdPhone{
+	width: 90px;
+	height: 30px;
+	padding: 5px 14px 5px 14px;
+	margin-top: 5.5px;
+	background-color: #F7F7F7;
+	border: none;
+	margin-left: 4px;
+	text-align: center;
+}
+#phoneAlert{
+	font-size: 13px;
+	margin-left: 15px;
+	line-height: 51px;
+	display: none;
+}
+#mailInput{
+	width: 500px;
+	height: 26px;
+	padding: 5px 14px 5px 14px;
+	margin-top: 5.5px;
+	background-color: #F7F7F7;
+	border: none;
+}
+#mailCodeInput{
+	width: 150px;
+	height: 26px;
+	padding: 5px 14px 5px 14px;
+	margin-top: 5.5px;
+	background-color: #F7F7F7;
+	border: none;
+}
+#addrInput{
+	width: 300px;
+	height: 26px;
+	padding: 5px 14px 5px 14px;
+	margin-top: 5.5px;
+	background-color: #F7F7F7;
+	border: none;
+}
+#addrZipInput{
+	width: 300px;
+	height: 26px;
+	padding: 5px 14px 5px 14px;
+	margin-top: 5.5px;
+	background-color: #F7F7F7;
+	border: none;
+}
+#dirrhks{
+	position: relative;
+	width: 865px;
+	height: 70.8px;
+	padding: 8.925px 17.5px 7.2px;
+	margin: 0 auto;
+	
+}
+#dirrhksText{
+	font-family: 'Black Han Sans', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 22px;
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+}
+#allCheck{
+	width: 860px;
+	height: 27.52px;
+	padding: 20px;
+	background-color: #F7F7F7;
+	margin: 0 auto;
+	font-size: 13px;
+	display: flex;
+	border: 2px solid #31CAAE;
+	border-radius: 7px;
+}
+#dirrhksLine{
+	width: 900px;
+	height: 1px;
+	background-color: #eee;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	 margin-left: auto;  /* 자동으로 왼쪽 여백을 최대화합니다. */
+    margin-right: auto; /* 자동으로 오른쪽 여백을 최대화합니다. */
+}
+#dirrhks1{
+	width: 860px;
+	height: 27.52px;
+	padding: 20px;
+	background-color: #F7F7F7;
+	margin: 0 auto;
+	font-size: 13px;
+	display: flex;
+	border-radius: 7px;
+}
+#dirrhks2{
+	width: 860px;
+	height: 27.52px;
+	padding: 20px;
+	background-color: #F7F7F7;
+	margin: 0 auto;
+	font-size: 13px;
+	display: flex;
+	border-radius: 7px;
+	margin-top: 8px;
+}
+#downIcon{
+	margin-left: 3px;
+	line-height: 27.52px;
+}
+#joinLastButton{
+	display: flex;
+	justify-content: center;
+	padding-bottom: 56px;
+}
+#joinButton{
+	width: 121.52px;
+	height: 50.97px;
+	margin: 5px;
+	background-color: #31CAAE;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+}
+#joinCancel{
+	width: 94.77px;
+	height: 50.97px;
+	margin: 5px;
+	background-color: white;
+	border: none;
+	border-radius: 5px;
+	color: black;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+#cancelIcon{
+	margin-right: 5px;
+	color: #ccc;
+}
+#mailCodeArea{
+	display: none;
+}
+#find{
+	display: flex;
+	justify-content: center;
+}
+#findId-btn{
+	width: 30%;
+	height: 23.8px;
+	border: none;
+	background-color: rgba(0,0,0,0);
+	cursor:pointer;
+	color: #ccc;
+}
+#findId-btn:hover{
+	color: #000000;
+}
+#findPw-btn{
+	width: 30%;
+	height: 23.8px;
+	border: none;
+	background-color: rgba(0,0,0,0);
+	cursor:pointer;
+	margin-left: 20px;
+	margin-right: 15px;
+	align-items: center;
+	color: #ccc;
+}
+#findPw-btn:hover{
+	color: #000000;
+}
+#findJoin-btn{
+	width: 25%;
+	height: 23.8px;
+	border: none;
+	background-color: rgba(0,0,0,0);
+	cursor:pointer;
+	color: #31CAAE;
+	margin-right: 7px;
+}
+#findJoin-btn:hover{
+	color: #297C70;
+}
+#findArea{
+	width: 100%;
+	padding-bottom: 30px;
+}
+#findInputArea{
+	width: 460px;
+	padding: 25px 30px 30px 30px;
+	margin: 0 auto;
+	text-align: center;
+}
+#findId-nameInput{
+	width: 100%;
+	height: 30px;
+	background-color: #F9F9F9;
+	border-radius: 1px;
+	border: none;
+	margin-bottom: 20px;
+}
+#findId-mailInput{
+	width: 100%;
+	height: 30px;
+	margin-right: 5px;
+	background-color: #F9F9F9;
+	border-radius: 1px;
+	border: none;
+}
+
+#findId-mailInputResult{
+	width: 120px;
+	height: 30px;
+	margin-right: 15px;
+	background-color: #F0F0F0;
+	border-radius: 1px;
+	border: none;
+	text-align: center;
+}
+#findId-mailResult-btn{
+	width: 69px;
+	height: 30px;
+	margin-right: -10px;
+	cursor: pointer;
+	border: none;
+	background-color: #31CAAE;
+	border-radius: 5px;
+	color: white;
+}
+#findExText{
+	color: #999999;
+	font-size: 13px;
+	font-weight: bold;
+}
+#find-id-inputBox{
+	width: 100%;
+	height: 53.27px;
+	margin: 0px 5px 5px 0px;
+	padding: 0px 22px;
+	background-color: #F9F9F9;
+	border: none;
+}
+#find-mailCode-input{
+	display: flex;
+}
+#codeResult{
+	display: none;
+}
+#find-btn{
+	width: 137.59px;
+	height: 50.97px;
+	margin: 5px;
+	padding: 14.7px 23.8px;
+	background-color: #444444;
+	color: #E2E2E2;
+	border: none;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+#findPassword-btn{
+	width: 160px;
+	height: 50.97px;
+	margin: 5px;
+	padding: 14.7px 23.8px;
+	background-color: #444444;
+	color: #E2E2E2;
+	border: none;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+#find-cancle-btn{
+	width: 94.77px;
+	height: 50.97px;
+	margin: 5px;
+	padding: 14.7px 23.8px;
+	background-color: #FFFFFF;
+	color: #333333;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+#findTextArea{
+	font-family: 'Black Han Sans', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 100%;
+	height: 53.06px;
+	text-align: center;
+	font-size: 22px;
+	margin-top: 40px;
+	margin-bottom: -5px;
+}
+#findIdInfoArea{
+	width: 600px;
+	padding: 30px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#findIdInfo{
+	width: 445px;
+	padding: 30px 0px;
+	margin: 0px 60px 0px 0px;
+	text-align: left;
+}
+#findBoxLine-top{
+	width: 100%;
+	height: 1px;
+	background-color: #eee;
+}
+#findBoxLine-left{
+	width: 1px;
+	height: 183.56px;
+	background-color: #eee;
+}
+#findUserIdResult{
+	width: 68px;
+	padding: 16px;
+}
+#findIdEl{
+	width: 313px;
+	padding: 16px;
+}
+#userIcon{
+	font-size: 35px;
+	line-height: 163px;
+}
+#find-pw-btn{
+	width: 150px;
+	height: 50.97px;
+	margin: 5px;
+	padding: 14.7px 23.8px;
+	background-color: #FFFFFF;
+	color: #333333;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+

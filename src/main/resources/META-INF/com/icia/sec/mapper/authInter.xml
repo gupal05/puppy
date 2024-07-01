@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icia.sec.mapper.MapperInter">
+
+<select id="dupIdCheck" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+SELECT COUNT(*)
+FROM USERS
+WHERE US_ID = #{userId}
+</select>
+
+<select id="dupMemberCheck" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+SELECT COUNT(*)
+FROM USERS
+WHERE US_CODE = #{userCode}
+</select>
+
+<insert id="joinMember" parameterType="com.icia.sec.beans.UserBean">
+INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE)
+VALUES(#{userCode},#{userId},#{userPw},#{userName},#{userAddr},#{userZip},#{userAddrDetail},#{userPhone},#{userEmail},SYSDATE,#{userGrade})
+</insert>
+
+<select id="selId" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+SELECT COUNT(*)
+FROM US
+WHERE US_ID=#{userId}
+</select>
+
+<select id="selPw" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+SELECT COUNT(*)
+FROM US
+WHERE US_PW=#{userPw}
+</select>
+
+<select id="getUserPassword" parameterType="com.icia.sec.beans.UserBean" resultType="String">
+SELECT US_PW
+FROM US
+WHERE US_ID = #{userId}
+</select>
+
+<select id="getUserCode" parameterType="com.icia.sec.beans.UserBean" resultType="String">
+SELECT US_CODE
+FROM US
+WHERE US_ID = #{userId} AND US_PW = #{userPw}
+</select>
+
+<select id="getUserInfo" parameterType="com.icia.sec.beans.UserBean" resultType="com.icia.sec.beans.UserBean">
+SELECT US_CODE AS userCode, US_ID AS userId, US_PW AS userPw, US_NAME AS userName,US_ADDR AS userAddr,US_ZIP AS userZip,
+US_ADDRDETAIL AS userAddrDetail,US_PHONE AS userPhone,US_MAIL AS userEmail, US_GRCODE AS userGrade, US_ACC AS userAcc
+FROM USERS
+WHERE US_ID = #{userId}
+</select>
+
+<select id="getIndexProduct" parameterType="String" resultType="com.icia.sec.beans.ProductsBean">
+    SELECT PU.PU_NAME AS productsName, PU.PU_PRICE AS productsPrice, PU.PU_CODE AS productsCode, IMG.IMG_FILE AS message
+    FROM PU
+    INNER JOIN IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+    WHERE IMG.IMG_TYPE = #{type}
+</select>
+
+<update id="modifyUserInfoNotPw" parameterType="com.icia.sec.beans.UserBean">
+	UPDATE US
+	SET	   US_PHONE = #{userPhone}, US_ADDR = #{userAddr}, US_ZIP = #{userZip}, US_ADDRDETAIL = #{userAddrDetail}, US_MAIL = #{userEmail}
+	WHERE  US_CODE=#{userCode}
+</update>
+
+<update id="modifyUserInfoAll" parameterType="com.icia.sec.beans.UserBean">
+	UPDATE US
+	SET	   US_PHONE = #{userPhone}, US_ADDR = #{userAddr}, US_ZIP = #{userZip}, US_ADDRDETAIL = #{userAddrDetail}, US_MAIL = #{userEmail}, US_PW = #{userPw}
+	WHERE  US_CODE=#{userCode}
+</update>
+
+<insert id="joinKakao" parameterType="com.icia.sec.beans.UserBean">
+	INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE)
+	VALUES        (#{userCode}, #{userId}, NULL, #{userName}, NULL, NULL, NULL, NULL, NULL, SYSDATE, '1')
+</insert>
+
+<insert id="naverJoin" parameterType="com.icia.sec.beans.UserBean">
+	INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE)
+	VALUES        (#{userCode}, #{userId}, NULL, #{userName}, NULL, NULL, NULL, NULL, #{userEmail}, SYSDATE, '1')
+</insert>
+
+<select id="isFindId" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT COUNT(*)
+	FROM US
+	WHERE US_NAME=#{userName} AND US_MAIL=#{userEmail}
+</select>
+
+<select id="getKakaoId" parameterType="com.icia.sec.beans.UserBean" resultType="com.icia.sec.beans.UserBean">
+	SELECT US_CODE AS userCode, US_ID AS userId, US_NAME AS userName, US_ADDR AS userAddr, US_ZIP AS userZip, US_ADDRDETAIL AS userAddrDetail, US_PHONE AS userPhone, US_MAIL AS userEmail, US_GRCODE AS userGrade
+	FROM US
+	WHERE US_CODE = #{userCode}
+</select>
+
+<select id="getFindId" parameterType="com.icia.sec.beans.UserBean" resultType="com.icia.sec.beans.UserBean">
+	SELECT US_ID AS userId, US_NAME AS userName, US_MAIL AS userEmail, US_PW AS userPw
+	FROM US
+	WHERE US_NAME=#{userName} AND US_MAIL=#{userEmail}
+</select>
+
+<insert id="insJoinCoupon" parameterType="com.icia.sec.beans.UserBean">
+	INSERT INTO CP(CP_CODE, CP_USCODE, CP_BENEFIT, CP_ENDDATE, CP_NAME, CP_IS, CP_STARTDATE, CP_APPLY, CP_PRICE)
+	VALUES(#{coupon[0].couponCode}, #{userCode}, #{coupon[0].couponBenefit}, #{coupon[0].couponEndDate}, #{coupon[0].couponName}, #{coupon[0].couponIs}, SYSDATE, #{coupon[0].couponApply}, #{coupon[0].couponPrice})
+</insert>
+
+</mapper>

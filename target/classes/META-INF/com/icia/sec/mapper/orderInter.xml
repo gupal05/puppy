@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icia.sec.mapper.MapperInter">
+
+<resultMap id="getCartResultMap" type="com.icia.sec.beans.CartBean">
+    <result property="cartCount" column="cartCount"/>
+</resultMap>
+
+<resultMap id="cartOrderResultMap" type="com.icia.sec.beans.ProductsBean">
+	<result property="productsCode" column="productsCode"/>
+	<association property="cartList" javaType="java.util.ArrayList" resultMap="getCartResultMap"/>
+</resultMap>
+
+<resultMap id="getPuImgResultMap" type="com.icia.sec.beans.ImgBean">
+    <result property="img" column="img"/>
+</resultMap>
+
+<resultMap type="com.icia.sec.beans.ProductsBean" id="getPuNameResultMap">
+	<result property="productsName" column="productsName"/>
+	<result property="productsCode" column="productsCode"/>
+	<result property="productsPrice" column="productsPrice"/>
+	<association property="cartList" javaType="java.util.ArrayList" resultMap="getCartResultMap"/>
+</resultMap>
+
+
+<select id="getOrderAllCart" parameterType="com.icia.sec.beans.UserBean" resultMap="cartOrderResultMap">
+	SELECT CT_PUCODE AS productsCode,
+		   CT_COUNT AS cartCount
+	FROM CT
+	WHERE CT_USCODE = #{userCode}
+</select>
+
+
+<select id="getOrderProductInfo" parameterType="com.icia.sec.beans.ProductsBean" resultMap="getPuNameResultMap">
+	SELECT PU.PU_NAME AS productsName,
+		   PU.PU_CODE AS productsCode,
+		   PU.PU_PRICE AS productsPrice,
+		   IMG.IMG_FILE AS img
+	FROM PU
+	INNER JOIN 
+		   IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+	WHERE 
+		   IMG.IMG_TYPE = 'T'
+	       AND PU.PU_CODE = #{productsCode}
+
+</select>
+
+<select id="selCartCount" parameterType="com.icia.sec.beans.ProductsBean" resultType="com.icia.sec.beans.CartBean">
+	SELECT CT_COUNT AS cartCount
+	FROM CT
+	WHERE CT_USCODE = #{message} AND CT_PUCODE = #{productsCode}
+</select>
+
+<select id="getOrderImg" parameterType="com.icia.sec.beans.ProductsBean" resultType="com.icia.sec.beans.ImgBean">
+	SELECT IMG_FILE AS img
+	FROM IMG
+	WHERE IMG_PUCODE = #{productsCode} AND IMG_TYPE = 'T'
+</select>
+
+<select id="isOrCode" parameterType="int" resultType="int">
+	SELECT COUNT(*)
+	FROM OC
+	WHERE OC_NUMBER = #{a}
+</select>
+
+<select id="isOrderCode" parameterType="int" resultType="int">
+	SELECT COUNT(*)
+	FROM OC
+	WHERE OC_CODE = #{randomNumber}
+</select>
+
+<insert id="insOrder" parameterType="com.icia.sec.beans.UserBean">
+	INSERT INTO OD(OR_CODE, OR_PUCODE, OR_COUNT, OR_RECIPIENT, OR_ADDR, OR_ADDRDETAIL, OR_ZIP, OR_PHONE)
+	VALUES(#{order[0].orderCode}, #{order[0].product[0].productsCode}, #{order[0].product[0].productsCount}, #{order[0].orderRecipient}, #{order[0].orderAddr}, #{order[0].orderAddrDetail}, #{order[0].orderZip}, #{order[0].orderPhone})
+</insert>
+
+<insert id="insOrderCode" parameterType="com.icia.sec.beans.UserBean">
+	INSERT INTO OC(OC_CODE, OC_USCODE, OC_DATE, OC_PAYMENT)
+	VALUES(#{order[0].orderCode}, #{userCode}, SYSDATE, #{order[0].orderPayment})
+</insert>
+
+<insert id="insOrderPrice" parameterType="com.icia.sec.beans.UserBean">
+	INSERT INTO ORP(ORP_ORCODE, ORP_TOTAL, ORP_DISCOUNT)
+	VALUES(#{order[0].orderCode}, #{order[0].orderTotalPrice}, #{order[0].orderDiscount})
+</insert>
+
+<insert id="insOrderWithComent" parameterType="com.icia.sec.beans.UserBean">
+	INSERT INTO OD(OR_CODE, OR_PUCODE, OR_COUNT, OR_COMENT, OR_RECIPIENT, OR_ADDR, OR_ADDRDETAIL, OR_ZIP, OR_PHONE, OR_PAYMENT)
+	VALUES(#{order[0].orderCode}, #{order[0].product[0].productsCode}, #{order[0].product[0].productsCount}, #{order[0].orderComent}, #{order[0].orderRecipient}, #{order[0].orderAddr}, #{order[0].orderAddrDetail}, #{order[0].orderZip}, #{order[0].orderPhone}, #{order[0].orderPayment})
+</insert>
+
+<update id="updateOrderStatus" parameterType="com.icia.sec.beans.UserBean">
+	UPDATE OD
+    SET    OR_STATUS = 'B'
+    WHERE  OR_CODE = #{order[0].orderCode}
+</update>
+
+<delete id="delOderAfterCart" parameterType="com.icia.sec.beans.UserBean">
+	DELETE
+	FROM CT
+	WHERE CT_USCODE = #{userCode} AND CT_PUCODE = #{order[0].product[0].productsCode}
+</delete>
+
+<select id="getSellCountForOrder" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT PU_SELLCOUNT
+	FROM PU
+	WHERE PU_CODE = #{order[0].product[0].productsCode}
+</select>
+
+<update id="upSellCountAfterOrder" parameterType="com.icia.sec.beans.UserBean">
+	UPDATE PU
+    SET    PU_SELLCOUNT = #{order[0].product[0].productsSellCount}
+    WHERE  PU_CODE = #{order[0].product[0].productsCode}
+</update>
+
+<select id="getUserPoint" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT US_ACC
+	FROM US
+	WHERE US_CODE = #{userCode}
+</select>
+
+<delete id="upCouponStatus" parameterType="com.icia.sec.beans.UserBean">
+	UPDATE CP
+	SET CP_IS = 'x'
+	WHERE CP_CODE = #{coupon[0].couponCode} AND CP_USCODE = #{userCode}
+</delete>
+
+<update id="upUserAccPoint" parameterType="com.icia.sec.beans.UserBean">
+	UPDATE US
+	SET US_ACC = #{userAcc}
+	WHERE US_CODE = #{userCode}
+</update>
+
+<select id="isOrder" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT COUNT(*)
+	FROM OC
+	WHERE OC_USCODE = #{userCode}
+</select>
+
+<select id="getOrderCode" parameterType="com.icia.sec.beans.UserBean" resultType="com.icia.sec.beans.OrderBean">
+    SELECT * FROM (
+	    SELECT OC_CODE AS orderCode, OC_DATE AS orderDate,
+	    	   OC_PAYMENT AS orderPayment,
+	           ROW_NUMBER() OVER (ORDER BY OC_DATE DESC) AS row_num
+	    FROM OC
+	    WHERE OC_USCODE = #{userCode}
+	) temp
+	WHERE row_num BETWEEN ${paging[0].startNum} AND ${paging[0].endNum}
+	AND orderCode IN (
+	    SELECT OR_CODE FROM ORDERS WHERE OR_STATUS = 'B'
+	)
+
+</select>
+
+<select id="getOrderCancelCode" parameterType="com.icia.sec.beans.UserBean" resultType="com.icia.sec.beans.OrderBean">
+    SELECT * FROM (
+	    SELECT OC_CODE AS orderCode, OC_DATE AS orderDate,
+	    	   OC_PAYMENT AS orderPayment,
+	           ROW_NUMBER() OVER (ORDER BY OC_DATE DESC) AS row_num
+	    FROM OC
+	    WHERE OC_USCODE = #{userCode}
+	) temp
+	WHERE row_num BETWEEN ${paging[0].startNum} AND ${paging[0].endNum}
+	AND orderCode IN (
+	    SELECT OR_CODE FROM ORDERS WHERE OR_STATUS = 'C'
+	)
+
+</select>
+
+
+<select id="getOrderProduct" parameterType="com.icia.sec.beans.OrderBean" resultMap="orderProductResultMap">
+	SELECT 
+	    O.OR_PUCODE AS productsCode, 
+	    O.OR_COUNT AS productsCount, 
+	    P.PU_NAME AS productsName, 
+	    P.PU_PRICE AS productsPrice, 
+	    I.IMG_FILE AS img
+	FROM 
+	    ORDERS O
+	JOIN 
+	    PRODUCTS P ON O.OR_PUCODE = P.PU_CODE
+	JOIN 
+	    IMG I ON P.PU_CODE = I.IMG_PUCODE
+	WHERE 
+	    O.OR_CODE = #{orderCode} AND O.OR_STATUS = 'B'
+	AND 
+	    I.IMG_TYPE = 'T'
+</select>
+
+<select id="getOrderCancelProduct" parameterType="com.icia.sec.beans.OrderBean" resultMap="orderProductResultMap">
+	SELECT 
+	    O.OR_PUCODE AS productsCode, 
+	    O.OR_COUNT AS productsCount, 
+	    P.PU_NAME AS productsName, 
+	    P.PU_PRICE AS productsPrice, 
+	    I.IMG_FILE AS img
+	FROM 
+	    ORDERS O
+	JOIN 
+	    PRODUCTS P ON O.OR_PUCODE = P.PU_CODE
+	JOIN 
+	    IMG I ON P.PU_CODE = I.IMG_PUCODE
+	WHERE 
+	    O.OR_CODE = #{orderCode} AND O.OR_STATUS = 'C'
+	AND 
+	    I.IMG_TYPE = 'T'
+</select>
+
+
+<resultMap id="orderProductResultMap" type="com.icia.sec.beans.ProductsBean">
+	<result property="productsCode" column="productsCode"/>
+	<result property="productsCount" column="productsCount"/>
+	<result property="productsName" column="productsName"/>
+	<result property="productsPrice" column="productsPrice"/>
+	<association property="imgList" javaType="java.util.ArrayList" resultMap="getOrderImgResultMap"/>
+</resultMap>
+
+<resultMap id="getOrderImgResultMap" type="com.icia.sec.beans.ImgBean">
+    <result property="img" column="img"/>
+</resultMap>
+
+<select id="getOrderCount" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT COUNT(*)
+    FROM OC
+    JOIN OD ON OC.OC_CODE = OD.OR_CODE
+    WHERE OC.OC_USCODE = #{userCode}
+    AND OD.OR_STATUS = 'B'
+</select>
+
+<select id="getOrderCancelCount" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT COUNT(*)
+    FROM OC
+    JOIN OD ON OC.OC_CODE = OD.OR_CODE
+    WHERE OC.OC_USCODE = #{userCode}
+    AND OD.OR_STATUS = 'C'
+</select>
+
+<update id="upCancelOrder" parameterType="java.util.Map">
+    UPDATE OD
+    SET OR_STATUS = 'C',
+    	OR_CANCELDATE = SYSDATE
+    WHERE OR_CODE = #{orderCode} AND OR_PUCODE = #{proCode}
+</update>
+
+<update id="upCancelOrderAll" parameterType="String">
+    UPDATE OD
+    SET 
+        OR_STATUS = 'C',
+        OR_CANCELDATE = SYSDATE
+    WHERE 
+        OR_CODE = #{impUid}
+</update>
+
+<select id="getOrderProductCount" parameterType="com.icia.sec.beans.OrderBean" resultType="int">
+	SELECT COUNT(*)
+	FROM OD
+	WHERE OR_CODE = #{orderCode} AND OR_STATUS = 'B'
+</select>
+
+<select id="getOrderCancelProductCount" parameterType="com.icia.sec.beans.OrderBean" resultType="int">
+	SELECT COUNT(*)
+	FROM OD
+	WHERE OR_CODE = #{orderCode} AND OR_STATUS = 'C'
+</select>
+
+</mapper>

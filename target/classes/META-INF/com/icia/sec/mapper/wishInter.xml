@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icia.sec.mapper.MapperInter">
+<select id="isWishCount" parameterType="com.icia.sec.beans.ProductsBean" resultType="int">
+	SELECT COUNT(*)
+	FROM WI
+	WHERE WI_USCODE = #{productsDate} AND WI_PUCODE = #{productsCode}
+</select>
+
+<insert id="insWish" parameterType="com.icia.sec.beans.ProductsBean">
+	INSERT INTO WI(WI_USCODE, WI_PUCODE)
+	VALUES(#{productsDate}, #{productsCode})
+</insert>
+
+<resultMap id="wishResultMap" type="com.icia.sec.beans.ProductsBean">
+    <id property="productsCode" column="productsCode" />
+    <result property="productsName" column="productsName" />
+    <result property="productsPrice" column="productsPrice" />
+    <collection property="imgList" ofType="com.icia.sec.beans.ImgBean">
+        <result property="img" column="img" />
+    </collection>
+</resultMap>
+
+<select id="getWishList" parameterType="com.icia.sec.beans.UserBean" resultMap="wishResultMap">
+    SELECT
+        WI.WI_PUCODE AS productsCode,
+        PU.PU_NAME AS productsName, 
+        PU.PU_PRICE AS productsPrice,
+        IMG.IMG_FILE AS img
+    FROM 
+        WI
+    INNER JOIN 
+        PU ON WI.WI_PUCODE = PU.PU_CODE
+    INNER JOIN
+        IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+    WHERE 
+        WI.WI_USCODE = #{userCode}
+        AND IMG.IMG_TYPE = 'T'
+</select>
+
+</mapper>

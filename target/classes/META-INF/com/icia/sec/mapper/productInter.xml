@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icia.sec.mapper.MapperInter">
+
+
+<!-- <insert id="insProduct" parameterType="java.util.List">
+        INSERT INTO IMG (IM_IMG)
+        VALUES
+        <foreach collection="list" item="imgPath" separator=",">
+            (#{imgPath})
+        </foreach>
+    </insert> -->
+    <insert id="insProductImg" parameterType="com.icia.sec.beans.ProductsBean">
+    INSERT INTO IMG(IMG_CODE, IMG_PUCODE, IMG_FILE, IMG_TYPE)
+    VALUES(IMG_SEQ.NEXTVAL, #{productsCode}, #{imgList[0].img}, #{imgList[0].imgType})
+    </insert>
+    
+<select id="getPrCode" parameterType="com.icia.sec.beans.CategoriesBean" resultType="String">
+SELECT PU_CODE
+FROM PU
+WHERE PU_NAME = #{cdList[0].productList[0].productsName} AND PU_CACODE = #{cateCode} AND PU_CDCODE = #{cdList[0].cdCode}
+</select>
+
+
+<select id="getSellCount" parameterType="com.icia.sec.beans.ProductsBean" resultType="int">
+	SELECT COUNT(*) AS PU_SELLCOUNT
+	FROM PU
+	WHERE PU_NAME = #{productsName}
+</select>
+
+<select id="selSellCount" parameterType="com.icia.sec.beans.ProductsBean" resultType="int">
+	SELECT PU_SELLCOUNT
+	FROM PU
+	WHERE PU_NAME = #{productsName}
+</select>
+
+<select id="getProCount" parameterType="com.icia.sec.beans.ProductsBean" resultType="int">
+	SELECT COUNT(*) AS PU_COUNT
+	FROM PU
+	WHERE PU_NAME = #{productsName}
+</select>
+
+<select id="selProCount" parameterType="com.icia.sec.beans.ProductsBean" resultType="int">
+	SELECT PU_COUNT
+	FROM PU
+	WHERE PU_NAME = #{productsName}
+</select>
+
+<select id="cateList" resultType="com.icia.sec.beans.CategoriesBean">
+		SELECT CA_CODE AS cateCode, CA_NAME AS cateName
+        FROM CA
+</select>
+
+<select id="getCateDetail" parameterType="com.icia.sec.beans.CategoriesBean" resultType="com.icia.sec.beans.CategoriesDetailBean">
+		SELECT CD_NAME AS cdName, CD_CODE AS cdCode
+		FROM CD
+		WHERE CD_CACODE = #{cateCode}
+</select>
+
+<insert id="addProduct" parameterType="com.icia.sec.beans.CategoriesBean">
+	INSERT INTO PU (PU_CODE, PU_CACODE, PU_NAME, PU_COUNT, PU_DATE, PU_SELLCOUNT, PU_FIRST, PU_CDCODE, PU_PRICE, PU_ORIGIN, PU_MARGIN)
+	VALUES		   (PU_SEQ.NEXTVAL, #{cateCode}, #{cdList[0].productList[0].productsName}, #{cdList[0].productList[0].productsFirst}, SYSDATE, #{cdList[0].productList[0].productsSellCount}, #{cdList[0].productList[0].productsFirst}, #{cdList[0].cdCode}, #{cdList[0].productList[0].productsPrice}, #{cdList[0].productList[0].productsOrigin}, #{cdList[0].productList[0].productsMargin})
+</insert>
+
+<select id="dupProduct" parameterType="com.icia.sec.beans.CategoriesBean" resultType="int">
+	SELECT COUNT(*)
+	FROM PU
+	WHERE PU_CACODE = #{cateCode} AND PU_CDCODE = #{cdList[0].cdCode} AND PU_NAME = #{cdList[0].productList[0].productsName}
+</select>
+
+<select id="getProductInfo" parameterType="com.icia.sec.beans.ProductsBean" resultType="com.icia.sec.beans.ProductsBean">
+	SELECT PU_CODE AS productsCode, PU_NAME AS productsName, PU_COUNT AS productsCount, PU_DATE AS productsDate, PU_SELLCOUNT AS productsSellCount, PU_FIRST AS productsFirst, PU_PRICE AS productsPrice, PU_MARGIN AS productsMargin, PU_ORIGIN AS productsOrigin
+	FROM PU
+	WHERE PU_CODE = #{productsCode}
+</select>
+
+<select id="getTitleImg" parameterType="com.icia.sec.beans.ProductsBean" resultType="String">
+	SELECT IMG_FILE
+	FROM IMG
+	WHERE IMG_PUCODE=#{productsCode} AND IMG_TYPE = 'T'
+</select>
+
+<select id="getContentImg" parameterType="com.icia.sec.beans.ProductsBean" resultType="String">
+	SELECT IMG_FILE
+	FROM IMG
+	WHERE IMG_PUCODE=#{productsCode} AND IMG_TYPE = 'C'
+</select>
+
+
+
+
+<!-- 장바구니 관련 -->
+<select id="selUserCart" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT COUNT(*)
+	FROM CT
+	WHERE CT_USCODE = #{userCode}
+</select>
+
+
+<insert id="addNewCart" parameterType="com.icia.sec.beans.ProductsBean">
+	INSERT INTO CT(CT_USCODE, CT_PUCODE, CT_COUNT)
+	VALUES		  (#{productsMargin}, #{productsCode}, #{productsCount})
+</insert>
+
+<select id="cartDupProduct" parameterType="com.icia.sec.beans.ProductsBean" resultType="int">
+	SELECT COUNT(*)
+	FROM CT
+	WHERE CT_USCODE = #{productsMargin} AND CT_PUCODE = #{productsCode}
+</select>
+
+
+<update id="upCartProduct" parameterType="com.icia.sec.beans.ProductsBean">
+	UPDATE CT
+    SET    CT_COUNT = #{productsCount}
+    WHERE  CT_USCODE = #{productsMargin} AND CT_PUCODE = #{productsCode}
+</update>
+
+<select id="getBeforeCount" parameterType="com.icia.sec.beans.ProductsBean" resultType="int">
+	SELECT CT_COUNT
+	FROM CT
+	WHERE CT_USCODE = #{productsMargin} AND CT_PUCODE = #{productsCode}
+</select>
+
+
+
+<select id="getProductName" parameterType="com.icia.sec.beans.ProductsBean" resultType="com.icia.sec.beans.ProductsBean">
+    SELECT PU_NAME AS productsName, PU_CODE AS productsCode
+    FROM PU WHERE PU_NAME 
+    LIKE '%'||#{productsName}||'%'
+</select>
+
+<select id="getChangeProductList" parameterType="String" resultType="com.icia.sec.beans.ProductsBean">
+	SELECT  PU.PU_CODE AS productsCode,
+        PU.PU_NAME AS productsName,
+        PU.PU_COUNT AS productsCount,
+        PU.PU_PRICE AS productsPrice,
+        IMG.IMG_FILE AS message
+FROM    PRODUCTS PU
+        INNER JOIN  
+        IMAGE IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+WHERE 
+        IMG.IMG_TYPE = 'T'
+</select>
+
+<select id="getProNameList" parameterType="com.icia.sec.beans.CategoriesDetailBean" resultType="com.icia.sec.beans.ProductsBean">
+	SELECT PU_CODE AS productsCode, PU_NAME AS productsName, PU_COUNT AS productsCount, PU_PRICE AS productsPrice
+	FROM PU
+	WHERE PU_CDCODE = #{cdCode}
+</select>
+
+<select id="getProductList" parameterType="com.icia.sec.beans.ProductsBean" resultType="com.icia.sec.beans.ProductsBean">
+	SELECT  PU.PU_CODE AS productsCode,
+        PU.PU_NAME AS productsName,
+        PU.PU_COUNT AS productsCount,
+        PU.PU_PRICE AS productsPrice,
+        IMG.IMG_FILE AS message
+FROM    PRODUCTS PU
+        INNER JOIN  
+        IMAGE IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+WHERE 
+        IMG.IMG_TYPE = 'T' AND
+        PU.PU_CODE = #{productsCode}
+</select>
+
+<select id="search" parameterType="com.icia.sec.beans.ProductsBean" resultType="com.icia.sec.beans.ProductsBean">
+	SELECT	IMAGE.IMG_FILE AS message,
+        	PRODUCTS.PU_NAME AS productsName,
+        	PRODUCTS.PU_PRICE AS productsPrice,
+        	PRODUCTS.PU_CODE AS productsCode
+    FROM	PRODUCTS
+    INNER JOIN
+        	IMAGE ON PRODUCTS.PU_CODE = IMAGE.IMG_PUCODE
+    WHERE	PRODUCTS.PU_NAME LIKE '%'||#{productsName}||'%' AND
+        	IMAGE.IMG_TYPE = 'T'
+</select>
+
+<select id="getPageCate" resultMap="cateResultMap">
+	SELECT CA.CA_CODE AS cateCode, CA.CA_NAME AS cateName, CD.CD_NAME AS cdName, CD.CD_CODE AS cdCode
+	FROM CATEGORIES CA
+		 INNER JOIN
+		 CATEGORIESDETAIL CD ON CA.CA_CODE = CD.CD_CACODE
+</select>
+
+<resultMap id="cateResultMap" type="com.icia.sec.beans.CategoriesBean">
+    <result property="cateName" column="cateName"/>
+    <result property="cateCode" column="cateCode"/>
+    <association property="cdList" javaType="java.util.ArrayList" resultMap="cateDetailResultMap"/>
+</resultMap>
+
+
+<resultMap id="cateDetailResultMap" type="com.icia.sec.beans.CategoriesDetailBean">
+    <result property="cdCode" column="cdCode"/>
+    <result property="cdName" column="cdName"/>
+</resultMap>
+
+<select id="getBestProduct" resultMap="bestProductResultMap">
+	<![CDATA[
+	SELECT 
+    subquery_name.*,
+    subquery_name.productsName,
+    subquery_name.productsPrice,
+    subquery_name.productsCode,
+    subquery_name.img
+FROM (
+    SELECT 
+        PRODUCTS.*,
+        PRODUCTS.PU_NAME AS productsName,
+        PRODUCTS.PU_PRICE AS productsPrice,
+        PRODUCTS.PU_CODE AS productsCode,
+        IMAGE.IMG_FILE AS img,
+        ROW_NUMBER() OVER (ORDER BY PRODUCTS.PU_SELLCOUNT DESC) AS row_num
+    FROM 
+        PRODUCTS
+    JOIN 
+        IMAGE ON PRODUCTS.PU_CODE = IMAGE.IMG_PUCODE
+    WHERE 
+        IMAGE.IMG_TYPE = 'T'
+) subquery_name
+WHERE 
+    row_num <= 8
+
+	]]>
+</select>
+
+
+
+<select id="getNewProduct" resultMap="bestProductResultMap">
+	<![CDATA[
+        SELECT *
+        FROM (
+            SELECT
+    			IMAGE.IMG_FILE AS img,
+			    PRODUCTS.PU_NAME AS productsName,
+			    PRODUCTS.PU_PRICE AS productsPrice,
+			    PRODUCTS.PU_CODE AS productsCode
+			FROM
+   			 	PRODUCTS
+    			INNER JOIN IMAGE ON PRODUCTS.PU_CODE = IMAGE.IMG_PUCODE
+			WHERE
+    			IMAGE.IMG_TYPE = 'T'
+			ORDER BY
+    			PRODUCTS.PU_DATE DESC
+        )
+        WHERE ROWNUM <= 8
+    ]]>
+</select>
+
+<resultMap id="bestProductResultMap" type="com.icia.sec.beans.ProductsBean">
+    <result property="productsName" column="productsName"/>
+    <result property="productsCode" column="productsCode"/>
+    <result property="productsPrice" column="productsPrice"/>
+    <association property="imgList" javaType="java.util.ArrayList" resultMap="bestProductImgResultMap"/>
+</resultMap>
+
+
+<resultMap id="bestProductImgResultMap" type="com.icia.sec.beans.ImgBean">
+    <result property="img" column="img"/>
+</resultMap>
+
+<select id="getProCateAll" parameterType="com.icia.sec.beans.CategoriesBean" resultMap="getProCateAllResultMap">
+    SELECT * FROM (
+        SELECT  PU.PU_CODE AS productsCode,
+                PU.PU_NAME AS productsName,
+                PU.PU_PRICE AS productsPrice,
+                IMG.IMG_FILE AS img,
+                ROWNUM AS rnum
+        FROM    PRODUCTS PU
+                INNER JOIN IMAGE IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+        WHERE   PU.PU_CACODE = #{cateCode} 
+                AND IMG.IMG_TYPE = 'T'
+    )
+    WHERE rnum BETWEEN ${paging[0].startNum} AND ${paging[0].endNum}
+</select>
+
+<resultMap type="com.icia.sec.beans.ProductsBean" id="getProCateAllResultMap">
+	<result property="productsName" column="productsName"/>
+    <result property="productsCode" column="productsCode"/>
+    <result property="productsPrice" column="productsPrice"/>
+    <association property="imgList" javaType="java.util.ArrayList" resultMap="getProCateAllImgResultMap"/>
+</resultMap>
+<resultMap type="com.icia.sec.beans.ImgBean" id="getProCateAllImgResultMap">
+	<result property="img" column="img"/>
+</resultMap>
+
+<select id="getProCateDetail" parameterType="com.icia.sec.beans.CategoriesDetailBean" resultMap="getDetailPro">
+	SELECT * FROM (
+		SELECT 	PU.PU_CODE AS productsCode,
+				PU.PU_NAME AS productsName,
+				PU.PU_PRICE AS productsPrice,
+				IMG.IMG_FILE AS img,
+				ROWNUM AS rnum
+		FROM 	PRODUCTS PU
+	         	INNER JOIN  
+	         	IMAGE IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+		WHERE 	PU.PU_CDCODE = #{cdCode} AND IMG.IMG_TYPE = 'T'
+	)
+	WHERE rnum BETWEEN ${paging[0].startNum} AND ${paging[0].endNum}
+</select>
+<resultMap type="com.icia.sec.beans.ProductsBean" id="getDetailPro">
+	<result property="productsName" column="productsName"/>
+    <result property="productsCode" column="productsCode"/>
+    <result property="productsPrice" column="productsPrice"/>
+    <association property="imgList" javaType="java.util.ArrayList" resultMap="getDetailProResult"/>
+</resultMap>
+<resultMap type="com.icia.sec.beans.ImgBean" id="getDetailProResult">
+	<result property="img" column="img"/>
+</resultMap>
+
+<select id="getCateDetailName" parameterType="com.icia.sec.beans.CategoriesDetailBean" resultType="com.icia.sec.beans.CategoriesDetailBean">
+	SELECT CD_NAME AS cdName, CD_CODE AS cdCode, CD_CACODE AS message
+	FROM CD
+	WHERE CD_CODE = #{cdCode}
+</select>
+
+<select id="getCategoriesName" parameterType="com.icia.sec.beans.CategoriesBean" resultType="com.icia.sec.beans.CategoriesBean">
+	SELECT CA_NAME AS cateName, CA_CODE AS cateCode
+	FROM CA
+	WHERE CA_CODE = #{cateCode}
+</select>
+
+<select id="getDetailList" parameterType="com.icia.sec.beans.CategoriesBean" resultType="com.icia.sec.beans.CategoriesDetailBean">
+	SELECT CD_CODE AS cdCode, CD_NAME AS cdName
+	FROM CD
+	WHERE CD_CACODE = #{cateCode}
+</select>
+
+<select id="getProductPrice" parameterType="com.icia.sec.beans.ProductsBean" resultType="String">
+	SELECT PU_PRICE
+	FROM PU
+	WHERE PU_CODE = #{productsCode}
+</select>
+
+<select id="getImgTitle" parameterType="com.icia.sec.beans.ProductsBean" resultType="String">
+	SELECT IMG_FILE
+	FROM IMG
+	WHERE IMG_TYPE = 'T' AND IMG_PUCODE = #{productsCode}
+</select>
+
+<select id="getTitleName" parameterType="com.icia.sec.beans.ProductsBean" resultType="String">
+	SELECT PU_NAME
+	FROM PU
+	WHERE PU_CODE = #{productsCode}
+</select>
+
+<select id="getProCateCount" parameterType="com.icia.sec.beans.CategoriesBean" resultType="int">
+	SELECT COUNT(*)
+	FROM PU
+	WHERE PU_CACODE = #{cateCode}
+</select>
+
+<select id="getProCateDetailCount" parameterType="com.icia.sec.beans.CategoriesBean" resultType="int">
+	SELECT COUNT(*)
+	FROM PU
+	WHERE PU_CDCODE = #{cdCode}
+</select>
+
+</mapper>

@@ -1,0 +1,17 @@
+@charset "UTF-8";
+.wish-page-btn {
+	height: 100%;
+    font-size: 13px;
+    font-weight: bold;
+    border: 2px solid #444444;
+    background-color: white;
+	color: #444444;
+	cursor: pointer;
+	transition: color 0.3s ease, background-color 0.3s ease; /* 애니메이션 효과 설정 */
+}
+
+.wish-page-btn:hover {
+	color: white; /* 글씨 색 변경 */
+	background-color: #444444; /* 배경 색 변경 */
+	border: 2px solid #444444;
+}

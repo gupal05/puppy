@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icia.sec.mapper.MapperInter">
+<resultMap id="cartImgResultMap" type="com.icia.sec.beans.ImgBean">
+    <result property="img" column="img"/>
+</resultMap>
+
+<resultMap id="cartCountResultMap" type="com.icia.sec.beans.CartBean">
+    <result property="cartCount" column="cartCount"/>
+</resultMap>
+
+<resultMap id="cartResultMap" type="com.icia.sec.beans.ProductsBean">
+        <id property="productsName" column="productsName"/>
+        <result property="productsPrice" column="productsPrice"/>
+        <result property="productsCount" column="productsCount"/>
+        <result property="productsCode" column="productsCode"/>
+        <association property="imgList" javaType="java.util.ArrayList" resultMap="cartImgResultMap"/>
+        <association property="cartList" javaType="java.util.ArrayList" resultMap="cartCountResultMap"/>
+    </resultMap>
+
+<select id="getCartList" parameterType="com.icia.sec.beans.UserBean" resultMap="cartResultMap">
+	SELECT  PU.PU_NAME AS productsName,
+			PU.PU_CODE AS productsCode,
+            PU.PU_PRICE AS productsPrice,
+            PU.PU_COUNT AS productsCount,
+            CT.CT_COUNT AS cartCount,
+            IMG.IMG_FILE AS img
+	FROM	CART CT
+        	INNER JOIN
+            PRODUCTS PU ON CT.CT_PUCODE = PU.PU_CODE
+        	INNER JOIN
+            IMAGE IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+	WHERE	CT.CT_USCODE = #{userCode}
+            AND IMG.IMG_TYPE = 'T'
+</select>
+
+<update id="upCartCount" parameterType="com.icia.sec.beans.ProductsBean">
+	UPDATE CT
+	SET CT_COUNT = #{productsMargin}
+	WHERE CT_USCODE = #{productsDate} AND CT_PUCODE = #{productsCode}
+</update>
+
+<update id="upCartInfo" parameterType="com.icia.sec.beans.ProductsBean">
+	UPDATE CT
+	SET CT_COUNT = #{productsCount}
+	WHERE CT_USCODE = #{productsDate} AND CT_PUCODE = #{productsCode}
+</update>
+
+<delete id="delCart" parameterType="com.icia.sec.beans.ProductsBean">
+	DELETE FROM CT
+	WHERE CT_PUCODE = #{productsCode} AND CT_USCODE = #{productsDate}
+</delete>
+
+<select id="isCart" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT COUNT(*)
+	FROM CT
+	WHERE CT_USCODE = #{userCode}
+</select>
+
+<delete id="delCartProduct" parameterType="com.icia.sec.beans.ProductsBean">
+	DELETE
+	FROM CT
+	WHERE CT_PUCODE = #{productsCode} AND CT_USCODE = #{productsDate}
+</delete>
+
+<select id="cartProductCount" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT COUNT(*)
+	FROM CT
+	WHERE CT_USCODE = #{userCode}
+</select>
+
+<select id="isCartCount" parameterType="com.icia.sec.beans.ProductsBean" resultType="int">
+	SELECT COUNT(*)
+	FROM CT
+	WHERE CT_USCODE = #{productsDate} AND CT_PUCODE = #{productsCode}
+</select>
+
+<insert id="insCart" parameterType="com.icia.sec.beans.ProductsBean">
+	INSERT INTO CT(CT_USCODE, CT_PUCODE, CT_COUNT)
+	VALUES(#{productsDate}, #{productsCode}, #{productsCount})
+</insert>
+
+<delete id="deleteCartAll" parameterType="com.icia.sec.beans.UserBean">
+	DELETE
+	FROM CT
+	WHERE CT_USCODE = #{userCode}
+</delete>
+
+</mapper>
