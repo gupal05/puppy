@@ -17,5 +17,4 @@ import lombok.NoArgsConstructor;
 public class CartBean {
 	private String cartCount;
 	private int cartPrice;
-	private String test;
 }
