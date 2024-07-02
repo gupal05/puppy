@@ -205,7 +205,7 @@
 		<div id="ci" class="dishCate" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
 		<div id="ci" class="walkCate" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
 		<div id="ci" class="houseCate" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
-		<div id="ci">검색</div>
+		<div id="ci" class="etc" onmouseover="flexToggle()" onmouseout="noneToggle()" >기타</div>
 	</div>
 </div>
 <div id="navLine"></div>
@@ -289,6 +289,12 @@
 		<div class="cateText-in" onclick="getProductPage('7-5')">하우스/텐트</div>
 		<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
 		<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
+	</div>
+	<div class="cateText" id="etc" style="height: 370px;" onmouseover="flexToggle()" onmouseout="noneToggle()">
+		<div class="cateText-in" onclick="serverCallByRequest('search')"> 상품 검색</div>
+		<div class="cateText-in" onclick="serverCallByRequest('QnA')">상품 문의</div>
+		<div class="cateText-in" onclick="serverCallByRequest('review')">상품 후기</div>
+		<div class="cateText-in" onclick="serverCallByRequest('notice')">공지사항</div>
 	</div>
 </div>
 	<div class="swiper-wrapper" style="cursor: pointer;" onclick="aTT()" id="slide-area">
