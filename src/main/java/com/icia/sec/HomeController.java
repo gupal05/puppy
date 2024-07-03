@@ -421,4 +421,16 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public ModelAndView searchPage(ModelAndView mav, @ModelAttribute ProductsBean product) {
+		if(product.getProductsName() == null || product.getProductsName().equals("")) {
+			mav.setViewName("searchPage");
+			return mav;
+		}else {
+			mav.addObject("product", product);
+			this.pro.backController("SP", mav);
+			return mav;
+		}
+	}
+	
 }

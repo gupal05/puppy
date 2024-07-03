@@ -163,18 +163,6 @@ WHERE
         PU.PU_CODE = #{productsCode}
 </select>
 
-<select id="search" parameterType="com.icia.sec.beans.ProductsBean" resultType="com.icia.sec.beans.ProductsBean">
-	SELECT	IMAGE.IMG_FILE AS message,
-        	PRODUCTS.PU_NAME AS productsName,
-        	PRODUCTS.PU_PRICE AS productsPrice,
-        	PRODUCTS.PU_CODE AS productsCode
-    FROM	PRODUCTS
-    INNER JOIN
-        	IMAGE ON PRODUCTS.PU_CODE = IMAGE.IMG_PUCODE
-    WHERE	PRODUCTS.PU_NAME LIKE '%'||#{productsName}||'%' AND
-        	IMAGE.IMG_TYPE = 'T'
-</select>
-
 <select id="getPageCate" resultMap="cateResultMap">
 	SELECT CA.CA_CODE AS cateCode, CA.CA_NAME AS cateName, CD.CD_NAME AS cdName, CD.CD_CODE AS cdCode
 	FROM CATEGORIES CA
@@ -257,6 +245,29 @@ WHERE
 <resultMap id="bestProductImgResultMap" type="com.icia.sec.beans.ImgBean">
     <result property="img" column="img"/>
 </resultMap>
+
+<select id="search" parameterType="com.icia.sec.beans.ProductsBean" resultMap="bestProductResultMap">
+	<![CDATA[
+    SELECT 
+        PU.PU_NAME AS productsName, 
+        PU.PU_CODE AS productsCode, 
+        IMG.IMG_FILE AS img, 
+        PU.PU_PRICE AS productsPrice
+    FROM 
+        PRODUCTS PU
+    JOIN 
+        CATEGORIES CA ON PU.PU_CACODE = CA.CA_CODE
+    JOIN 
+        CATEGORIESDETAIL CD ON PU.PU_CDCODE = CD.CD_CODE
+    JOIN 
+        IMAGE IMG ON PU.PU_CODE = IMG.IMG_PUCODE
+    WHERE 
+        (PU.PU_NAME LIKE '%' || #{productsName} || '%'
+        OR CA.CA_NAME LIKE '%' || #{productsName} || '%'
+        OR CD.CD_NAME LIKE '%' || #{productsName} || '%')
+        AND IMG.IMG_TYPE = 'T'
+    ]]>
+</select>
 
 <select id="getProCateAll" parameterType="com.icia.sec.beans.CategoriesBean" resultMap="getProCateAllResultMap">
     SELECT * FROM (

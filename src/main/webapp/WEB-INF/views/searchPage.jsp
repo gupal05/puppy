@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>puppy-main page</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link href="resources/css/swiper.css" rel="stylesheet" />
 <!-- 아이콘 -->
 <script src="https://kit.fontawesome.com/69077b3f9d.js" crossorigin="anonymous"></script>
 <!-- firstLine 글꼴 -->
@@ -44,6 +43,42 @@
         height: 100px;
         /* 토글의 스타일 설정 */
     }
+    .custom-input {
+	    width: 35%;
+	    height: 30px;
+	    padding: 6px 15px;
+	    border-top-left-radius: 3px; /* 원하는 둥근 정도로 조정 */
+	    border-bottom-left-radius: 3px; /* 원하는 둥근 정도로 조정 */
+	    border-top-right-radius: 0;
+	    border-bottom-right-radius: 0;
+	    border: 1px solid #ccc; /* 테두리 색상 */
+	}
+	
+	.custom-button {
+	    width: 50px;
+	    height: 44px;
+	    background-color: #777;
+	    border: none;
+	    color: white;
+	    font-weight: bold;
+	    border-top-left-radius: 0;
+	    border-bottom-left-radius: 0;
+	    border-top-right-radius: 3px; /* input의 둥근 정도와 맞춤 */
+	    border-bottom-right-radius: 3px; /* input의 둥근 정도와 맞춤 */
+	    margin-left: -1px; /* 테두리가 겹치지 않도록 */
+	    cursor: pointer;
+	}
+	.search-cate-btn{
+		height: 32px;
+		margin: 0px 8px;
+		background-color: white;
+		border: 1px solid #888;
+		border-radius: 1px;
+		cursor: pointer;
+	}
+	.search-cate-btn:hover{
+		background-color: #ccc;
+	}
 </style>
 
 </head>
@@ -167,12 +202,23 @@
 			<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
 			<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
     	</div>
+    	
     </div>
 </div>
-<div id="firstLine">
-	<a>신규가입 하고 10% 쿠폰 받기! </a>
-</div>
-	<input type="button" value="닫기" id="exit" onclick="toggleExit()">
+<c:choose>
+	<c:when test="${not empty userInfo.userName}">
+		<div id="firstLine" style="display: none;">
+			<a>신규가입 하고 10% 쿠폰 받기! </a>
+		</div>
+		<input type="button" value="닫기" id="exit" onclick="toggleExit()" style="visibility: hidden;">
+	</c:when>
+	<c:when test="${empty userInfo.userName}">
+		<div id="firstLine">
+			<a>신규가입 하고 10% 쿠폰 받기! </a>
+		</div>
+		<input type="button" value="닫기" id="exit" onclick="toggleExit()">
+	</c:when>
+</c:choose>
 <nav>
 <div id="secLine">
 		<div id="tt">
@@ -181,15 +227,45 @@
 		</div>
 		<div id="cc">
 		</div>
-		<div id="rr">
-			<input type="button" id="rr-btn" value="회원가입" onClick="serverCallByRequest('join','get','')">
-			<div id="rr-icon">/</div>
-			<input type="button" id="rr-btn" value="로그인" onclick="serverCallByRequest('login','get','')">
-		</div>
+		<c:choose>
+			<c:when test="${not empty userInfo.userName}">
+				<div id="rr">
+					<input type="button" id="rr-btn" value="로그아웃" onClick="logOut()">
+					<div id="rr-icon">/</div>
+					<div id="rr-tooltip"  onmouseover="flexToolTip()" onmouseout="noneToolTip()">
+  				<div id="in-myBox">
+      				<div id="myList" onclick="serverCallByRequest('modifyUserInfo', 'post', '')">
+        				내 정보 수정
+      				</div>
+	      			<div id="myList" onclick="serverCallByRequest('cartPage','post','')">
+	      				장바구니
+	      			</div>
+	      			<div id="myList">
+	        			주문목록
+	      			</div>
+	      			<div id="myList" onclick="serverCallByRequest('couponPage','post','')">
+	        			쿠폰 / 적립
+	      			</div>
+	      			<div id="myList">
+	        			찜 상품
+	      			</div>
+  				</div>
+			</div>
+					<input type="button" value="${userInfo.userName}" style="color: #31CAAE;" id="rr-btn" onmouseover="flexToolTip()" onmouseout="noneToolTip()">
+				</div>
+			</c:when>
+			<c:when test="${empty userInfo.userName}">
+				<div id="rr">
+					<input type="button" id="rr-btn" value="회원가입" onClick="serverCallByRequest('join','get','')">
+					<div id="rr-icon">/</div>
+					<input type="button" id="rr-btn" value="로그인" onclick="serverCallByRequest('login','get','')">
+				</div>
+			</c:when>
+		</c:choose>
 </div>
 <div id="line"></div>
 <div id="logoArea">
-<img alt="logo" src="resources/img/puppy logo.jpg" width="100px" height="100px" onclick="serverCallByRequest('goLogo','get','')"  style="cursor: pointer;">
+	<img alt="logo" src="resources/img/puppy logo.jpg" width="100px" height="100px" onclick="logoTest()" style="cursor: pointer;">
 </div>
 <div id="line"></div>
 <div id="categories">
@@ -210,7 +286,7 @@
 </div>
 <div id="navLine"></div>
 </nav>
-<div class="swiper-container n">
+<div class="container n">
 <div class="toggleCate" id="toggle-area-cate">
 	<div class="cateText" id="snack" style="height: 370px; border: none;" onmouseover="flexToggle()" onmouseout="noneToggle()">
 		<div class="cateText-in" onclick="getProductPage('1')">전체</div>
@@ -297,100 +373,59 @@
 		<div class="cateText-in" onclick="serverCallByRequest('notice')">공지사항</div>
 	</div>
 </div>
-	<div class="swiper-wrapper" style="cursor: pointer;" onclick="aTT()" id="slide-area">
-		<div class="swiper-slide" id="https://puppydog.co.kr/category/%EA%B8%89%EC%8B%9D%EA%B8%B0/82/" onclick="onclickMainBanner()">
-				<a>
-					<img 
-					src="resources/img/c4f80a5d10178e13cb76c6b9dcf3fdb2.jpg" 
-				alt="">
-			</a>
-		</div>
-		<div class="swiper-slide" id="https://puppydog.co.kr/category/%EC%9D%B4%EB%8F%99%EA%B0%80%EB%B0%A9%EC%9D%B4%EB%8F%99%EC%9E%A5/92/" onclick="onclickMainBanner()">
-				<a>
-					<img 
-					src="resources/img/슬라이드2.jpg" 
-				alt="">
-			</a>
-		</div>
-		<div class="swiper-slide" id="https://puppydog.co.kr/category/%EC%BA%A3%ED%83%80%EC%9B%8C/113/" onclick="onclickMainBanner()">
-				<a>
-					<img 
-					src="resources/img/슬라이드3.jpg" 
-				alt="">
-			</a>
-		</div>
-	</div>
-	<!-- 이미지 슬라이딩 끝 -->
-	<!-- Add Pagination -->
-	<div class="swiper-pagination">
-	</div>
-	<!-- Add Arrows -->
-	<div class="swiper-button-next">
-	</div>
-	<div class="swiper-button-prev">
+</div>
+<div id="miniText" style="width: 100%; height: 45.19px;	display: flex;	justify-content: center;">
+	<div id="miniIn" style="width: 70%;	height: 100%; text-align: right; line-height: 45.19px; font-size: 10px; display: flex; justify-content: right;">
+		<i class="fa-solid fa-house" id="miniIcon" style="line-height: 45.5px; color: #777;"></i>
+		<div id="miniArrow" style="margin-left: 10px; color: #777;">></div>
+		<div id="miniLoginText" style="margin-left: 7px; color: #777;">상품 검색</div>
 	</div>
 </div>
-<section>
-	<div id="sectionFirstDiv">
-		<div id="notice">
-			<input type="button" id="notice1" value="공지사항1">
-			<input type="button" id="notice2" value="공지사항2">
-			<input type="button" id="notice3" value="공지사항3">
+<div id="joinTitle" style="margin-bottom: 15px; width: 100%; height: 169.19px; text-align: center; line-height: 169.19px; font-size: 35px; font-family: 'Rethink Sans', sans-serif;	font-weight: 500;">
+	SEARCH
+<div style="width: 25px; height: 1px; background-color: black; margin: 0 auto; margin-top: -40px;"></div>
+</div>
+<div style="display: flex; justify-content: center;">
+    <input type="text" id="search-input" class="custom-input" placeholder="상품명을 입력하세요.">
+    <button class="custom-button" onclick="searchProduct()">검색</button>
+</div>
+	<c:choose>
+		<c:when test="${not empty searchProductList}">
+		<div style="display: flex; justify-content: center; padding: 35px 0px 15px; font-size: 20px;">
+			<div style="font-weight: bold;">'${name}'</div><div>으로 검색된 상품</div>
 		</div>
-		<div id="topImg1">
-			<img alt="topImg1" src="resources/img/한복.jpg" width="450px" height="270px">
-		</div>
-		<div id="topImg1">
-			<img alt="topImg1" src="resources/img/켄넬.jpg" width="450px" height="270px">
-		</div>
-	</div>
-	<div id="line"></div>
-	<div id="bestProductArea">
-		<div id="bestItemText">BEST ITME</div>
-	</div>
-	<div id="best">
-	<c:forEach var="best" items="${bestItem}">
-	<c:forEach var="img" items="${best.imgList}">
-		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${best.productsCode}')">
-			<img alt="test" src="resources/productImg/${img.img}" width="100%" height="300px">
-			<div style="padding: 12.5px;"></div>
-			<div id="bestTitle">
-			${best.productsName}
+		<div style="width: 75%;	margin: 0 auto;	display: flex; flex-wrap: wrap;">
+			<c:forEach var="proList" items="${searchProductList}">
+				<c:forEach var="img" items="${proList.imgList}">
+					<div id="bestProduct" style="cursor: pointer;" onclick="showProduct('${proList.productsCode}')">
+						<img alt="test" src="resources/productImg/${img.img}" width="100%" height="300px">
+						<div style="padding: 12.5px;"></div>
+						<div id="bestTitle">
+						${proList.productsName}
+						</div>
+						<input type="hidden" value="${proList.productsCode}">
+						<div id="line"></div>
+						<div id="bestPrice">
+							<fmt:formatNumber value="${proList.productsPrice}" pattern="#,###원" var="formattedPrice" />
+			                <c:out value="${formattedPrice}" />
+						</div>
+					</div>
+				</c:forEach>
+			</c:forEach>
 			</div>
-			<input type="hidden" value="${best.productsCode}">
-			<div id="line"></div>
-			<div id="bestPrice">
-				<fmt:formatNumber value="${best.productsPrice}" pattern="#,###원" var="formattedPrice" />
-                <c:out value="${formattedPrice}" />
+		</c:when>
+		<c:when test="${empty searchProductList}">
+			<div style="display: flex; justify-content: center; padding: 13px 0px;">
+				<button class="search-cate-btn" onclick="appendInput(this)">배변패드</button>
+				<button class="search-cate-btn" onclick="appendInput(this)">강아지껌</button>
+				<button class="search-cate-btn" onclick="appendInput(this)">패딩</button>
 			</div>
-		</div>
-		</c:forEach>
-		</c:forEach>
-	</div>
-	<div id="line" style="margin-top: 30px;"></div>
-	<div id="bestProductArea">
-		<div id="bestItemText">NEW ITME</div>
-	</div>
-	<div id="best">
-	<c:forEach var="newItem" items="${newItem}">
-	<c:forEach var="image" items="${newItem.imgList}">
-		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${newItem.productsCode}')">
-			<img alt="test" src="resources/productImg/${image.img}" width="100%" height="300px">
-			<div style="padding: 12.5px;"></div>
-			<div id="bestTitle">
-			${newItem.productsName}
+			<div style="display: flex; justify-content: center;">
+				<button class="search-cate-btn" onclick="appendInput(this)">급수기</button>
+				<button class="search-cate-btn" onclick="appendInput(this)">간식</button>
 			</div>
-			<input type="hidden" value="${newItem.productsCode}">
-			<div id="line"></div>
-			<div id="bestPrice">
-				<fmt:formatNumber value="${newItem.productsPrice}" pattern="#,###원" var="formattedPrice" />
-                <c:out value="${formattedPrice}" />
-			</div>
-		</div>
-		</c:forEach>
-		</c:forEach>
-	</div>
-</section>
+		</c:when>
+	</c:choose>
 <div id="menuBackground"></div>
 <div id="menuSidebar">
     <!-- 닫기 버튼을 메뉴바 안에 배치하지 않고, 바깥에 추가 -->
@@ -400,7 +435,7 @@
     <div id="searchText">검색</div>
     <div style="width: 42px; height: 2px; background-color: #555; margin-left: 25px; margin-top: 2px;"></div>
     <div id="searchAreaContainer">
-        <input type="search" id="searchArea">
+        <input type="search" id="searchArea" placeholder="상품명을 입력하세요.">
         <i class="fas fa-search" id="searchIcon"></i>
     </div>
     <input type="button" id="tag-btn" value="#개껌">
@@ -574,39 +609,39 @@
 		</div>
 	</div>
 </div>
-
 <div id="scroll-to-top" class="scroll-to-top">
   <i class="fa-solid fa-chevron-up"></i>
 </div>
 <div id="scroll-to-bottom" class="scroll-to-bottom">
   <i class="fa-solid fa-chevron-down"></i>
 </div>
-
 <!-- Swiper JS -->
- <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
 <!-- Initialize Swiper -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-	var user = '${userInfo}';
-	if(user == null || user == ''){
-		console.log("y");
+
+function logOut(){
+	alert("로그아웃 되었습니다.")
+	serverCallByRequest('logOut','get','');
+}
+
+function logoTest(){
+	var data = '${userInfo}';
+	if(data == null || data == ''){
+		serverCallByRequest('goLogo','get','');
 	}else{
-		serverCallByRequest('afterPage', 'get', '');
+		serverCallByRequest('afterPage','get','');
 	}
-});
+}
 
 
-
-
-
-
-history.replaceState(null, null, '/'); // 현재 페이지의 URL을 루트(/)로 변경
-function showProductNone(obj){
-	const data = [
-        ["productsCode", obj]
-    ];
-	serverCallByRequest("showProductNone","get",data);
+function showProduct(obj){
+	var user = '${userInfo}';
+	const data = [["productsCode", obj]];
+	if(user == null || user == ''){
+		serverCallByRequest("showProductNone","get",data);
+	}else{
+		serverCallByRequest("showProduct","post",data);
+	}
 }
 
 function getProductPage(data){
@@ -708,6 +743,14 @@ document.getElementById("closeButton").addEventListener("click", function() {
     menuBackground.style.display = "none";
 });
 
+function showToggle(toggleId) {
+    document.getElementById(toggleId).style.display = "block";
+}
+
+function hideToggle(toggleId) {
+    document.getElementById(toggleId).style.display = "none";
+}
+
 function flexToggle(){
 	var toggle = document.getElementById('toggle-area-cate');
 	toggle.style.display = 'flex';
@@ -717,26 +760,6 @@ function noneToggle(){
 	var toggle = document.getElementById('toggle-area-cate');
 	toggle.style.display = 'none';
 }
-
-function cateD(category) {
-    var selectedCate = document.getElementById(category);		 //고른거
-    var cateTexts = document.getElementsByClassName('cateText'); //전체영역
-    for (var i = 0; i < cateTexts.length; i++) {
-        cateTexts[i].style.visibility = 'hidden';
-    }
-    selectedCate.style.visibility = 'visible';
-}
-
-function hideCate(category) {
-    var selectedCate = document.getElementById(category);
-    selectedCate.style.visibility = 'hidden';
-}
-
-function showCate(category) {
-    var selectedCate = document.getElementById(category);
-    selectedCate.style.visibility = 'visible';
-}
-
 
 //window에 스크롤 이벤트를 추가하여 스크롤이 발생할 때마다 함수를 실행합니다.
 window.addEventListener('scroll', function() {
@@ -784,28 +807,39 @@ function toggleExit(){
     }
 }
 
-var swiper = new Swiper('.swiper-container', {
-	pagination: {
-		el: ".swiper-pagination",
-        clickable : true,
-        },
-        paginationClickable: '.swiper-pagination',
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-          
-        spaceBetween: 0,
-        effect: 'fade',
-		autoplay:{
-			delay:2500, //슬라이드 바뀌는 시간
-			disableOnInteraction : false,
-		},
-		loop : true,
-    });
-    function aTT(){
-    	alert("s");
-    }
+function toggleTooltip(){
+	const tool = document.getElementById('rr-tooltip');
+	if(tool.style.display === 'none' || tool.style.display === ''){
+		tool.style.display = 'block';
+	}else{
+		tool.style.display = 'none';
+	}
+}
+
+function flexToolTip(){
+	var tool = document.getElementById('rr-tooltip');
+	tool.style.display = 'block';
+}
+
+function noneToolTip(){
+	var tool = document.getElementById('rr-tooltip');
+	tool.style.display = 'none';
+}
+
+function appendInput(btn){
+	const text = btn.innerText;
+	const input = document.getElementById('search-input');
+	input.value = text;
+}    
+
+function searchProduct(){
+	const formChild = [];
+	const input = document.getElementById('search-input');
+	const data = ["productsName", input.value];
+	formChild.push(data);
+	serverCallByRequest('search', 'get', formChild);
+}
+
 </script>
 
 </body>

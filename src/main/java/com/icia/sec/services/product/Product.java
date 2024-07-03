@@ -248,8 +248,6 @@ public class Product extends TransactionAssistant {
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
-			System.out.println("Last : "+cate);
-			System.out.println("Last : "+cd);
 			mav.addObject("detailList", detailList);
 			mav.addObject("status", status);
 			mav.addObject("cate", List);
@@ -346,17 +344,22 @@ public class Product extends TransactionAssistant {
 	
 	private void searchProduct(ModelAndView mav) {
 		ProductsBean pro = (ProductsBean) mav.getModel().get("product");
-		List<ProductsBean> List = null;
-		this.tranManager = this.getTransaction(false);
+		String name = pro.getProductsName();
+		List<CategoriesBean> List = null;
+		List<ProductsBean> searchProductList = null;
+		this.tranManager = this.getTransaction(true);
 		try {
 			this.tranManager.tranStart();
-			List = this.sqlSession.selectList("search", pro);
+			List = this.sqlSession.selectList("getPageCate");
+			searchProductList = this.sqlSession.selectList("search", pro);
 		} catch (Exception e) {
 			System.out.println(e);
 		}finally {
 			this.tranManager.tranEnd();
-			mav.addObject("products", List);
-			mav.setViewName("cp");
+			mav.addObject("cate", List);
+			mav.addObject("name", name);
+			mav.addObject("searchProductList", searchProductList);
+			mav.setViewName("searchPage");
 		}
 	}
 	
