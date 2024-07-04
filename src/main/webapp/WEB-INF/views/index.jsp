@@ -806,6 +806,7 @@ var swiper = new Swiper('.swiper-container', {
     function aTT(){
     	alert("s");
     }
+    //asas
 </script>
 
 </body>
