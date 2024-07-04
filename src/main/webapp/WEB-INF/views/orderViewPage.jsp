@@ -419,7 +419,7 @@
             <input type="hidden" id="order-pro-count${loop.index}" value="${orderList.orderDiscount}">
             <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px;">
                 <div style="display: flex; justify-content: space-between;">
-                    <div style="font-size: 20px; font-weight: bold; padding: 16px 0px 16px 16px;">주문완료 ${orderList.orderPayment}</div>
+                    <div style="font-size: 20px; font-weight: bold; padding: 16px 0px 16px 16px;">주문완료 ${orderList.orderDate}</div>
                     <div style="font-size: 14px; line-height: 59px; padding-right: 16px; color: #346AFF; font-weight: bold; cursor: pointer;">주문 상세 보기 ></div>
                 </div>
                 <c:forEach var="proList" items="${orderList.product}" varStatus="loopStatus">
@@ -493,7 +493,7 @@
 	<c:forEach var="orderList" items="${orderList}" varStatus="loop">
     <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 20px;">
         <div style="padding: 15px;">
-            <div style="font-size: 20px; font-weight: bold;">주문 취소</div>
+           <div style="display: flex;"><div style="font-size: 20px; font-weight: bold;">주문 취소</div><div style="margin-left: 10px; line-height: 27px;">${orderList.orderDate}</div></div>
             <input type="hidden" id="order-pro-count${loop.index}" value="${orderList.orderDiscount}">
             <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px;">
                 <div style="display: flex; justify-content: space-between;">
