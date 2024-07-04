@@ -139,23 +139,24 @@
 </select>
 
 <select id="getOrderCode" parameterType="com.icia.sec.beans.UserBean" resultType="com.icia.sec.beans.OrderBean">
-    SELECT * FROM (
-	    SELECT OC_CODE AS orderCode, OC_DATE AS orderDate,
-	    	   OC_PAYMENT AS orderPayment,
-	           ROW_NUMBER() OVER (ORDER BY OC_DATE DESC) AS row_num
+     SELECT * FROM (
+	    SELECT OC.OC_CODE AS orderCode, 
+	           ORS.OR_STATUS AS orderStatus,
+	           ORS.OR_CANCELDATE AS orderDate,
+	           OC.OC_PAYMENT AS orderPayment,
+	           ROW_NUMBER() OVER (ORDER BY ORS.OR_CANCELDATE DESC) AS row_num
 	    FROM OC
-	    WHERE OC_USCODE = #{userCode}
+	    JOIN ORDERS ORS ON OC.OC_CODE = ORS.OR_CODE
+	    WHERE OC.OC_USCODE = #{userCode}
+	    AND (ORS.OR_STATUS = 'B' OR ORS.OR_STATUS = 'O' OR ORS.OR_STATUS = 'I')
 	) temp
 	WHERE row_num BETWEEN ${paging[0].startNum} AND ${paging[0].endNum}
-	AND orderCode IN (
-	    SELECT OR_CODE FROM ORDERS WHERE OR_STATUS = 'B'
-	)
-
 </select>
 
 <select id="getOrderCancelCode" parameterType="com.icia.sec.beans.UserBean" resultType="com.icia.sec.beans.OrderBean">
     SELECT * FROM (
 	    SELECT OC.OC_CODE AS orderCode, 
+	           ORS.OR_STATUS AS orderStatus,
 	           ORS.OR_CANCELDATE AS orderDate,
 	           OC.OC_PAYMENT AS orderPayment,
 	           ROW_NUMBER() OVER (ORDER BY ORS.OR_CANCELDATE DESC) AS row_num
@@ -184,7 +185,7 @@
 	JOIN 
 	    IMG I ON P.PU_CODE = I.IMG_PUCODE
 	WHERE 
-	    O.OR_CODE = #{orderCode} AND O.OR_STATUS = 'B'
+	    O.OR_CODE = #{orderCode} AND (O.OR_STATUS = 'B' OR O.OR_STATUS = 'O' OR O.OR_STATUS = 'I')
 	AND 
 	    I.IMG_TYPE = 'T'
 </select>
@@ -226,7 +227,7 @@
     FROM OC
     JOIN OD ON OC.OC_CODE = OD.OR_CODE
     WHERE OC.OC_USCODE = #{userCode}
-    AND OD.OR_STATUS = 'B'
+    AND (OD.OR_STATUS = 'B' OR OD.OR_STATUS = 'I' OR OD.OR_STATUS = 'O')
 </select>
 
 <select id="getOrderCancelCount" parameterType="com.icia.sec.beans.UserBean" resultType="int">
@@ -256,7 +257,7 @@
 <select id="getOrderProductCount" parameterType="com.icia.sec.beans.OrderBean" resultType="int">
 	SELECT COUNT(*)
 	FROM OD
-	WHERE OR_CODE = #{orderCode} AND OR_STATUS = 'B'
+	WHERE OR_CODE = #{orderCode} AND (OR_STATUS = 'B' OR OR_STATUS = 'O' OR OR_STATUS = 'I')
 </select>
 
 <select id="getOrderCancelProductCount" parameterType="com.icia.sec.beans.OrderBean" resultType="int">

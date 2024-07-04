@@ -413,40 +413,100 @@
 	</div>
 	<!-- foreach 시작 -->
 	<c:forEach var="orderList" items="${orderList}" varStatus="loop">
-    <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 20px;">
-        <div style="padding: 15px;">
-            <div style="font-size: 20px; font-weight: bold;">주문</div>
-            <input type="hidden" id="order-pro-count${loop.index}" value="${orderList.orderDiscount}">
-            <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px;">
-                <div style="display: flex; justify-content: space-between;">
-                    <div style="font-size: 20px; font-weight: bold; padding: 16px 0px 16px 16px;">주문완료 ${orderList.orderDate}</div>
-                    <div style="font-size: 14px; line-height: 59px; padding-right: 16px; color: #346AFF; font-weight: bold; cursor: pointer;">주문 상세 보기 ></div>
-                </div>
-                <c:forEach var="proList" items="${orderList.product}" varStatus="loopStatus">
-                    <c:forEach var="img" items="${proList.imgList}">
-                        <div style="width: 100%; height: 1px; background-color: #ccc;"></div>
-                        <div style="display: flex;">
-                            <div style="padding: 16px; height: 60px;">
-                                <img alt="title-img" src="resources/productImg/${img.img}" width="60px" height="60px">
-                            </div>
-                            <div style="padding: 16px; height: 60px;">
-                                <div style="font-weight: bold; margin-top: 8px;">${proList.productsName}</div>
-                                <div style="color: #999999;"><fmt:formatNumber value="${proList.productsPrice}" type="number" pattern="###,###" />원 ${proList.productsCount}개</div>
-                            </div>
-                            <div style="line-height: 92px; margin-left: auto;">
-                                <button id="addCart-btn-orderView">장바구니 담기</button>
-                            </div>
-                            <div style="width: 1px; height: 92px; background-color: #ccc; margin: 0px 15px;"></div>
-                            <div style="display: flex; flex-direction: column; padding-right:15px;">
-                                <button id="orderView-btn-orderView">배송조회</button>
-                                <button id="delOrder-btn-orderView" data-imp-uid="${orderList.orderCode}" data-product-id="${proList.productsCode}" data-product-price="${proList.productsPrice}" onclick="requestRefund(this, ${proList.productsPrice}, ${proList.productsCount}, ${loop.index})">주문 취소/반품</button>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </c:forEach>
-            </div>
-        </div>
-    </div>
+	<c:choose>
+		<c:when test="${orderList.orderStatus eq '배송 완료'}">
+		    <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 20px; background-color: #f0f0f0;">
+		        <div style="padding: 15px;">
+		            <div style="display: flex;"><div style="font-size: 20px; font-weight: bold;">주문</div><div style="margin-left: 10px; line-height: 27px;">${orderList.orderDate}</div></div>
+		            <input type="hidden" id="order-pro-count${loop.index}" value="${orderList.orderDiscount}">
+		            <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px;">
+		                <div style="display: flex; justify-content: space-between;">
+		                    <div style="font-size: 20px; font-weight: bold; padding: 16px 0px 16px 16px;">${orderList.orderStatus} ${orderList.orderDate}</div>
+		                    <div style="font-size: 14px; line-height: 59px; padding-right: 16px; color: #346AFF; font-weight: bold; cursor: pointer;">주문 상세 보기 ></div>
+		                </div>
+		                <c:forEach var="proList" items="${orderList.product}" varStatus="loopStatus">
+		                    <c:forEach var="img" items="${proList.imgList}">
+		                        <div style="width: 100%; height: 1px; background-color: #ccc;"></div>
+		                        <div style="display: flex;">
+		                            <div style="padding: 16px; height: 60px;">
+		                                <img alt="title-img" src="resources/productImg/${img.img}" width="60px" height="60px">
+		                            </div>
+		                            <div style="padding: 16px; height: 60px;">
+		                                <div style="font-weight: bold; margin-top: 8px;">${proList.productsName}</div>
+		                                <div style="color: #999999;"><fmt:formatNumber value="${proList.productsPrice}" type="number" pattern="###,###" />원 ${proList.productsCount}개</div>
+		                            </div>
+		                            <div style="line-height: 92px; margin-left: auto;">
+		                                <button id="addCart-btn-orderView">장바구니 담기</button>
+		                            </div>
+		                            <div style="width: 1px; height: 92px; background-color: #ccc; margin: 0px 15px;"></div>
+		                            <c:choose>
+			                            <c:when test="${orderList.orderStatus eq '배송 완료'}">
+				                            <div style="display: flex; flex-direction: column; padding-right:15px;">
+				                                <button id="orderView-btn-orderView">리뷰작성</button>
+				                                <button id="delOrder-btn-orderView" data-imp-uid="${orderList.orderCode}" data-product-id="${proList.productsCode}" data-product-price="${proList.productsPrice}" onclick="requestRefund(this, ${proList.productsPrice}, ${proList.productsCount}, ${loop.index})">주문 취소/반품</button>
+				                            </div>
+				                        </c:when>
+				                        <c:otherwise>
+				                        	<div style="display: flex; flex-direction: column; padding-right:15px;">
+				                                <button id="orderView-btn-orderView">배송조회</button>
+				                                <button id="delOrder-btn-orderView" data-imp-uid="${orderList.orderCode}" data-product-id="${proList.productsCode}" data-product-price="${proList.productsPrice}" onclick="requestRefund(this, ${proList.productsPrice}, ${proList.productsCount}, ${loop.index})">주문 취소/반품</button>
+				                            </div>
+				                        </c:otherwise>
+			                        </c:choose>
+		                        </div>
+		                    </c:forEach>
+		                </c:forEach>
+		            </div>
+		        </div>
+		    </div>
+    	</c:when>
+		<c:otherwise>
+		    <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 20px;">
+		        <div style="padding: 15px;">
+		            <div style="display: flex;"><div style="font-size: 20px; font-weight: bold;">주문</div><div style="margin-left: 10px; line-height: 27px;">${orderList.orderDate}</div></div>
+		            <input type="hidden" id="order-pro-count${loop.index}" value="${orderList.orderDiscount}">
+		            <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px;">
+		                <div style="display: flex; justify-content: space-between;">
+		                    <div style="font-size: 20px; font-weight: bold; padding: 16px 0px 16px 16px;">${orderList.orderStatus} ${orderList.orderDate}</div>
+		                    <div style="font-size: 14px; line-height: 59px; padding-right: 16px; color: #346AFF; font-weight: bold; cursor: pointer;">주문 상세 보기 ></div>
+		                </div>
+		                <c:forEach var="proList" items="${orderList.product}" varStatus="loopStatus">
+		                    <c:forEach var="img" items="${proList.imgList}">
+		                        <div style="width: 100%; height: 1px; background-color: #ccc;"></div>
+		                        <div style="display: flex;">
+		                            <div style="padding: 16px; height: 60px;">
+		                                <img alt="title-img" src="resources/productImg/${img.img}" width="60px" height="60px">
+		                            </div>
+		                            <div style="padding: 16px; height: 60px;">
+		                                <div style="font-weight: bold; margin-top: 8px;">${proList.productsName}</div>
+		                                <div style="color: #999999;"><fmt:formatNumber value="${proList.productsPrice}" type="number" pattern="###,###" />원 ${proList.productsCount}개</div>
+		                            </div>
+		                            <div style="line-height: 92px; margin-left: auto;">
+		                                <button id="addCart-btn-orderView">장바구니 담기</button>
+		                            </div>
+		                            <div style="width: 1px; height: 92px; background-color: #ccc; margin: 0px 15px;"></div>
+		                            <c:choose>
+			                            <c:when test="${orderList.orderStatus eq '배송 완료'}">
+				                            <div style="display: flex; flex-direction: column; padding-right:15px;">
+				                                <button id="orderView-btn-orderView">리뷰작성</button>
+				                                <button id="delOrder-btn-orderView" data-imp-uid="${orderList.orderCode}" data-product-id="${proList.productsCode}" data-product-price="${proList.productsPrice}" onclick="requestRefund(this, ${proList.productsPrice}, ${proList.productsCount}, ${loop.index})">주문 취소/반품</button>
+				                            </div>
+				                        </c:when>
+				                        <c:otherwise>
+				                        	<div style="display: flex; flex-direction: column; padding-right:15px;">
+				                                <button id="orderView-btn-orderView">배송조회</button>
+				                                <button id="delOrder-btn-orderView" data-imp-uid="${orderList.orderCode}" data-product-id="${proList.productsCode}" data-product-price="${proList.productsPrice}" onclick="requestRefund(this, ${proList.productsPrice}, ${proList.productsCount}, ${loop.index})">주문 취소/반품</button>
+				                            </div>
+				                        </c:otherwise>
+			                        </c:choose>
+		                        </div>
+		                    </c:forEach>
+		                </c:forEach>
+		            </div>
+		        </div>
+		    </div>
+    	</c:otherwise>
+    </c:choose>
 </c:forEach>
 
 
@@ -497,7 +557,7 @@
             <input type="hidden" id="order-pro-count${loop.index}" value="${orderList.orderDiscount}">
             <div style="width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px;">
                 <div style="display: flex; justify-content: space-between;">
-                    <div style="font-size: 20px; font-weight: bold; padding: 16px 0px 16px 16px;">주문 취소 완료</div>
+                    <div style="font-size: 20px; font-weight: bold; padding: 16px 0px 16px 16px;">${orderList.orderStatus}</div>
                     <div style="font-size: 14px; line-height: 59px; padding-right: 16px; color: #346AFF; font-weight: bold; cursor: pointer;">주문 상세 보기 ></div>
                 </div>
                 <c:forEach var="proList" items="${orderList.product}" varStatus="loopStatus">

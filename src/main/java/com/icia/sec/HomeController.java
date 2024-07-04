@@ -240,8 +240,6 @@ public class HomeController {
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ModelAndView pageTest(ModelAndView mav, @ModelAttribute ProductsBean product) {
 		this.pro.backController("GPC", mav);
-		System.out.println("git pull test");
-		System.out.println("git pull test 2");
 		mav.setViewName("index");
 		return mav;
 	}

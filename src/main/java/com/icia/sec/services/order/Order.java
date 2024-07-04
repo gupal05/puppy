@@ -469,6 +469,17 @@ public class Order extends TransactionAssistant {
 				}
 				System.out.println("확인 : "+orderList);
 				System.out.println(type);
+				for(int a=0; a<orderList.size(); a++) {
+					if(orderList.get(a).getOrderStatus().equals("B")) {
+						orderList.get(a).setOrderStatus("주문 완료");
+					}else if(orderList.get(a).getOrderStatus().equals("O")) {
+						orderList.get(a).setOrderStatus("배송 완료");
+					}else if(orderList.get(a).getOrderStatus().equals("I")) {
+						orderList.get(a).setOrderStatus("배송중");
+					}else if(orderList.get(a).getOrderStatus().equals("C")) {
+						orderList.get(a).setOrderStatus("취소 완료");
+					}
+				}
 			}
 		}catch (Exception e) {
 			System.out.println(e);
