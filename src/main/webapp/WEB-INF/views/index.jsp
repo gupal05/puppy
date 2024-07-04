@@ -807,6 +807,7 @@ var swiper = new Swiper('.swiper-container', {
     	alert("s");
     }
     //asas
+    //fffff
 </script>
 
 </body>
