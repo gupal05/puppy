@@ -155,16 +155,17 @@
 
 <select id="getOrderCancelCode" parameterType="com.icia.sec.beans.UserBean" resultType="com.icia.sec.beans.OrderBean">
     SELECT * FROM (
-	    SELECT OC_CODE AS orderCode, OC_DATE AS orderDate,
-	    	   OC_PAYMENT AS orderPayment,
-	           ROW_NUMBER() OVER (ORDER BY OC_DATE DESC) AS row_num
+	    SELECT OC.OC_CODE AS orderCode, 
+	           ORS.OR_CANCELDATE AS orderDate,
+	           OC.OC_PAYMENT AS orderPayment,
+	           ROW_NUMBER() OVER (ORDER BY ORS.OR_CANCELDATE DESC) AS row_num
 	    FROM OC
-	    WHERE OC_USCODE = #{userCode}
+	    JOIN ORDERS ORS ON OC.OC_CODE = ORS.OR_CODE
+	    WHERE OC.OC_USCODE = #{userCode}
+	    AND ORS.OR_STATUS = 'C'
 	) temp
 	WHERE row_num BETWEEN ${paging[0].startNum} AND ${paging[0].endNum}
-	AND orderCode IN (
-	    SELECT OR_CODE FROM ORDERS WHERE OR_STATUS = 'C'
-	)
+
 
 </select>
 
