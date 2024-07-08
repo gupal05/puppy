@@ -433,4 +433,9 @@ public class HomeController {
 		}
 	}
 	
+	@RequestMapping(value="/admin_index", method = RequestMethod.GET)
+	public String admin_index(ModelAndView mav, @ModelAttribute ProductsBean product) {
+		return "admin_index";
+	}
+	
 }
