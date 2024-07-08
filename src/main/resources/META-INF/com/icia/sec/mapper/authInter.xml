@@ -51,6 +51,18 @@ FROM USERS
 WHERE US_ID = #{userId}
 </select>
 
+<select id="getUserVisitCount" parameterType="com.icia.sec.beans.UserBean" resultType="int">
+	SELECT US_VISIT
+	FROM US
+	WHERE US_CODE = #{userCode}
+</select>
+
+<update id="upUserVisitCount" parameterType="com.icia.sec.beans.UserBean">
+	UPDATE US
+	SET    US_VISIT = #{userVisit}
+	WHERE  US_CODE = #{userCode}
+</update>
+
 <select id="getIndexProduct" parameterType="String" resultType="com.icia.sec.beans.ProductsBean">
     SELECT PU.PU_NAME AS productsName, PU.PU_PRICE AS productsPrice, PU.PU_CODE AS productsCode, IMG.IMG_FILE AS message
     FROM PU

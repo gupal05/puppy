@@ -174,9 +174,6 @@
 		<div id="cc">
 		</div>
 		<div id="rr">
-			<c:if test="${user.userGrade eq '0'}">
-				<button onclick="serverCallByRequest('afterPage','get','')">관리자 페이지 이동</button>
-			</c:if>
 			<input type="button" id="rr-btn" value="로그아웃" onClick="logOut()">
 			<div id="rr-icon">/</div>
 			<div id="rr-tooltip"  onmouseover="flexToolTip()" onmouseout="noneToolTip()">
@@ -198,7 +195,12 @@
 	      			</div>
   				</div>
 			</div>
-			<input type="button" value="${user.userName}" style="color: #31CAAE;" id="rr-btn" onmouseover="flexToolTip()" onmouseout="noneToolTip()">
+			<c:if test="${user.userGrade eq '0'}">
+				<button onclick="serverCallByRequest('afterPage','get','')" style="font-weight: bold; border: none; background-color: red; cursor: pointer;">관리자 페이지 이동</button>
+			</c:if>
+			<c:if test="${user.userGrade eq '1'}">
+				<input type="button" value="${user.userName}" style="color: #31CAAE;" id="rr-btn" onmouseover="flexToolTip()" onmouseout="noneToolTip()">
+			</c:if>
 		</div>
 </div>
 <div id="line"></div>

@@ -657,6 +657,10 @@ public class Authentication extends TransactionAssistant {
 					user = this.sqlSession.selectOne("getUserInfo", user);
 					this.tranManager.commit();
 					session.setAttribute("userInfo", user);
+					visit = this.sqlSession.selectOne("getUserVisitCount", user);
+					visit += 1;
+					user.setUserVisit(visit);
+					this.sqlSession.update("upUserVisitCount", user);
 					List<CouponBean> cuList = this.sqlSession.selectList("getCouponListForDelete", user);
 					for(int i=0; i<cuList.size(); i++) {
 						LocalDate couponEndDate = LocalDate.parse(cuList.get(i).getCouponEndDate(), formatter);

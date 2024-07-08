@@ -27,6 +27,7 @@ public class UserBean {
 	private String userGrade;
 	private String message;
 	private String userAcc;
+	private int userVisit;
 	private String page;
 	private int num;
 	
