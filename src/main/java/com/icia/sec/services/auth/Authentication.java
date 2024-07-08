@@ -368,7 +368,7 @@ public class Authentication extends TransactionAssistant {
 				if(user.getUserGrade().equals("1")) {
 					page = "afterPage";
 				}else {
-					page = "managerIndex";
+					page = "admin_index";
 				}
 			}else {
 				page = "index";
