@@ -52,7 +52,7 @@
 				<div style="width: 0.5px; height: 100%; margin: 0px 10px; background-color: #545454;"></div>
 				<div class="admin-index-navbar-text" style=" cursor: pointer;">관리자정보</div>
 				<div style="width: 0.5px; height: 100%; margin: 0px 10px; background-color: #545454;"></div>
-				<div class="admin-index-navbar-text" style="cursor: pointer;">쇼핑몰</div>
+				<div class="admin-index-navbar-text" style="cursor: pointer;" onclick="serverCallByRequest('afterPage_admin_shop', 'get', '')">쇼핑몰</div>
 				<div style="width: 0.5px; height: 100%; margin: 0px 10px; background-color: #545454;"></div>
 				<div style="color: #FF0000; cursor: pointer;">로그아웃</div>
 				<div style="width: 0.5px; height: 100%; margin: 0px 10px; background-color: #545454;"></div>

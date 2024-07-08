@@ -259,6 +259,14 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/afterPage_admin_shop", method = RequestMethod.GET)
+	public ModelAndView afterPage_admin_shop(ModelAndView mav) {
+		UserBean user = (UserBean) this.auth.session.getAttribute("userInfo");
+		mav.addObject("user", user);
+		this.auth.backController("ALAS", mav);
+		return mav;
+	}
+	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView mav, @ModelAttribute ProductsBean product) {
 		this.pro.backController("GPC", mav);

@@ -91,6 +91,9 @@ public class Authentication extends TransactionAssistant {
 		case "WL":
 			this.webLogin(mav);
 			break;
+		case "ALAS":
+			this.afterPage_admin_shop(mav);
+			break;
 		case "NL":
 			this.naverLogin(mav);
 			break;
@@ -380,6 +383,35 @@ public class Authentication extends TransactionAssistant {
 		}
 	}
 	
+	private void afterPage_admin_shop(ModelAndView mav) {
+		String page = null;
+		String message = null;
+		UserBean user = (UserBean) session.getAttribute("userInfo");
+		List<CategoriesBean> List = null;
+		List<ProductsBean> bestPro = null;
+		List<ProductsBean> newPro = null;
+		this.tranManager = this.getTransaction(false);
+		try {
+			this.tranManager.tranStart();
+			List = this.sqlSession.selectList("getPageCate");
+			bestPro = this.sqlSession.selectList("getBestProduct");
+			newPro = this.sqlSession.selectList("getNewProduct");
+		} catch (Exception e) {
+			System.out.println(e);
+		}finally {
+			this.tranManager.tranEnd();
+			if(user != null) {
+				page = "afterPage";
+			}else {
+				page = "index";
+			}
+			mav.addObject("newItem", newPro);
+			mav.addObject("bestItem", bestPro);
+			mav.addObject("cate", List);
+			mav.setViewName(page);
+		}
+	}
+	
 	private void kakaoLogin(ModelAndView mav) {
 		String page = "afterPage";
 		UserBean user = (UserBean) mav.getModel().get("user");
@@ -538,7 +570,6 @@ public class Authentication extends TransactionAssistant {
 		String page = null;
 		String message = null;
 		UserBean user = (UserBean) session.getAttribute("userInfo");
-		System.out.println(user);
 		List<CategoriesBean> List = null;
 		List<ProductsBean> bestPro = null;
 		List<ProductsBean> newPro = null;
