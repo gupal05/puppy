@@ -397,9 +397,7 @@ public class Order extends TransactionAssistant {
 		List<Integer> paging = new ArrayList<Integer>();
 		ArrayList<PagingBean> pagingList = new ArrayList<PagingBean>();
 		OrderBean order = (OrderBean)mav.getModel().get("order");
-		System.out.println("도대체 : "+order);
 		String type = order.getOrderStatus();
-		System.out.println("뭐 때문에 : "+type);
 		UserBean user = (UserBean) session.getAttribute("userInfo");
 		PagingBean pageNum = (PagingBean) mav.getModel().get("pageNum");
 		int orderCount = 0;
@@ -462,7 +460,6 @@ public class Order extends TransactionAssistant {
 					}
 					orderList.get(i).setProduct(proArr);
 				}
-				System.out.println("tlqkf : "+orderList);
 				for(int i=0; i<orderList.size(); i++) {
 					System.out.println(orderList.get(i).getOrderDate());
 					String[] parts = orderList.get(i).getOrderDate().split("-");

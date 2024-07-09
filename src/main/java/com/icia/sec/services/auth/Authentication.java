@@ -393,9 +393,7 @@ public class Authentication extends TransactionAssistant {
 					    	us.get(a).setUserPhone(us.get(a).getUserPhone().replaceAll("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3"));
 					    }
 					}
-					System.out.println("전");
 					user_admin = this.sqlSession.selectList("getUserList_admin");
-					System.out.println("후");
 					for(int j=0; j<user_admin.size(); j++) {
 						if(user_admin.get(j).getUserGrade().equals("0")) {
 							user_admin.get(j).setUserGrade("관리자");
