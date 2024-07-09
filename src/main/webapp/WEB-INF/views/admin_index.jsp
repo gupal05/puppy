@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,13 +94,17 @@
 					<div style="padding: 10px;">
 						<div style="font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 15px;">전체 주문 현황</div>
 						<div style="display: flex; justify-content: space-between;">
-							<div style="width: 36.75%; height: 80px;">
+							<div style="width: 19.5%; height: 80px;">
 								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">총 주문건수</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">36</div>
+								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderCount}</div>
 							</div>
-							<div style="width: 62.75%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">총 주문건수</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">36</div>
+							<div style="width: 39.5%; height: 80px;">
+								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">총 주문 금액 (원)</div>
+								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;"><fmt:formatNumber value="${totalOrderPrice}" pattern="###,###"/></div>
+							</div>
+							<div style="width: 39.5%; height: 80px;">
+								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">총 쿠폰 사용 금액 (원)</div>
+								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;"><fmt:formatNumber value="${totalOrderDiscount}" pattern="###,###"/></div>
 							</div>
 						</div>
 					</div>
@@ -106,25 +113,17 @@
 					<div style="padding: 10px;">
 						<div style="font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 15px;">주문 상태 현황</div>
 						<div style="display: flex; justify-content: space-between;">
-							<div style="width: 19.65%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">입금대기</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">0</div>
+							<div style="width: 33%; height: 80px;">
+								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">주문 완료</div>
+								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderComplete}</div>
 							</div>
-							<div style="width: 19.65%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">입금완료</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">0</div>
-							</div>
-							<div style="width: 19.65%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">배송 준비</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">0</div>
-							</div>
-							<div style="width: 19.65%; height: 80px;">
+							<div style="width: 33%; height: 80px;">
 								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">배송중</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">0</div>
+								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderDeliveryRedy}</div>
 							</div>
-							<div style="width: 19.65%; height: 80px;">
+							<div style="width: 33%; height: 80px;">
 								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">배송완료</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">0</div>
+								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderDeliveryComplete}</div>
 							</div>
 						</div>
 					</div>
@@ -135,11 +134,11 @@
 						<div style="display: flex; justify-content: space-between;">
 							<div style="width: 49.5%; height: 80px;">
 								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">구매 확정</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">0</div>
+								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrder}</div>
 							</div>
 							<div style="width: 49.5%; height: 80px;">
 								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">취소/반품</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">0</div>
+								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderCancel}</div>
 							</div>
 						</div>
 					</div>
@@ -165,56 +164,25 @@
 				<div class="admin-index-order-list-top" style="border-right: 1px solid #ccc;">주문일시</div>
 			</div>
 			<!-- foreach -->
-			<div style="display: flex;">
-				<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">ㅁㅎㅇㅎㅁㅇㅎ</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">황영호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">황영호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">010-1111-2222</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">간편결제</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">30,000원</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">2024-07-08</div>
-			</div>
-			<!-- foreach -->
-			<!-- foreach -->
-			<div style="display: flex;">
-				<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">ㅁㄴㅇ</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">황영호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">윤지수</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">010-2222-3333</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">toss</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">12,000원</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">2024-07-08</div>
-			</div>
-			<!-- foreach -->
-			<!-- foreach -->
-			<div style="display: flex;">
-				<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">12324124</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">황영호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">김종헌</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">010-5555-5555</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">무통장입금</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">5,000원</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">2024-07-08</div>
-			</div>
-			<!-- foreach -->
+			<c:forEach var="userList" items="${us}">
+				<c:forEach var="orderList" items="${userList.order}">
+					<div style="display: flex;">
+						<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">${orderList.orderCode}</div>
+						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+						<div class="admin-index-order-list-foreach">${userList.userName}</div>
+						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+						<div class="admin-index-order-list-foreach">${orderList.orderRecipient}</div>
+						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+						<div class="admin-index-order-list-foreach">${userList.userPhone}</div>
+						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+						<div class="admin-index-order-list-foreach">${orderList.orderPayment}</div>
+						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+						<div class="admin-index-order-list-foreach"><fmt:formatNumber value="${orderList.orderTotalPrice}" pattern="###,###원"/></div>
+						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+						<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">${orderList.orderDate}</div>
+					</div>
+				</c:forEach>
+			</c:forEach>
 			<div style="margin-top: 30px; display: flex; height: 26px;">
 				<div style="width: 4px; height: 16px; background-color: #31CAEE; margin-right: 10px; margin-top: 6px;"></div>
 				<div style="line-height: 26px; font-weight: bold;">최근 회원가입</div>
@@ -234,57 +202,23 @@
 				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
 				<div class="admin-index-order-list-top" style="border-right: 1px solid #ccc;">가입일시</div>
 			</div>
-			<!-- foreach -->
-			<div style="display: flex;">
-				<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">ㅁㅎㅇㅎㅁㅇㅎ</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">황영호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">황영호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">010-1111-2222</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">간편결제</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">30,000원</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">2024-07-08</div>
-			</div>
-			<!-- foreach -->
-			<!-- foreach -->
-			<div style="display: flex;">
-				<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">ㅁㄴㅇ</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">황영호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">윤지수</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">010-2222-3333</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">toss</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">12,000원</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">2024-07-08</div>
-			</div>
-			<!-- foreach -->
-			<!-- foreach -->
-			<div style="display: flex;">
-				<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">12324124</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">황영호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">김종헌</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">010-5555-5555</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">무통장입금</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach">5,000원</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">2024-07-08</div>
-			</div>
-			<!-- foreach -->
+			<c:forEach var="user_admin" items="${user_admin}">
+				<div style="display: flex;">
+					<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">${user_admin.userName}</div>
+					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+					<div class="admin-index-order-list-foreach">${user_admin.userId}</div>
+					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+					<div class="admin-index-order-list-foreach">${user_admin.userGrade}</div>
+					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+					<div class="admin-index-order-list-foreach">${user_admin.userEmail}</div>
+					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+					<div class="admin-index-order-list-foreach">${user_admin.userVisit}</div>
+					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+					<div class="admin-index-order-list-foreach">${user_admin.userLogType}</div>
+					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
+					<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">${user_admin.userDate}</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	

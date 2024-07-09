@@ -16,8 +16,8 @@ WHERE US_CODE = #{userCode}
 </select>
 
 <insert id="joinMember" parameterType="com.icia.sec.beans.UserBean">
-INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE)
-VALUES(#{userCode},#{userId},#{userPw},#{userName},#{userAddr},#{userZip},#{userAddrDetail},#{userPhone},#{userEmail},SYSDATE,#{userGrade})
+INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE, US_LOGTYPE)
+VALUES(#{userCode},#{userId},#{userPw},#{userName},#{userAddr},#{userZip},#{userAddrDetail},#{userPhone},#{userEmail},SYSDATE,#{userGrade}, 'WEB')
 </insert>
 
 <select id="selId" parameterType="com.icia.sec.beans.UserBean" resultType="int">
@@ -83,13 +83,13 @@ WHERE US_ID = #{userId}
 </update>
 
 <insert id="joinKakao" parameterType="com.icia.sec.beans.UserBean">
-	INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE)
-	VALUES        (#{userCode}, #{userId}, NULL, #{userName}, NULL, NULL, NULL, NULL, NULL, SYSDATE, '1')
+	INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE, US_LOGTYPE)
+	VALUES        (#{userCode}, #{userId}, NULL, #{userName}, NULL, NULL, NULL, NULL, NULL, SYSDATE, '1', 'KAKAO')
 </insert>
 
 <insert id="naverJoin" parameterType="com.icia.sec.beans.UserBean">
-	INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE)
-	VALUES        (#{userCode}, #{userId}, NULL, #{userName}, NULL, NULL, NULL, NULL, #{userEmail}, SYSDATE, '1')
+	INSERT INTO US(US_CODE, US_ID, US_PW, US_NAME, US_ADDR, US_ZIP, US_ADDRDETAIL, US_PHONE, US_MAIL, US_DATE, US_GRCODE, US_LOGTYPE)
+	VALUES        (#{userCode}, #{userId}, NULL, #{userName}, NULL, NULL, NULL, NULL, #{userEmail}, SYSDATE, '1', 'NAVER')
 </insert>
 
 <select id="isFindId" parameterType="com.icia.sec.beans.UserBean" resultType="int">
@@ -114,5 +114,121 @@ WHERE US_ID = #{userId}
 	INSERT INTO CP(CP_CODE, CP_USCODE, CP_BENEFIT, CP_ENDDATE, CP_NAME, CP_IS, CP_STARTDATE, CP_APPLY, CP_PRICE)
 	VALUES(#{coupon[0].couponCode}, #{userCode}, #{coupon[0].couponBenefit}, #{coupon[0].couponEndDate}, #{coupon[0].couponName}, #{coupon[0].couponIs}, SYSDATE, #{coupon[0].couponApply}, #{coupon[0].couponPrice})
 </insert>
+
+<select id="getTotlaOrderCount" resultType="int">
+	SELECT COUNT(*)
+	FROM OD
+</select>
+
+<select id="getTotalOrderPrice" resultType="int">
+	SELECT SUM(ORP_TOTAL)
+	FROM ORP
+</select>
+
+<select id="getTotalOrderDiscount" resultType="int">
+	SELECT SUM(ORP_DISCOUNT)
+	FROM ORP
+</select>
+
+<select id="getTotalOrderComplete" resultType="int">
+	SELECT COUNT(*)
+	FROM OD
+	WHERE OR_STATUS = 'B'
+</select>
+
+<select id="getTotalOrderDeliveryRedy" resultType="int">
+	SELECT COUNT(*)
+	FROM OD
+	WHERE OR_STATUS = 'I'
+</select>
+
+<select id="getTotalOrderDeliveryComplete" resultType="int">
+	SELECT COUNT(*)
+	FROM OD
+	WHERE OR_STATUS = 'O'
+</select>
+
+<select id="totalOrderCancel" resultType="int">
+	SELECT COUNT(*)
+	FROM OD
+	WHERE OR_STATUS = 'C'
+</select>
+
+<select id="getTotalOrderExceptC" resultType="int">
+	SELECT COUNT(*)
+	FROM OD
+	WHERE OR_STATUS = 'B' OR OR_STATUS = 'I' OR OR_STATUS = 'O'
+</select>
+
+<select id="getOrderListCode" resultType="com.icia.sec.beans.OrderBean">
+	<![CDATA[
+    SELECT OC_CODE AS orderCode
+    FROM (
+        SELECT OC_CODE
+        FROM OC
+        ORDER BY OC_DATE DESC
+    )
+    WHERE ROWNUM <= 8
+    ]]>
+</select>
+
+<select id="getOrderList_admin" parameterType="com.icia.sec.beans.OrderBean" resultMap="orderListUserResultMap">
+	SELECT 
+	    OC.OC_CODE AS orderCode,
+	    US.US_NAME AS userName,
+	    OD.OR_RECIPIENT AS orderRecipient,
+	    US.US_PHONE AS userPhone,
+	    OC.OC_PAYMENT AS orderPayment,
+	    ORP.ORP_TOTAL AS orderTotalPrice,
+	    OC.OC_DATE AS orderDate
+	FROM 
+	    ORDERCODE OC
+	JOIN 
+	    USERS US ON OC.OC_USCODE = US.US_CODE
+	JOIN 
+	    ORDERS OD ON OC.OC_CODE = OD.OR_CODE
+	JOIN 
+	    ORDERSPRICE ORP ON OC.OC_CODE = ORP.ORP_ORCODE
+	WHERE 
+	    OC.OC_CODE = #{orderCode}
+</select>
+<resultMap type="com.icia.sec.beans.UserBean" id="orderListUserResultMap">
+	<result property="userName" column="userName"/>
+	<result property="userPhone" column="userPhone"/>
+	<association property="order" javaType="java.util.ArrayList" resultMap="getOrderListResultMap"/>
+</resultMap>
+<resultMap id="getOrderListResultMap" type="com.icia.sec.beans.OrderBean">
+    <result property="orderCode" column="orderCode"/>
+    <result property="orderRecipient" column="orderRecipient"/>
+    <result property="orderPayment" column="orderPayment"/>
+    <result property="orderTotalPrice" column="orderTotalPrice"/>
+    <result property="orderDate" column="orderDate"/>
+</resultMap>
+
+<select id="getUserList_admin" resultType="com.icia.sec.beans.UserBean">
+	<![CDATA[
+		SELECT 
+	        US_NAME AS userName,
+	        US_ID AS userId,
+	        US_GRCODE AS userGrade,
+	        US_MAIL AS userEmail,
+	        US_VISIT AS userVisit,
+	        US_LOGTYPE AS userLogType,
+	        US_DATE AS userDate
+	    FROM (
+	        SELECT 
+	            US_NAME,
+	            US_ID,
+	            US_GRCODE,
+	            US_MAIL,
+	            US_VISIT,
+	            US_LOGTYPE,
+	            US_DATE
+	        FROM US
+	        ORDER BY US_DATE DESC
+	    )
+	    WHERE ROWNUM <= 8
+    ]]>
+</select>
 
 </mapper>

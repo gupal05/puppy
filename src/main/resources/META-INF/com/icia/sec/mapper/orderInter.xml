@@ -142,7 +142,7 @@
      SELECT * FROM (
 	    SELECT OC.OC_CODE AS orderCode, 
 	           ORS.OR_STATUS AS orderStatus,
-	           ORS.OR_CANCELDATE AS orderDate,
+	           OC.OC_DATE AS orderDate,
 	           OC.OC_PAYMENT AS orderPayment,
 	           ROW_NUMBER() OVER (ORDER BY ORS.OR_CANCELDATE DESC) AS row_num
 	    FROM OC

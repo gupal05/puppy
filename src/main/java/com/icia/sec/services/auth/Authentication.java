@@ -3,7 +3,9 @@ package com.icia.sec.services.auth;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.icia.sec.beans.CategoriesBean;
 import com.icia.sec.beans.CouponBean;
+import com.icia.sec.beans.OrderBean;
 import com.icia.sec.beans.ProductsBean;
 import com.icia.sec.beans.UserBean;
 import com.icia.sec.utils.SimpleTransactionManager;
@@ -357,28 +360,66 @@ public class Authentication extends TransactionAssistant {
 		List<CategoriesBean> List = null;
 		List<ProductsBean> bestPro = null;
 		List<ProductsBean> newPro = null;
+		List<OrderBean> or = new ArrayList<>();
+		List<UserBean> us = new ArrayList<>();
+		List<UserBean> user_admin = new ArrayList<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		this.tranManager = this.getTransaction(false);
 		try {
 			this.tranManager.tranStart();
-			List = this.sqlSession.selectList("getPageCate");
-			bestPro = this.sqlSession.selectList("getBestProduct");
-			newPro = this.sqlSession.selectList("getNewProduct");
-		} catch (Exception e) {
-			System.out.println(e);
-		}finally {
-			this.tranManager.tranEnd();
 			if(user != null) {
 				if(user.getUserGrade().equals("1")) {
+					List = this.sqlSession.selectList("getPageCate");
+					bestPro = this.sqlSession.selectList("getBestProduct");
+					newPro = this.sqlSession.selectList("getNewProduct");
 					page = "afterPage";
 				}else {
+					map.put("totalOrderCount", this.sqlSession.selectOne("getTotlaOrderCount"));
+					map.put("totalOrderPrice", this.sqlSession.selectOne("getTotalOrderPrice"));
+					map.put("totalOrderDiscount", this.sqlSession.selectOne("getTotalOrderDiscount"));
+					map.put("totalOrderComplete", this.sqlSession.selectOne("getTotalOrderComplete"));
+					map.put("totalOrderDeliveryRedy", this.sqlSession.selectOne("getTotalOrderDeliveryRedy"));
+					map.put("totalOrderDeliveryComplete", this.sqlSession.selectOne("getTotalOrderDeliveryComplete"));
+					map.put("totalOrder", this.sqlSession.selectOne("getTotalOrderExceptC"));
+					map.put("totalOrderCancel", this.sqlSession.selectOne("totalOrderCancel"));
+					or = this.sqlSession.selectList("getOrderListCode");
+					for(int i=0; i<or.size(); i++) {
+						us.add(i, this.sqlSession.selectOne("getOrderList_admin", or.get(i)));
+					}
+					for(int a=0; a<us.size(); a++) {
+						if (us.get(a).getUserPhone().length() == 11) {
+							us.get(a).setUserPhone(us.get(a).getUserPhone().replaceAll("(\\d{3})(\\d{4})(\\d{4})", "$1-$2-$3"));
+					    } else if (us.get(a).getUserPhone().length() == 10) {
+					    	us.get(a).setUserPhone(us.get(a).getUserPhone().replaceAll("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3"));
+					    }
+					}
+					System.out.println("전");
+					user_admin = this.sqlSession.selectList("getUserList_admin");
+					System.out.println("후");
+					for(int j=0; j<user_admin.size(); j++) {
+						if(user_admin.get(j).getUserGrade().equals("0")) {
+							user_admin.get(j).setUserGrade("관리자");
+						}else {
+							user_admin.get(j).setUserGrade("일반회원");
+						}
+					}
 					page = "admin_index";
 				}
 			}else {
 				page = "index";
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			this.tranManager.tranEnd();
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+	            mav.addObject(entry.getKey(), entry.getValue());
+	        }
 			mav.addObject("newItem", newPro);
 			mav.addObject("bestItem", bestPro);
 			mav.addObject("cate", List);
+			mav.addObject("us", us);
+			mav.addObject("user_admin", user_admin);
 			mav.setViewName(page);
 		}
 	}

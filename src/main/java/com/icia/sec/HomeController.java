@@ -423,6 +423,7 @@ public class HomeController {
 		if(order.getOrderStatus() == null || order.getOrderStatus().equals("")) {
 			order.setOrderStatus("B");
 		}
+		System.out.println("왜???" + order);
 		mav.addObject("pageNum", paging);
 		mav.addObject("order", order);
 		this.order.backController("OVP", mav);
