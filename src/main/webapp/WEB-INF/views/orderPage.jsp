@@ -163,11 +163,11 @@
 				<div class="reserves-text" style="margin-right: 39px;">쿠폰 </div>
 				<c:choose>
 				    <c:when test="${empty couponList}">
-				    <select class="user-addr-area-text-area" style="width: 83.3%; height: 100%; margin-left: 0px;" id="coupon-selBox">
+				    <select class="user-addr-area-text-area" style="width: 83.3%; height: 42px; margin-left: 0px;" id="coupon-selBox">
 				    	<option value="0">-- 쿠폰을 선택하세요 --</option>
 				    </select>
 				        <!-- <input type="text" class="user-addr-area-text-area" style="width: 81.2%; height: 20px; margin-left: 0px;" id="acc-text-area" onclick="noneAcc()" readonly> -->
-				        <button class="addr-search-btn" style="background-color: #FFFFFF; font-weight: bold;" onclick="couponResult()" id="coupon-result-btn">전액 사용</button>
+				        <button class="addr-search-btn" style="background-color: #FFFFFF; font-weight: bold;" onclick="notCouponResult()" id="coupon-result-btn">쿠폰 적용</button>
 				    </c:when>
 				    <c:otherwise>
 				    	<select class="user-addr-area-text-area" style="width: 83.3%; height: 42px; margin-left: 0px;" id="coupon-selBox">
@@ -1225,6 +1225,14 @@ var IMP = window.IMP;
                 button.disabled = true;
                 couSel.disabled = true;
         	}
+        }
+        
+        function notCouponResult(){
+        	alert("보유하신 쿠폰이 없습니다.");
+        	var button = document.getElementById('coupon-result-btn');
+        	var couSel = document.getElementById('coupon-selBox');
+            button.disabled = true;
+            couSel.disabled = true;
         }
         
 </script>

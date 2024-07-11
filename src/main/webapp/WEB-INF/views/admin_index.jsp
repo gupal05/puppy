@@ -10,42 +10,86 @@
 <title>admin-page</title>
 <!-- 아이콘 -->
 <script src="https://kit.fontawesome.com/69077b3f9d.js" crossorigin="anonymous"></script>
-<script src="resources/js/mainsj.js"></script>
 <link href="resources/css/main.css" rel="stylesheet" />
 <link href="resources/css/join.css" rel="stylesheet" />
 <style>
-	.admin-index-navbar-text:hover{
-		color: #CCCCCC;
-	}
-	.admin-index-navbar-bottom-text{
-		font-weight: bold;
-		padding: 0px 20px;
-		color: white;
-		cursor: pointer;
-	}
-	.admin-index-order-list-top{
-		width: 14.27%;
-		height: 14.60px;
-		border-top: 1px solid #ccc;
-		border-bottom: 1px solid #ccc;
-		font-size: 12px;
-		color: #454545;
-		font-weight: bold;
-		text-align: center;
-		padding: 10px;
-		background-color: #F8F8F8;
-	}
-	.admin-index-order-list-foreach{
-		width: 14.27%;
-		height: 14.60px;
-		border-bottom: 1px solid #ccc;
-		font-size: 12px;
-		color: #454545;
-		text-align: center;
-		padding: 10px;
-		background-color: white;
-	}
+/* 기존 스타일 */
+.admin-index-navbar-text:hover {
+    color: #CCCCCC;
+}
+.admin-index-navbar-bottom-text {
+    font-weight: bold;
+    padding: 0px 20px;
+    color: white;
+    cursor: pointer;
+}
+.admin-index-navbar-bottom-text:hover {
+	background-color: #6B6B6B;
+}
+
+.admin-index-order-list-top {
+    width: 14.27%;
+    height: 14.60px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+    color: #454545;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    background-color: #F8F8F8;
+}
+.admin-index-order-list-foreach {
+    width: 14.27%;
+    height: 14.60px;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+    color: #454545;
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #545454;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 34px; /* 부모 요소의 높이와 일치 */
+    left: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%; /* 부모 요소와 동일한 너비 */
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-content li {
+    width: 100%; /* 부모 요소와 동일한 너비 */
+    box-sizing: border-box; /* 패딩과 보더를 포함한 너비 계산 */
+}
+
+.dropdown-content li:hover {
+    background-color: #6B6B6B;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
 </style>
+
+
 </head>
 <body style="margin: 0; padding: 0; width: 100%; height: 100%;">
 	<nav>
@@ -55,30 +99,67 @@
 				<div style="width: 0.5px; height: 100%; margin: 0px 10px; background-color: #545454;"></div>
 				<div class="admin-index-navbar-text" style=" cursor: pointer;">관리자정보</div>
 				<div style="width: 0.5px; height: 100%; margin: 0px 10px; background-color: #545454;"></div>
-				<div class="admin-index-navbar-text" style="cursor: pointer;" onclick="serverCallByRequest('afterPage_admin_shop', 'get', '')">쇼핑몰</div>
+				<form action="/afterPage_admin_shop" method="get" id="moveShopForm">
+					<div class="admin-index-navbar-text" style="cursor: pointer;" onclick="movePage('moveShopForm')">쇼핑몰</div>
+				</form>
 				<div style="width: 0.5px; height: 100%; margin: 0px 10px; background-color: #545454;"></div>
-				<div style="color: #FF0000; cursor: pointer;" onclick="logOut()">로그아웃</div>
+				<form action="/logOut" method="get" id="logOutForm">
+					<div style="color: #FF0000; cursor: pointer;" onclick="logOut('logOutForm')">로그아웃</div>
+				</form>
 				<div style="width: 0.5px; height: 100%; margin: 0px 10px; background-color: #545454;"></div>
 			</div>
 		</div>
 		<div style="width: 100%; height: 34px; background-color: #545454;">
-			<div style="display: flex; line-height: 34px; height: 100%; font-size: 13px;">
-				<div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
-				<div class="admin-index-navbar-bottom-text">메인</div>
-				<div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
-				<div class="admin-index-navbar-bottom-text">매출분석</div>
-				<div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
-				<div class="admin-index-navbar-bottom-text">상품관리</div>
-				<div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
-				<div class="admin-index-navbar-bottom-text">주문관리</div>
-				<div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
-				<div class="admin-index-navbar-bottom-text">회원관리</div>
-				<div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
-				<div class="admin-index-navbar-bottom-text">쿠폰관리</div>
-				<div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
-				<div class="admin-index-navbar-bottom-text">고객지원</div>
-				<div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
-			</div>
+		    <div style="display: flex; line-height: 34px; height: 100%; font-size: 13px;">
+		        <div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
+		        <form action="/afterPage" method="get" id="mainForm">
+			        <div class="admin-index-navbar-bottom-text" onclick="movePage('mainForm')">메인
+			        </div>
+		        </form>
+		        <div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
+		        <div class="admin-index-navbar-bottom-text dropdown">
+		            매출분석
+		            <ul class="dropdown-content">
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">일 매출</li>
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">월 매출</li>
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center;">년 매출</li>
+		            </ul>
+		        </div>
+		        <div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
+		        <div class="admin-index-navbar-bottom-text dropdown">
+		            상품관리
+		            <ul class="dropdown-content">
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">상품등록</li>
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">상품수정</li>
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center;">상품삭제</li>
+		            </ul>
+		        </div>
+		        <div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
+		        <div class="admin-index-navbar-bottom-text dropdown">
+		            주문관리
+		        </div>
+		        <div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
+		        <div class="admin-index-navbar-bottom-text dropdown">
+		            회원관리
+		        </div>
+		        <div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
+		        <div class="admin-index-navbar-bottom-text dropdown">
+		            쿠폰관리
+		            <ul class="dropdown-content">
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">쿠폰생성</li>
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center;">쿠폰발급</li>
+		            </ul>
+		        </div>
+		        <div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
+		        <div class="admin-index-navbar-bottom-text dropdown">
+		            고객지원
+		            <ul class="dropdown-content">
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">Q&A</li>
+		                <li class="admin-index-navbar-bottom-text" style="text-align: center;">리뷰</li>
+		            </ul>
+		        </div>
+		        <div style="width: 0.5px; height: 100%; background-color: #3E3E3E;"></div>
+		    </div>
 		</div>
 	</nav>
 	
@@ -367,9 +448,13 @@
 </div>
 
 <script>
-function logOut(){
-		alert("로그아웃 되었습니다.")
-		serverCallByRequest('logOut','get','');
+function movePage(data){
+	document.getElementById(data).submit();
+}
+
+function logOut(data){
+		alert("로그아웃 되었습니다.");
+		movePage(data);
 	}
 </script>
 </body>
