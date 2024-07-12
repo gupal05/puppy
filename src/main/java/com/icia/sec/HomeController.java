@@ -28,6 +28,7 @@ import com.icia.sec.beans.OrderBean;
 import com.icia.sec.beans.PagingBean;
 import com.icia.sec.beans.ProductsBean;
 import com.icia.sec.beans.UserBean;
+import com.icia.sec.services.admin_report.Admin_report;
 import com.icia.sec.services.auth.Authentication;
 import com.icia.sec.services.cart.Cart;
 import com.icia.sec.services.coupon.Coupon;
@@ -53,6 +54,8 @@ public class HomeController {
 	private Order order;
 	@Autowired
 	private Coupon coupon;
+	@Autowired
+	private Admin_report ar;
 	// 모바일이면 "MOBI"를, PC면 "PC"를 출력하도록 문자열 초기화
 		private static final String IS_MOBILE = "MOBI";
 		private static final String IS_PC = "PC";
@@ -444,6 +447,20 @@ public class HomeController {
 	@RequestMapping(value="/admin_index", method = RequestMethod.GET)
 	public String admin_index(ModelAndView mav, @ModelAttribute ProductsBean product) {
 		return "admin_index";
+	}
+	
+	@RequestMapping(value="/salesReport", method = RequestMethod.POST)
+	public ModelAndView salesReport(ModelAndView mav, @RequestParam String reportType, @RequestParam String changeMonth, @RequestParam String nowMonth) {
+		if(changeMonth.equals("now")) {
+			changeMonth = "0";
+		}
+		if(reportType.equals("day")) {
+			mav.addObject("nowMonth", nowMonth);
+			mav.addObject("changeMonth", changeMonth);
+			this.ar.backController("ARD", mav);
+		}
+		mav.setViewName("salesReport");
+		return mav;
 	}
 	
 }
