@@ -66,6 +66,8 @@ public class Admin_report extends TransactionAssistant {
 		int nowMonth = 0;
 		int changeMonth = Integer.parseInt(changeMonthStr);
 		int currentMonth = 0;
+		int maxVal = 0;
+		String testDate = new String();
 		try {
 			this.tranManager.tranStart();
 			LocalDate today = LocalDate.now();
@@ -86,11 +88,35 @@ public class Admin_report extends TransactionAssistant {
 	            days[i - 1] = String.valueOf(i);
 	        }
 	        int[] data = getDateData(currentMonth, days, year);
+	        int[] margin = new int[data.length];
+	        for(int a=0; a<data.length; a++) {
+	        	if(data[a] != 0) {
+	        		if(days[a].length() != 2) {
+	        			testDate = (year-2000)+"/"+"0"+currentMonth+"/"+"0"+days[a];
+	        			margin[a] = getMarginPrice(testDate);
+	        		}else {
+	        			testDate = (year-2000)+"/"+"0"+currentMonth+"/"+days[a];
+	        			margin[a] = getMarginPrice(testDate);
+	        		}
+	        	}else {
+	        		margin[a] = 0;
+	        	}
+	        }
+	        for(int val=0; val<data.length; val++) {
+	        	if(maxVal<data[val]) {
+	        		maxVal = data[val];
+	        	}
+	        }
 	        String dataString = Arrays.stream(data)
                     .mapToObj(String::valueOf)
                     .collect(Collectors.joining(","));
+	        String marginString = Arrays.stream(margin)
+	        		.mapToObj(String::valueOf)
+	        		.collect(Collectors.joining(","));
 			mav.addObject("date", "[" + String.join(",", days) + "]");
 			mav.addObject("priceData", "[" + dataString + "]");
+			mav.addObject("marginData", "[" + marginString + "]");
+			mav.addObject("maxVal", maxVal+10000);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -114,17 +140,35 @@ public class Admin_report extends TransactionAssistant {
 				if(this.convertToBoolean(this.sqlSession.selectOne("getOrderDateCount", date))) {
 					List<Integer> price = this.sqlSession.selectList("getOrderPriceDateList", date);
 					for(int j=0; j<price.size(); j++) {
-						data[i] += price.get(j);
+						data[i] += (price.get(j)-3000);
 					}
 				}else {
 					data[i] = 0;
 				}
-				System.out.println(date+"   &   "+data[i]);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return data;
+	}
+	
+	private int getMarginPrice(String testDate) {
+		int margin = 0;
+		List<OrderBean> orList = new ArrayList<OrderBean>();
+		this.tranManager = this.getTransaction(true);
+		try {
+			orList = this.sqlSession.selectList("getOrderCode_report", testDate);
+			for(int i=0; i<orList.size(); i++) {
+				List<ProductsBean> proList = new ArrayList<ProductsBean>();
+				proList = this.sqlSession.selectList("getPuCode_report", orList.get(i));
+				for(int j=0; j<proList.size(); j++) {
+					margin += (Integer.parseInt(proList.get(j).getProductsMargin()) * proList.get(j).getProductsCount());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return margin;
 	}
 	
 	/* boolean 변환 */

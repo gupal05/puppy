@@ -176,18 +176,25 @@
 	</nav>
 	<!-- section -->
 	<div>
-		
-			<form action="/salesReport" method="post" id="preMonth">
-				<input type="hidden" id="changeMonth" name="changeMonth" value="">
-				<input type="hidden" id="reportType" name="reportType" value="day">
-				<input type="hidden" id="nowMonth" name="nowMonth" value="${day_month}">
+		<form action="/salesReport" method="post" id="preMonth">
+			<input type="hidden" id="changeMonth" name="changeMonth" value="">
+			<input type="hidden" id="reportType" name="reportType" value="day">
+			<input type="hidden" id="nowMonth" name="nowMonth" value="${day_month}">
+			<div style="font-size: 20px; font-weight: bold; text-align: center;">일별 매출 조회</div>
 			<div style="display: flex; justify-content: center;">
 				<button class="month-change-btn" onclick="chageMonth('pre')"><i class="fa-solid fa-chevron-left"></i></button>
 				<div style="text-align: center; font-size: 30px; font-weight: bold; padding: 10px 0px;">${day_month}월</div>
 				<button class="month-change-btn" onclick="chageMonth('next')"><i class="fa-solid fa-chevron-right"></i></button>
 			</div>
-			</form>
-		<div id="line" style="height:500px;border:1px solid #ccc;padding:10px; background-color: white;"></div>
+		</form>
+		<div style="display: flex; justify-content: center;">
+			<div style="width: 49%; text-align: center; font-size: 16px; font-weight: bold;">총 매출 (배송비 제외)</div>
+			<div style="width: 49%; text-align: center; font-size: 16px; font-weight: bold;">순수익 (배송비 제외)</div>
+		</div>
+		<div style="display: flex; justify-content: center;">
+			<div id="line" style="height:500px; border:1px solid #ccc;padding:10px; background-color: white; width: 49%;"></div>
+			<div id="secChart" style="height:500px; border:1px solid #ccc;padding:10px; background-color: white; width: 49%;"></div>
+		</div>
 	</div>
 	
 	<!-- footer -->
@@ -363,7 +370,8 @@ xAxis: {
 		data: ${date}
 	},
 yAxis: {
-		type: 'value'
+		type: 'value',
+		max: ${maxVal}
 	},
 tooltip: {trigger:'axis'},
 series: [
@@ -380,6 +388,34 @@ chart.setOption({
 });
 
 chart.setOption(option);
+/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
+var datar = ${date};
+console.log(datar);
+const chartt = echarts.init(document.getElementById("secChart"));
+const optionn = {
+xAxis: {
+		type: 'category',
+		data: ${date}
+	},
+yAxis: {
+		type: 'value',
+		max: ${maxVal}
+	},
+tooltip: {trigger:'axis'},
+series: [
+ {
+   data: ${marginData},
+   type: 'line'
+ }
+]
+};
+chartt.on('highlight', (p) => {
+chartt.setOption({
+   title: {text: '조회 날짜 : ' +((p.batch[0].dataIndex)+1)+'일' }, 
+});
+});
+
+chartt.setOption(optionn);
 </script>
 </body>
 </html>
