@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icia.sec.mapper.MapperInter">
+<select id="getOrderDateCount" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*)
+		FROM OC
+		WHERE OC_DATE LIKE '%' || #{date} || '%'
+	]]>
+</select>
+
+<select id="getOrderPriceDateList" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT ORP.ORP_TOTAL
+		FROM ORDERSPRICE ORP
+		JOIN ORDERCODE OC ON ORP.ORP_ORCODE = OC.OC_CODE
+		WHERE OC.OC_DATE LIKE '%' || #{date} || '%'
+	]]>
+</select>
+
+</mapper>

@@ -368,7 +368,7 @@ yAxis: {
 tooltip: {trigger:'axis'},
 series: [
  {
-   data: [130, 230, 224, 218, 135, 147, 260, 260, 260, 260, 260, 260],
+   data: ${priceData},
    type: 'line'
  }
 ]

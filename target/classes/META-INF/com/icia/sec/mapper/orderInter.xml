@@ -86,8 +86,8 @@
 </insert>
 
 <insert id="insOrderWithComent" parameterType="com.icia.sec.beans.UserBean">
-	INSERT INTO OD(OR_CODE, OR_PUCODE, OR_COUNT, OR_COMENT, OR_RECIPIENT, OR_ADDR, OR_ADDRDETAIL, OR_ZIP, OR_PHONE, OR_PAYMENT)
-	VALUES(#{order[0].orderCode}, #{order[0].product[0].productsCode}, #{order[0].product[0].productsCount}, #{order[0].orderComent}, #{order[0].orderRecipient}, #{order[0].orderAddr}, #{order[0].orderAddrDetail}, #{order[0].orderZip}, #{order[0].orderPhone}, #{order[0].orderPayment})
+	INSERT INTO OD(OR_CODE, OR_PUCODE, OR_COUNT, OR_COMENT, OR_RECIPIENT, OR_ADDR, OR_ADDRDETAIL, OR_ZIP, OR_PHONE)
+	VALUES(#{order[0].orderCode}, #{order[0].product[0].productsCode}, #{order[0].product[0].productsCount}, #{order[0].orderComent}, #{order[0].orderRecipient}, #{order[0].orderAddr}, #{order[0].orderAddrDetail}, #{order[0].orderZip}, #{order[0].orderPhone})
 </insert>
 
 <update id="updateOrderStatus" parameterType="com.icia.sec.beans.UserBean">

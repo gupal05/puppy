@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -67,6 +69,7 @@ public class Admin_report extends TransactionAssistant {
 		try {
 			this.tranManager.tranStart();
 			LocalDate today = LocalDate.now();
+			int year = today.getYear();
 			if(nowMonthStr.equals("now")) {
 	        	currentMonth = today.getMonthValue();
 	        }else {
@@ -82,13 +85,46 @@ public class Admin_report extends TransactionAssistant {
 	        for (int i = 1; i <= daysInMonth; i++) {
 	            days[i - 1] = String.valueOf(i);
 	        }
-	        
+	        int[] data = getDateData(currentMonth, days, year);
+	        String dataString = Arrays.stream(data)
+                    .mapToObj(String::valueOf)
+                    .collect(Collectors.joining(","));
 			mav.addObject("date", "[" + String.join(",", days) + "]");
+			mav.addObject("priceData", "[" + dataString + "]");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			mav.addObject("day_month", currentMonth);
 		}
+	}
+	
+	private int[] getDateData(int month, String[] days, int year) {
+		int[] data = new int[days.length];
+		year -= 2000;
+		this.tranManager = this.getTransaction(true);
+		try {
+			this.tranManager.tranStart();
+			for(int i=0; i<days.length; i++) {
+				String date = new String();
+				if(days[i].length() != 2) {
+					date = year+"/"+"0"+month+"/"+"0"+days[i];
+				}else {
+					date = year+"/"+"0"+month+"/"+days[i];
+				}
+				if(this.convertToBoolean(this.sqlSession.selectOne("getOrderDateCount", date))) {
+					List<Integer> price = this.sqlSession.selectList("getOrderPriceDateList", date);
+					for(int j=0; j<price.size(); j++) {
+						data[i] += price.get(j);
+					}
+				}else {
+					data[i] = 0;
+				}
+				System.out.println(date+"   &   "+data[i]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 	
 	/* boolean 변환 */
