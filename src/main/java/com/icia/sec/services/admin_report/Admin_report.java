@@ -2,33 +2,23 @@ package com.icia.sec.services.admin_report;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.Projection;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.icia.sec.beans.CategoriesBean;
-import com.icia.sec.beans.CouponBean;
 import com.icia.sec.beans.OrderBean;
 import com.icia.sec.beans.ProductsBean;
-import com.icia.sec.beans.UserBean;
 import com.icia.sec.utils.SimpleTransactionManager;
 import com.icia.sec.utils.TransactionAssistant;
 
-import com.icia.sec.utils.Encryption;
 import lombok.extern.slf4j.Slf4j;
 
 /* Authentication + Memeber Join */
@@ -58,7 +48,7 @@ public class Admin_report extends TransactionAssistant {
 			break;
 		}
 	}
-	
+	/*일별 매출분석 차트로 표현 하는 부분*/
 	private void adminReportDay(ModelAndView mav) {
 		this.tranManager = this.getTransaction(true);
 		String changeMonthStr = (String) mav.getModel().get("changeMonth");
@@ -170,6 +160,7 @@ public class Admin_report extends TransactionAssistant {
 		}
 		return margin;
 	}
+	/*일별 매출분석 차트로 표현 하는 부분*/
 	
 	/* boolean 변환 */
 	protected boolean convertToBoolean(int value) {

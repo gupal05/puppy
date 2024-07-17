@@ -249,7 +249,7 @@
     UPDATE OD
     SET 
         OR_STATUS = 'C',
-        OR_CANCELDATE = SYSDATE
+<!--         OR_CANCELDATE = SYSDATE -->
     WHERE 
         OR_CODE = #{impUid}
 </update>

@@ -463,4 +463,10 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/admin/salesReport/day", method = RequestMethod.POST)
+	public ModelAndView salesReport_day(ModelAndView mav) {
+		mav.setViewName("salesReportTest");
+		return mav;
+	}
+	
 }

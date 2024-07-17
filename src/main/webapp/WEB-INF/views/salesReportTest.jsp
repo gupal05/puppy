@@ -12,7 +12,12 @@
 <script src="https://kit.fontawesome.com/69077b3f9d.js" crossorigin="anonymous"></script>
 <link href="resources/css/main.css" rel="stylesheet" />
 <link href="resources/css/join.css" rel="stylesheet" />
-<script src="resources/js/mainsj.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<!-- fullcalendar -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
 <style>
 /* 기존 스타일 */
 .admin-index-navbar-text:hover {
@@ -88,6 +93,10 @@
     opacity: 1;
     transform: translateY(0);
 }
+#calendar {
+	max-width: 900px;
+	margin: 40px auto;
+}
 </style>
 
 
@@ -122,10 +131,8 @@
 		            매출분석
 		            <form action="/salesReport" method="post" id="salesReport">
 		            	<input type="hidden" name="reportType" id="reportType" value="">
-		            	<input type="hidden" name="changeMonth" id="changeMonth" value="now">
-		            	<input type="hidden" name="nowMonth" id="nowMonth" value="now">
 			            <ul class="dropdown-content">
-			                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="serverCallByRequest('admin/salesReport/day', 'post', '')">일 매출</li>
+			                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="page_sales('day')">일 매출</li>
 			                <li class="admin-index-navbar-bottom-text"  style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">월 매출</li>
 			                <li class="admin-index-navbar-bottom-text" style="text-align: center;">년 매출</li>
 			            </ul>
@@ -168,150 +175,11 @@
 		    </div>
 		</div>
 	</nav>
-	
 	<!-- section -->
-	<div style="width: 100%;">
-		<div style="width: 97.5%; margin: 0 auto;">
-			<div style="margin-top: 30px; display: flex; height: 26px;">
-				<div style="width: 4px; height: 16px; background-color: #31CAEE; margin-right: 10px; margin-top: 6px;"></div>
-				<div style="line-height: 26px; font-weight: bold;">전체 주문통계</div>
-			</div>
-			<div style="display: flex; margin-top: 10px;">
-				<div style="border: 1px solid #ccc; width: 25.72%;">
-					<div style="padding: 10px;">
-						<div style="font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 15px;">전체 주문 현황</div>
-						<div style="display: flex; justify-content: space-between;">
-							<div style="width: 19.5%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">총 주문건수</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderCount}</div>
-							</div>
-							<div style="width: 39.5%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">총 주문 금액 (원)</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;"><fmt:formatNumber value="${totalOrderPrice}" pattern="###,###"/></div>
-							</div>
-							<div style="width: 39.5%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">총 쿠폰 사용 금액 (원)</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;"><fmt:formatNumber value="${totalOrderDiscount}" pattern="###,###"/></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; width: 37.14%;">
-					<div style="padding: 10px;">
-						<div style="font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 15px;">주문 상태 현황</div>
-						<div style="display: flex; justify-content: space-between;">
-							<div style="width: 33%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">주문 완료</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderComplete}</div>
-							</div>
-							<div style="width: 33%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">배송중</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderDeliveryRedy}</div>
-							</div>
-							<div style="width: 33%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">배송완료</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderDeliveryComplete}</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div style="border: 1px solid #ccc; width: 37.14%;">
-					<div style="padding: 10px;">
-						<div style="font-size: 15px; font-weight: bold; text-align: center; margin-bottom: 15px;">구매확정/클레임 현황</div>
-						<div style="display: flex; justify-content: space-between;">
-							<div style="width: 49.5%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">구매 확정</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrder}</div>
-							</div>
-							<div style="width: 49.5%; height: 80px;">
-								<div style="font-size: 11px; font-weight: bold; color: #222222; text-align: center; padding: 10px 0px; height: 13px; background-color: #EEEEEE;">취소/반품</div>
-								<div style="font-size: 15px; font-weight: bold; color: black; text-align: center; padding: 10px 0px; height: 27px; background-color: #F9F9F9;">${totalOrderCancel}</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div style="margin-top: 30px; display: flex; height: 26px;">
-				<div style="width: 4px; height: 16px; background-color: #31CAEE; margin-right: 10px; margin-top: 6px;"></div>
-				<div style="line-height: 26px; font-weight: bold;">최근 주문내역</div>
-			</div>
-			<div style="margin-top: 10px; display: flex;">
-				<div class="admin-index-order-list-top" style="border-left: 1px solid #ccc;">주문번호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">주문자명</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">수령자명</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">전화번호</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">결제방법</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">총주문액</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top" style="border-right: 1px solid #ccc;">주문일시</div>
-			</div>
-			<!-- foreach -->
-			<c:forEach var="userList" items="${us}">
-				<c:forEach var="orderList" items="${userList.order}">
-					<div style="display: flex;">
-						<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">${orderList.orderCode}</div>
-						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-						<div class="admin-index-order-list-foreach">${userList.userName}</div>
-						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-						<div class="admin-index-order-list-foreach">${orderList.orderRecipient}</div>
-						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-						<div class="admin-index-order-list-foreach">${userList.userPhone}</div>
-						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-						<div class="admin-index-order-list-foreach">${orderList.orderPayment}</div>
-						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-						<div class="admin-index-order-list-foreach"><fmt:formatNumber value="${orderList.orderTotalPrice}" pattern="###,###원"/></div>
-						<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-						<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">${orderList.orderDate}</div>
-					</div>
-				</c:forEach>
-			</c:forEach>
-			<div style="margin-top: 30px; display: flex; height: 26px;">
-				<div style="width: 4px; height: 16px; background-color: #31CAEE; margin-right: 10px; margin-top: 6px;"></div>
-				<div style="line-height: 26px; font-weight: bold;">최근 회원가입</div>
-			</div>
-			<div style="margin-top: 10px; display: flex;">
-				<div class="admin-index-order-list-top" style="border-left: 1px solid #ccc;">이름</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">아이디</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">등급</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">이메일</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">접속횟수</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top">로그인 방식</div>
-				<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-				<div class="admin-index-order-list-top" style="border-right: 1px solid #ccc;">가입일시</div>
-			</div>
-			<c:forEach var="user_admin" items="${user_admin}">
-				<div style="display: flex;">
-					<div class="admin-index-order-list-foreach" style="border-left: 1px solid #ccc;">${user_admin.userName}</div>
-					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-					<div class="admin-index-order-list-foreach">${user_admin.userId}</div>
-					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-					<div class="admin-index-order-list-foreach">${user_admin.userGrade}</div>
-					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-					<div class="admin-index-order-list-foreach">${user_admin.userEmail}</div>
-					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-					<div class="admin-index-order-list-foreach">${user_admin.userVisit}</div>
-					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-					<div class="admin-index-order-list-foreach">${user_admin.userLogType}</div>
-					<div style="width: 1px; height: 36.59px; background-color: #ccc;"></div>
-					<div class="admin-index-order-list-foreach" style="border-right: 1px solid #ccc;">${user_admin.userDate}</div>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
-	
+	<div id='calendar'></div>
 	<!-- footer -->
 	<div style="width: 100%; height: 50px; padding: 30px 0px;">
-		<div id="joinLine"><i class="fa-solid fa-diamond" id="diaIcon"></i></div>
+		<div id="aa" style="width: 100%; height: 1px; background-color: #eee; display: flex; justify-content: center; align-items: center; margin-top: 25px; margin-bottom: 25px;"><i class="fa-solid fa-diamond" id="gg" style="font-size: 9px"></i></div>
 	</div>
 	<div style="width: 100%; height: 503px;">
 	<div style="width: 100%; height: 1px; background-color: #F0F0F0;"></div>
@@ -319,7 +187,7 @@
 		<div style="width: 80%; background-color: #FBFBFB;">
 			<div style="height: 28.06px; display: flex;">
 				<div style="display: flex; width: 20%;">
-					<img alt="logo" src="resources/img/puppy logo.jpg" width="28.05px" height="28.05px">
+					<img alt="logo" src="../resources/img/puppy logo.jpg" width="28.05px" height="28.05px">
 					<div style=" line-height: 28.05px; font-weight: bold;">PUPPY</div>
 				</div>
 				<div style="display: flex; width: 60%; color: #333333; font-weight: bold;">
@@ -454,6 +322,28 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'ko', // 한국어 로케일 설정
+        events: [
+            // 여기서 이벤트 데이터를 추가합니다. 예:
+            {
+                title: '₩1000',
+                start: '2024-07-01'
+            },
+            {
+                title: '₩750',
+                start: '2024-07-02'
+            }
+            // 추가 이벤트 데이터...
+        ]
+    });
+
+    calendar.render();
+});
 function movePage(data){
 	document.getElementById(data).submit();
 }
@@ -463,10 +353,6 @@ function logOut(data){
 		movePage(data);
 	}
 	
-function page_sales(data){
-	document.getElementById('reportType').value = data;
-	document.getElementById('salesReport').submit();
-}
 </script>
 </body>
 </html>
