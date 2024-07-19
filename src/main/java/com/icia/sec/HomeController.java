@@ -450,21 +450,18 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/salesReport", method = RequestMethod.POST)
-	public ModelAndView salesReport(ModelAndView mav, @RequestParam String reportType, @RequestParam String changeMonth, @RequestParam String nowMonth) {
-		if(changeMonth.equals("now")) {
-			changeMonth = "0";
-		}
-		if(reportType.equals("day")) {
-			mav.addObject("nowMonth", nowMonth);
-			mav.addObject("changeMonth", changeMonth);
-			this.ar.backController("ARD", mav);
-		}
+	public ModelAndView salesReport(ModelAndView mav, @RequestParam String reportType, @RequestParam(value = "nowYear", required = false) String nowYear, @RequestParam(value = "changeYearType", required = false) String changeYearType) {
+		mav.addObject("changeYearType", changeYearType);
+		mav.addObject("nowYear", nowYear);
+		mav.addObject("reportType", reportType);
+		this.ar.backController("AR", mav);
 		mav.setViewName("salesReport");
 		return mav;
 	}
 	
 	@RequestMapping(value="/admin/salesReport/day", method = RequestMethod.POST)
 	public ModelAndView salesReport_day(ModelAndView mav) {
+		this.ar.backController("ARDC", mav);
 		mav.setViewName("salesReportTest");
 		return mav;
 	}

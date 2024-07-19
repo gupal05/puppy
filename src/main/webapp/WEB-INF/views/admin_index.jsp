@@ -122,12 +122,10 @@
 		            매출분석
 		            <form action="/salesReport" method="post" id="salesReport">
 		            	<input type="hidden" name="reportType" id="reportType" value="">
-		            	<input type="hidden" name="changeMonth" id="changeMonth" value="now">
-		            	<input type="hidden" name="nowMonth" id="nowMonth" value="now">
 			            <ul class="dropdown-content">
 			                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="serverCallByRequest('admin/salesReport/day', 'post', '')">일 매출</li>
-			                <li class="admin-index-navbar-bottom-text"  style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">월 매출</li>
-			                <li class="admin-index-navbar-bottom-text" style="text-align: center;">년 매출</li>
+			                <li class="admin-index-navbar-bottom-text"  style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="page_sales('month')">월 매출</li>
+			                <li class="admin-index-navbar-bottom-text" style="text-align: center;" onclick="page_sales('year')">년 매출</li>
 			            </ul>
 		            </form>
 		        </div>

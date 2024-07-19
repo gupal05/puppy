@@ -176,15 +176,15 @@
 	</nav>
 	<!-- section -->
 	<div>
-		<form action="/salesReport" method="post" id="preMonth">
-			<input type="hidden" id="changeMonth" name="changeMonth" value="">
-			<input type="hidden" id="reportType" name="reportType" value="day">
-			<input type="hidden" id="nowMonth" name="nowMonth" value="${day_month}">
-			<div style="font-size: 20px; font-weight: bold; text-align: center;">일별 매출 조회</div>
+		<form action="/salesReport" method="post" id="changeYear">
+			<input type="hidden" id="changeYearType" name="changeYearType" value="">
+			<input type="hidden" id="nowYear" name="nowYear" value="${year}">
+			<input type="hidden" id="reportType" name="reportType" value="month">
+			<div style="font-size: 20px; font-weight: bold; text-align: center;">월별 매출 조회</div>
 			<div style="display: flex; justify-content: center;">
-				<button class="month-change-btn" onclick="chageMonth('pre')"><i class="fa-solid fa-chevron-left"></i></button>
-				<div style="text-align: center; font-size: 30px; font-weight: bold; padding: 10px 0px;">${day_month}월</div>
-				<button class="month-change-btn" onclick="chageMonth('next')"><i class="fa-solid fa-chevron-right"></i></button>
+				<button class="month-change-btn" onclick="changeYear('pre')"><i class="fa-solid fa-chevron-left"></i></button>
+				<div style="text-align: center; font-size: 30px; font-weight: bold; padding: 10px 0px;">${year}년</div>
+				<button class="month-change-btn" onclick="changeYear('next')"><i class="fa-solid fa-chevron-right"></i></button>
 			</div>
 		</form>
 		<div style="display: flex; justify-content: center;">
@@ -342,14 +342,10 @@
 </div>
 
 <script>
-function chageMonth(type){
-	var input = document.getElementById('changeMonth');
-	if(type === 'pre'){
-		input.value = '-1';
-	}else{
-		input.value = '+1';
-	}
-	document.getElementById('preMonth').submit;
+function changeYear(type){
+	var input = document.getElementById('changeYearType');
+	input.value = type;
+	document.getElementById('changeYear').submit();
 }
 
 function movePage(data){
@@ -371,12 +367,11 @@ xAxis: {
 	},
 yAxis: {
 		type: 'value',
-		max: ${maxVal}
 	},
 tooltip: {trigger:'axis'},
 series: [
  {
-   data: ${priceData},
+   data: ${data},
    type: 'line'
  }
 ]
@@ -389,22 +384,21 @@ chart.setOption({
 
 chart.setOption(option);
 /*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
-var datar = ${date};
+var datar = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 console.log(datar);
 const chartt = echarts.init(document.getElementById("secChart"));
 const optionn = {
 xAxis: {
 		type: 'category',
-		data: ${date}
+		data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 	},
 yAxis: {
 		type: 'value',
-		max: ${maxVal}
 	},
 tooltip: {trigger:'axis'},
 series: [
  {
-   data: ${marginData},
+   data: [0, 0, 0, 0, 0, 0, 100, 100, 100, 0, 0, 0],
    type: 'line'
  }
 ]

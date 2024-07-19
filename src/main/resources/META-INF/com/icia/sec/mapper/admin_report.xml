@@ -34,4 +34,58 @@
 	WHERE OD.OR_CODE = #{orderCode}
 </select>
 
+<select id="getOrderInfo_admin" resultType="com.icia.sec.beans.OrderBean">
+	<![CDATA[
+		SELECT OC.OC_CODE AS orderCode, ORP.ORP_TOTAL AS orderTotalPrice, TO_CHAR(OC.OC_DATE, 'YY/MM/DD') AS orderDate
+		FROM ORDERSPRICE ORP
+		JOIN ORDERCODE OC ON ORP.ORP_ORCODE = OC.OC_CODE
+	]]>
+</select>
+
+<select id="getOrderTotalPrice_admin" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT  SUM(ORP.ORP_TOTAL) AS orderTotalPrice
+		FROM ORDERSPRICE ORP
+		JOIN ORDERCODE OC ON ORP.ORP_ORCODE = OC.OC_CODE
+		WHERE OC_DATE LIKE '%' || #{d} || '%'
+	]]>
+</select>
+
+<select id="getOrderCount_admin" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT  COUNT(*)
+		FROM ORDERSPRICE ORP
+		JOIN ORDERCODE OC ON ORP.ORP_ORCODE = OC.OC_CODE
+		WHERE OC_DATE LIKE '%' || #{d} || '%'
+	]]>
+</select>
+
+<select id="getMargin_admin" parameterType="String" resultType="com.icia.sec.beans.ProductsBean">
+	<![CDATA[
+		SELECT  PU.PU_MARGIN AS productsMargin, OD.OR_COUNT AS productsCount
+		FROM PRODUCTS PU
+		JOIN ORDERS OD ON OD.OR_PUCODE = PU.PU_CODE
+        JOIN ORDERCODE OC ON OC.OC_CODE = OD.OR_CODE
+		WHERE OC_DATE LIKE '%' || #{d} || '%'
+	]]>
+</select>
+
+<select id="getSalesDateOfMonth" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT SUM(ORP.ORP_TOTAL)
+		FROM ORDERSPRICE ORP
+		JOIN ORDERCODE OC ON ORP.ORP_ORCODE = OC.OC_CODE
+		WHERE OC_DATE LIKE '%' || #{d} || '%'
+	]]>
+</select>
+
+<select id="getSalesDateOfMonthCount" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*)
+		FROM ORDERSPRICE ORP
+		JOIN ORDERCODE OC ON ORP.ORP_ORCODE = OC.OC_CODE
+		WHERE OC_DATE LIKE '%' || #{d} || '%'
+	]]>
+</select>
+
 </mapper>

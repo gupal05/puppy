@@ -39,30 +39,34 @@ function scrollToTop() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-	  var scrollToTopButton = document.getElementById('scroll-to-top');
-	  var scrollToBottomButton = document.getElementById('scroll-to-bottom');
+    var scrollToTopButton = document.getElementById('scroll-to-top');
+    var scrollToBottomButton = document.getElementById('scroll-to-bottom');
 
-	  // 항상 버튼 표시
-	  scrollToTopButton.style.display = 'block';
-	  scrollToBottomButton.style.display = 'block';
+    // 요소가 존재하는지 확인
+    if (scrollToTopButton && scrollToBottomButton) {
+        // 항상 버튼 표시
+        scrollToTopButton.style.display = 'block';
+        scrollToBottomButton.style.display = 'block';
 
-	  // 클릭하면 페이지 맨 위로 스크롤
-	  scrollToTopButton.addEventListener('click', function() {
-	    window.scrollTo({
-	      top: 0,
-	      behavior: 'smooth'
-	    });
-	  });
+        // 클릭하면 페이지 맨 위로 스크롤
+        scrollToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
 
-	  // 클릭하면 페이지 맨 아래로 스크롤
-	  scrollToBottomButton.addEventListener('click', function() {
-	    window.scrollTo({
-	      top: document.body.scrollHeight,
-	      behavior: 'smooth'
-	    });
-	  });
-	});
-
+        // 클릭하면 페이지 맨 아래로 스크롤
+        scrollToBottomButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        });
+    } else {
+        console.log("not");
+    }
+});
 
 function logout(){
 	

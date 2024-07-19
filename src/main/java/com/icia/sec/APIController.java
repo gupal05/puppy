@@ -31,6 +31,7 @@ import com.icia.sec.beans.CategoriesDetailBean;
 import com.icia.sec.beans.CouponBean;
 import com.icia.sec.beans.ImgBean;
 import com.icia.sec.beans.MailAuthBean;
+import com.icia.sec.beans.OrderBean;
 import com.icia.sec.beans.ProductsBean;
 import com.icia.sec.beans.UserBean;
 import com.icia.sec.services.auth.Authentication;
