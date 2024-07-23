@@ -133,9 +133,9 @@
 		            <form action="/salesReport" method="post" id="salesReport">
 		            	<input type="hidden" name="reportType" id="reportType" value="">
 			            <ul class="dropdown-content">
-			                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="page_sales('day')">일 매출</li>
-			                <li class="admin-index-navbar-bottom-text"  style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">월 매출</li>
-			                <li class="admin-index-navbar-bottom-text" style="text-align: center;">년 매출</li>
+			                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="serverCallByRequest('admin/salesReport/day', 'post', '')">일 매출</li>
+			                <li class="admin-index-navbar-bottom-text"  style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="page_sales('month')">월 매출</li>
+			                <li class="admin-index-navbar-bottom-text" style="text-align: center;" onclick="page_sales('year')">년 매출</li>
 			            </ul>
 		            </form>
 		        </div>
@@ -379,7 +379,12 @@ function logOut(data){
 		alert("로그아웃 되었습니다.");
 		movePage(data);
 	}
-	
+
+function page_sales(data){
+	document.getElementById('reportType').value = data;
+	document.getElementById('salesReport').submit();
+}
+
 </script>
 </body>
 </html>

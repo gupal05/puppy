@@ -128,6 +128,7 @@ public class Admin_report extends TransactionAssistant {
 			mav.addObject("price", price);
 //			mav.addObject("margin", "[" + marginString + "]");
 			mav.addObject("margin", margin);
+			mav.addObject("reportType", "day");
 		}
 	}
 	
@@ -138,6 +139,8 @@ public class Admin_report extends TransactionAssistant {
 		String changeYearType = (String) mav.getModel().get("changeYearType");
 		ArrayList<String> date = new ArrayList<String>();
 		ArrayList<Integer> data = new ArrayList<Integer>();
+		ArrayList<Integer> margin = new ArrayList<Integer>();
+		int maxVal = 0;
 		this.tranManager = this.getTransaction(true);
 		try {
 			this.tranManager.tranStart();
@@ -159,8 +162,14 @@ public class Admin_report extends TransactionAssistant {
 					date.add("'"+a+"월"+"'");
 				}
 				data = getSalesData(currentYear, date);
-				System.out.println(date);
-				System.out.println(data);
+				margin = getMarginData(currentYear, date, data);
+				for(int index=0; index<data.size(); index++) {
+					if(maxVal<data.get(index)) {
+						maxVal = data.get(index);
+					}
+				}
+				mav.addObject("maxVal", maxVal + 3000);
+				mav.addObject("margin", margin);
 				mav.addObject("data", data);
 				mav.addObject("date", date);
 				mav.addObject("year", currentYear);
@@ -168,6 +177,7 @@ public class Admin_report extends TransactionAssistant {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
+			mav.addObject("reportType", "month");
 		}
 	}
 	
@@ -201,6 +211,44 @@ public class Admin_report extends TransactionAssistant {
 			e.printStackTrace();
 		}
 		return data;
+	}
+	
+	private ArrayList<Integer> getMarginData(int year, ArrayList<String> month, ArrayList<Integer> data){
+		ArrayList<Integer> margin = new ArrayList<Integer>();
+		String[] date = new String[month.size()];
+		this.tranManager = this.getTransaction(true);
+		try {
+			for(int i=0; i<data.size(); i++) {
+				if(data.get(i) == 0) {
+					margin.add(0);
+				}else {
+					String d = new String();
+					if(month.get(i).length() != 4) {
+						String m = month.get(i).replace("'", "");
+						String result = m.replace("월", "");
+						d = (year-2000)+"/"+result;
+					}else {
+						String m = month.get(i).replace("'", "");
+						String result = m.replace("월", "");
+						d = (year-2000)+"/0"+result;
+					}
+					int m = 0;
+					List<OrderBean> orList = this.sqlSession.selectList("getOrderCode_report", d);
+					for(int j=0; j<orList.size(); j++) {
+						List<ProductsBean> proList = new ArrayList<ProductsBean>();
+						proList = this.sqlSession.selectList("getPuCode_report", orList.get(j));
+						for(int a=0; a<proList.size(); a++) {
+							m += (Integer.parseInt(proList.get(a).getProductsMargin()) * proList.get(a).getProductsCount());
+						}
+					}
+					System.out.println(d+" && "+m);
+					margin.add(m);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return margin;
 	}
 //	private int[] getDateData(int month, String[] days, int year) {
 //		int[] data = new int[days.length];
