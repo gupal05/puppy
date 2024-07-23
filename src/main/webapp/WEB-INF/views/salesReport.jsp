@@ -14,6 +14,7 @@
 <link href="resources/css/join.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
+<script src="resources/js/mainsj.js"></script>
 <style>
 /* 기존 스타일 */
 .admin-index-navbar-text:hover {
@@ -131,9 +132,9 @@
 		            <form action="/salesReport" method="post" id="salesReport">
 		            	<input type="hidden" name="reportType" id="reportType" value="">
 			            <ul class="dropdown-content">
-			                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="page_sales('day')">일 매출</li>
-			                <li class="admin-index-navbar-bottom-text"  style="text-align: center; border-bottom: 0.5px solid #3E3E3E;">월 매출</li>
-			                <li class="admin-index-navbar-bottom-text" style="text-align: center;">년 매출</li>
+			                <li class="admin-index-navbar-bottom-text" style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="serverCallByRequest('admin/salesReport/day', 'post', '')">일 매출</li>
+			                <li class="admin-index-navbar-bottom-text"  style="text-align: center; border-bottom: 0.5px solid #3E3E3E;" onclick="page_sales('month')">월 매출</li>
+			                <li class="admin-index-navbar-bottom-text" style="text-align: center;" onclick="page_sales('year')">년 매출</li>
 			            </ul>
 		            </form>
 		        </div>
@@ -367,6 +368,7 @@ xAxis: {
 	},
 yAxis: {
 		type: 'value',
+		max: ${maxVal}
 	},
 tooltip: {trigger:'axis'},
 series: [
@@ -378,7 +380,7 @@ series: [
 };
 chart.on('highlight', (p) => {
 chart.setOption({
-   title: {text: '조회 날짜 : ' +((p.batch[0].dataIndex)+1)+'일' }, 
+   title: {text: '조회 날짜 : ' +((p.batch[0].dataIndex)+1)+'월' }, 
 });
 });
 
@@ -390,22 +392,23 @@ const chartt = echarts.init(document.getElementById("secChart"));
 const optionn = {
 xAxis: {
 		type: 'category',
-		data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+		data: ${date}
 	},
 yAxis: {
 		type: 'value',
+		max: ${maxVal}
 	},
 tooltip: {trigger:'axis'},
 series: [
  {
-   data: [0, 0, 0, 0, 0, 0, 100, 100, 100, 0, 0, 0],
+   data: ${margin},
    type: 'line'
  }
 ]
 };
 chartt.on('highlight', (p) => {
 chartt.setOption({
-   title: {text: '조회 날짜 : ' +((p.batch[0].dataIndex)+1)+'일' }, 
+   title: {text: '조회 날짜 : ' +((p.batch[0].dataIndex)+1)+'월' }, 
 });
 });
 
