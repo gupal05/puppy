@@ -348,7 +348,7 @@
 	<c:forEach var="best" items="${bestItem}">
 	<c:forEach var="img" items="${best.imgList}">
 		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${best.productsCode}')">
-			<img alt="test" src="resources/productImg/${img.img}" width="300px" height="300px">
+			<img alt="test" src="resources/productImg/${img.img}" width="300px" height="300px" style="border: 1px solid black;">
 			<div style="padding: 12.5px;"></div>
 			<div id="bestTitle">
 			${best.productsName}
