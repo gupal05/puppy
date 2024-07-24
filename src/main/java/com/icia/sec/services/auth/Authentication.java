@@ -375,7 +375,10 @@ public class Authentication extends TransactionAssistant {
 					page = "afterPage";
 				}else {
 					map.put("totalOrderCount", this.sqlSession.selectOne("getTotlaOrderCount"));
-					map.put("totalOrderPrice", this.sqlSession.selectOne("getTotalOrderPrice"));
+					int totalOrderPrice = this.sqlSession.selectOne("getTotalOrderPrice");
+					int count = this.sqlSession.selectOne("getOrderPriceCount");
+					totalOrderPrice -= (3000 * count);
+					map.put("totalOrderPrice", totalOrderPrice);
 					map.put("totalOrderDiscount", this.sqlSession.selectOne("getTotalOrderDiscount"));
 					map.put("totalOrderComplete", this.sqlSession.selectOne("getTotalOrderComplete"));
 					map.put("totalOrderDeliveryRedy", this.sqlSession.selectOne("getTotalOrderDeliveryRedy"));

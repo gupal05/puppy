@@ -88,4 +88,9 @@
 	]]>
 </select>
 
+<select id="getOrderPriceCount" resultType="int">
+	SELECT COUNT(*)
+	FROM OC
+</select>
+
 </mapper>
