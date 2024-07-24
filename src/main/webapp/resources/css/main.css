@@ -527,7 +527,7 @@ span.swiper-pagination-bullet {
 	position: absolute;
 	z-index: 999;
 	display: none;
-	margin-left: 342px;
+	margin-left: 17.97%;
 	border: 0.3px solid #ccc;
 	background-color: white;
 }
@@ -540,7 +540,7 @@ span.swiper-pagination-bullet {
 }
 
 .cateText-in{
-	padding: 8px 0px;
+	padding: 4px 0px;
 	font-weight: bold;
 	color: #999999;
 }

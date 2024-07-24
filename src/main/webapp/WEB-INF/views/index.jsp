@@ -60,15 +60,93 @@
 			<i class="fa-solid fa-chevron-up"></i>
 		</div>
 	</div>
-	<div style="width: 80%; display: flex; justify-content: center; line-height: 33.875px; cursor: pointer;">
-		<div class="cate-content" onclick="cateDTop(this, 'topSnackCateDetail')">간식</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topToyCateDetail')">장난감/훈련용품</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topFeedCateDetail')">사료/영양제</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topHairCateDetail')">미용용품</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topCleanCateDetail')">위생용품</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topDishCateDetail')">식기</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topWalkCateDetail')">외출용품</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topHouseCateDetail')">집/쿠션</div>
+	<div style="width: 80%; display: flex; justify-content: center; line-height: 33.875px; cursor: pointer; position: relative;">
+		<div class="cate-content" onclick="cateDTop(this, 'topSnackCateDetail')" style=" position: relative;">간식
+		<div class="top-fix-bar" id="topSnackCateDetail" style="width: 234.4%; height: 293.16px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('1')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('1-0')">강아지껌</div>
+			<div class="cateText-in" onclick="getProductPage('1-1')">비스킷/스낵</div>
+			<div class="cateText-in" onclick="getProductPage('1-2')">수제간식</div>
+			<div class="cateText-in" onclick="getProductPage('1-3')">육류</div>
+			<div class="cateText-in" onclick="getProductPage('1-4')">시저/캔</div>
+			<div class="cateText-in" onclick="getProductPage('1-5')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topToyCateDetail')" style=" position: relative;">장난감/훈련용품
+		<div class="top-fix-bar" id="topToyCateDetail" style="width: 102.6%; height: 251.28px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('0')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('0-0')">공/원반</div>
+			<div class="cateText-in" onclick="getProductPage('0-1')">인형</div>
+			<div class="cateText-in" onclick="getProductPage('0-2')">노즈워크</div>
+			<div class="cateText-in" onclick="getProductPage('0-3')">간식볼</div>
+			<div class="cateText-in" onclick="getProductPage('0-4')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topFeedCateDetail')" style=" position: relative;">사료/영양제
+		<div class="top-fix-bar" id="topFeedCateDetail" style="width: 128.8%; height: 251.28px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('2')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('2-0')">건식사료</div>
+			<div class="cateText-in" onclick="getProductPage('2-1')">습식사료</div>
+			<div class="cateText-in" onclick="getProductPage('2-2')">우유/분유</div>
+			<div class="cateText-in" onclick="getProductPage('2-3')">영양제</div>
+			<div class="cateText-in" onclick="getProductPage('2-4')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topHairCateDetail')" style=" position: relative;">미용용품
+		<div class="top-fix-bar" id="topHairCateDetail" style="width: 158.8%; height: 335.04px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('3')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('3-0')">드라이기</div>
+			<div class="cateText-in" onclick="getProductPage('3-1')">발톱관리</div>
+			<div class="cateText-in" onclick="getProductPage('3-2')">브러시</div>
+			<div class="cateText-in" onclick="getProductPage('3-3')">샤워기/타월</div>
+			<div class="cateText-in" onclick="getProductPage('3-4')">샴푸/린스</div>
+			<div class="cateText-in" onclick="getProductPage('3-5')">이발기/가위</div>
+			<div class="cateText-in" onclick="getProductPage('3-6')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topCleanCateDetail')" style=" position: relative;">위생용품
+		<div class="top-fix-bar" id="topCleanCateDetail" style="width: 158.8%; height: 418.8px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('4')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('4-0')">구강위생용품</div>
+			<div class="cateText-in" onclick="getProductPage('4-1')">기저귀</div>
+			<div class="cateText-in" onclick="getProductPage('4-2')">배변봉투</div>
+			<div class="cateText-in" onclick="getProductPage('4-3')">배변판</div>
+			<div class="cateText-in" onclick="getProductPage('4-4')">배변패드</div>
+			<div class="cateText-in" onclick="getProductPage('4-5')">탈취/소독제</div>
+			<div class="cateText-in" onclick="getProductPage('4-6')">눈/귀 위생용품</div>
+			<div class="cateText-in" onclick="getProductPage('4-7')">넥카라</div>
+			<div class="cateText-in" onclick="getProductPage('4-8')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topDishCateDetail')" style=" position: relative;">식기
+		<div class="top-fix-bar" id="topDishCateDetail" style="width: 234.4%; height: 251.28px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('5')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('5-0')">급수기</div>
+			<div class="cateText-in" onclick="getProductPage('5-1')">급식기</div>
+			<div class="cateText-in" onclick="getProductPage('5-2')">정수기</div>
+			<div class="cateText-in" onclick="getProductPage('5-3')">사료보관통</div>
+			<div class="cateText-in" onclick="getProductPage('5-4')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topWalkCateDetail')" style=" position: relative;">외출용품
+		<div class="top-fix-bar" id="topWalkCateDetail" style="width: 158.8%; height: 418.8px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('6')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('6-0')">가슴줄</div>
+			<div class="cateText-in" onclick="getProductPage('6-1')">리드줄</div>
+			<div class="cateText-in" onclick="getProductPage('6-2')">목걸이/인식표</div>
+			<div class="cateText-in" onclick="getProductPage('6-3')">목줄</div>
+			<div class="cateText-in" onclick="getProductPage('6-4')">유모차</div>
+			<div class="cateText-in" onclick="getProductPage('6-5')">이동가방/이동장</div>
+			<div class="cateText-in" onclick="getProductPage('6-6')">차량용캐리어/시트</div>
+			<div class="cateText-in" onclick="getProductPage('6-7')">입마개</div>
+			<div class="cateText-in" onclick="getProductPage('6-8')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topHouseCateDetail')" style=" position: relative;">집/쿠션
+		<div class="top-fix-bar" id="topHouseCateDetail" style="width: 174.6%; height: 376.92px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('7')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('7-0')">계단/스텝</div>
+			<div class="cateText-in" onclick="getProductPage('7-1')">매트</div>
+			<div class="cateText-in" onclick="getProductPage('7-2')">안전문</div>
+			<div class="cateText-in" onclick="getProductPage('7-3')">울타리</div>
+			<div class="cateText-in" onclick="getProductPage('7-4')">쿠션/방석</div>
+			<div class="cateText-in" onclick="getProductPage('7-5')">하우스/텐트</div>
+			<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
+			<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
+    	</div></div>
 		<div></div>
 		<div class="cate-content">Q & A</div>
 		<div class="cate-content">REVIEW</div>
@@ -86,88 +164,6 @@
 		</div>
 	</div>
 <div style="width: 100%; height: 0.5px; margin-top: 50px; position: fixed; background-color: #eee;"></div>
-</div>
-<div id="top-fix-toggle" style="width: 100%; position: fixed; top: 50px; left: 0; z-index: 998; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-    <div style="width: 61.5%; position: absolute; z-index: 998; text-align: center;">
-    	<div class="top-fix-bar" id="topSnackCateDetail" style="width: 15%; height: 259px; position: absolute; left: 0; z-index: 998; display: none;">
-    		<div class="cateText-in" onclick="getProductPage('1')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('1-0')">강아지껌</div>
-			<div class="cateText-in" onclick="getProductPage('1-1')">비스킷/스낵</div>
-			<div class="cateText-in" onclick="getProductPage('1-2')">수제간식</div>
-			<div class="cateText-in" onclick="getProductPage('1-3')">육류</div>
-			<div class="cateText-in" onclick="getProductPage('1-4')">시저/캔</div>
-			<div class="cateText-in" onclick="getProductPage('1-5')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topToyCateDetail" style="width: 15%; height: 222px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 9%;">
-    		<div class="cateText-in" onclick="getProductPage('0')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('0-0')">공/원반</div>
-			<div class="cateText-in" onclick="getProductPage('0-1')">인형</div>
-			<div class="cateText-in" onclick="getProductPage('0-2')">노즈워크</div>
-			<div class="cateText-in" onclick="getProductPage('0-3')">간식볼</div>
-			<div class="cateText-in" onclick="getProductPage('0-4')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topFeedCateDetail" style="width: 15%; height: 222px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 21%;">
-    		<div class="cateText-in" onclick="getProductPage('2')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('2-0')">건식사료</div>
-			<div class="cateText-in" onclick="getProductPage('2-1')">습식사료</div>
-			<div class="cateText-in" onclick="getProductPage('2-2')">우유/분유</div>
-			<div class="cateText-in" onclick="getProductPage('2-3')">영양제</div>
-			<div class="cateText-in" onclick="getProductPage('2-4')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topHairCateDetail" style="width: 15%; height: 296px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 30.8%;">
-    		<div class="cateText-in" onclick="getProductPage('3')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('3-0')">드라이기</div>
-			<div class="cateText-in" onclick="getProductPage('3-1')">발톱관리</div>
-			<div class="cateText-in" onclick="getProductPage('3-2')">브러시</div>
-			<div class="cateText-in" onclick="getProductPage('3-3')">샤워기/타월</div>
-			<div class="cateText-in" onclick="getProductPage('3-4')">샴푸/린스</div>
-			<div class="cateText-in" onclick="getProductPage('3-5')">이발기/가위</div>
-			<div class="cateText-in" onclick="getProductPage('3-6')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topCleanCateDetail" style="width: 15%; height: 370px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 39%;">
-    		<div class="cateText-in" onclick="getProductPage('4')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('4-0')">구강위생용품</div>
-			<div class="cateText-in" onclick="getProductPage('4-1')">기저귀</div>
-			<div class="cateText-in" onclick="getProductPage('4-2')">배변봉투</div>
-			<div class="cateText-in" onclick="getProductPage('4-3')">배변판</div>
-			<div class="cateText-in" onclick="getProductPage('4-4')">배변패드</div>
-			<div class="cateText-in" onclick="getProductPage('4-5')">탈취/소독제</div>
-			<div class="cateText-in" onclick="getProductPage('4-6')">눈/귀 위생용품</div>
-			<div class="cateText-in" onclick="getProductPage('4-7')">넥카라</div>
-			<div class="cateText-in" onclick="getProductPage('4-8')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topDishCateDetail" style="width: 15%; height: 222px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 46.3%;">
-    		<div class="cateText-in" onclick="getProductPage('5')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('5-0')">급수기</div>
-			<div class="cateText-in" onclick="getProductPage('5-1')">급식기</div>
-			<div class="cateText-in" onclick="getProductPage('5-2')">정수기</div>
-			<div class="cateText-in" onclick="getProductPage('5-3')">사료보관통</div>
-			<div class="cateText-in" onclick="getProductPage('5-4')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topWalkCateDetail" style="width: 15%; height: 370px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 53.5%;">
-    		<div class="cateText-in" onclick="getProductPage('6')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('6-0')">가슴줄</div>
-			<div class="cateText-in" onclick="getProductPage('6-1')">리드줄</div>
-			<div class="cateText-in" onclick="getProductPage('6-2')">목걸이/인식표</div>
-			<div class="cateText-in" onclick="getProductPage('6-3')">목줄</div>
-			<div class="cateText-in" onclick="getProductPage('6-4')">유모차</div>
-			<div class="cateText-in" onclick="getProductPage('6-5')">이동가방/이동장</div>
-			<div class="cateText-in" onclick="getProductPage('6-6')">차량용캐리어/시트</div>
-			<div class="cateText-in" onclick="getProductPage('6-7')">입마개</div>
-			<div class="cateText-in" onclick="getProductPage('6-8')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topHouseCateDetail" style="width: 15%; height: 333px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 61.7%;">
-    		<div class="cateText-in" onclick="getProductPage('7')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('7-0')">계단/스텝</div>
-			<div class="cateText-in" onclick="getProductPage('7-1')">매트</div>
-			<div class="cateText-in" onclick="getProductPage('7-2')">안전문</div>
-			<div class="cateText-in" onclick="getProductPage('7-3')">울타리</div>
-			<div class="cateText-in" onclick="getProductPage('7-4')">쿠션/방석</div>
-			<div class="cateText-in" onclick="getProductPage('7-5')">하우스/텐트</div>
-			<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
-			<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
-    	</div>
-    </div>
 </div>
 <div id="firstLine">
 	<a>신규가입 하고 10% 쿠폰 받기! </a>
@@ -352,7 +348,7 @@
 	<c:forEach var="best" items="${bestItem}">
 	<c:forEach var="img" items="${best.imgList}">
 		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${best.productsCode}')">
-			<img alt="test" src="resources/productImg/${img.img}" width="100%" height="300px">
+			<img alt="test" src="resources/productImg/${img.img}" width="300px" height="300px">
 			<div style="padding: 12.5px;"></div>
 			<div id="bestTitle">
 			${best.productsName}
@@ -375,7 +371,7 @@
 	<c:forEach var="newItem" items="${newItem}">
 	<c:forEach var="image" items="${newItem.imgList}">
 		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${newItem.productsCode}')">
-			<img alt="test" src="resources/productImg/${image.img}" width="100%" height="300px">
+			<img alt="test" src="resources/productImg/${image.img}" width="100%" height="80.28%">
 			<div style="padding: 12.5px;"></div>
 			<div id="bestTitle">
 			${newItem.productsName}
@@ -587,6 +583,11 @@
 
 <!-- Initialize Swiper -->
 <script>
+//전체 페이지의 width를 출력합니다.
+console.log("Document width: " + document.documentElement.scrollWidth + "px");
+console.log("Window inner width: " + window.innerWidth + "px");
+
+
 document.addEventListener('DOMContentLoaded', function() {
 	var user = '${userInfo}';
 	if(user == null || user == ''){
