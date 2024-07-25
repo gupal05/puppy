@@ -312,7 +312,6 @@ public class Product extends TransactionAssistant {
 			System.out.println(e);
 		}finally {
 			acc = Integer.toString((int) (Integer.parseInt(pro.getProductsPrice()) * 0.01));
-			System.out.println(acc);
 			mav.addObject("cate", List);
 			mav.addObject("acc", acc);
 			mav.addObject("pro", pro);
