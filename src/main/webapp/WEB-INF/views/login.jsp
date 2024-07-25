@@ -203,15 +203,15 @@ integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/
 		<div id="menuArea">
 			<i class="fa-solid fa-bars" id="menuBar" onclick="aa()"></i>
 		</div>
-		<div id="ci" class="snackCate" onmouseover="flexToggle()" onmouseout="noneToggle()">간식</div>
-		<div id="ci" class="toyCate" onmouseover="flexToggle()" onmouseout="noneToggle()">장난감/훈련용품</div>
-		<div id="ci" class="feedCate" onmouseover="flexToggle()" onmouseout="noneToggle()">사료/영양제</div>
-		<div id="ci" class="hairCate" onmouseover="flexToggle()" onmouseout="noneToggle()">미용용품</div>
-		<div id="ci" class="cleanCate" onmouseover="flexToggle()" onmouseout="noneToggle()">위생용품</div>
-		<div id="ci" class="dishCate" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
-		<div id="ci" class="walkCate" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
-		<div id="ci" class="houseCate" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
-		<div id="ci">검색</div>
+		<div id="snackCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">간식</div>
+		<div id="toyCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">장난감/훈련용품</div>
+		<div id="feedCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">사료/영양제</div>
+		<div id="hairCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">미용용품</div>
+		<div id="cleanCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">위생용품</div>
+		<div id="dishCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
+		<div id="walkCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
+		<div id="houseCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
+		<div id="etc" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()" >기타</div>
 	</div>
 </div>
 <div id="navLine"></div>
@@ -294,6 +294,12 @@ integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/
 		<div class="cateText-in" onclick="getProductPage('7-5')">하우스/텐트</div>
 		<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
 		<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
+	</div>
+	<div class="cateText" id="etc" style="height: 370px;" onmouseover="flexToggle()" onmouseout="noneToggle()">
+		<div class="cateText-in" onclick="serverCallByRequest('search', 'get', '')"> 상품 검색</div>
+		<div class="cateText-in" onclick="serverCallByRequest('QnA')">상품 문의</div>
+		<div class="cateText-in" onclick="serverCallByRequest('review')">상품 후기</div>
+		<div class="cateText-in" onclick="serverCallByRequest('notice')">공지사항</div>
 	</div>
 </div>
 <div id="miniText">
@@ -543,6 +549,7 @@ integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/
 
 <!-- Initialize Swiper -->
 <script>
+
 //네이버 로그인
 var naverLogin = new naver.LoginWithNaverId(
 		{
@@ -597,183 +604,6 @@ function kakaoLogin() {
 	  });  
 	        
 	}
-
-function checkAll(){
-	const totalAgreeCheckbox = document.getElementById("total-agree");
-    const dirrhks1Checkbox = document.getElementById("checkAgree1");
-    const dirrhks2Checkbox = document.getElementById("checkAgree2");
-
-    // "전체 동의" 체크박스 상태에 따라 하위 체크박스 상태 변경
-    dirrhks1Checkbox.checked = totalAgreeCheckbox.checked;
-    dirrhks2Checkbox.checked = totalAgreeCheckbox.checked;
-	
-}
-//카카오 우편번호
-function openKakaoPostcode() {
-	new daum.Postcode({
-	oncomplete: function(data) {
-    		// 주소와 우편번호를 받아온 후 각각의 입력 필드에 설정
-    		document.getElementsByClassName('userAddr')[0].value = data.address;
-    		document.getElementsByClassName('userZip')[0].value = data.zonecode;
-		}
-	}).open();
-}
-
-//비밀번호 일치 확인
-function checkPasswordMatch() {
-		    const password = document.getElementsByClassName('userPw')[0].value;
-		    const confirmPassword = document.getElementsByClassName('pwResult')[0].value;
-		    const pwResultInput = document.getElementsByClassName('pwResult')[0];
-
-		    if (password !== confirmPassword) {
-		        // 비밀번호 불일치 처리
-		        pwResultInput.style.backgroundColor = 'red'; // 연한 붉은색 테두리로 변경
-		    } else {
-		        // 비밀번호 일치 처리
-		        pwResultInput.style.backgroundColor = '#B0FFB0'; // 기본 테두리 색상으로 변경 (혹은 원하는 다른 색상으로 변경 가능)
-		    }
-		}
-//아이디 중복체크
-function dupIdCheck() {
-    let formData = new FormData();
-    const id = document.getElementsByClassName('userId')[0];
-	const exText = document.getElementById('ex-text2');
-	
-    if (id.value.length >= 4 && id.value.length <= 16) {
-        formData.append(id.name, id.value);
-        serverCallByFetchAjax(formData, "dupIdCheck", "post", "dupIdCheckResult");
-    } else {
-        alert("아이디는 영문소문자 또는 숫자 4~16자로 입력해 주세요.");
-        id.value = '';
-		id.focus();
-    }
-}
-
-function dupIdCheckResult(jsonData) {
-	if (jsonData.message != null) {
-		alert(jsonData.message);
-		const id = document.getElementsByClassName('userId')[0];
-		id.value = '';
-		id.focus();
-	}else{
-		const idButton = document.getElementById('idCheck-btn');
-		alert("사용 가능한 아이디 입니다.");
-		idButton.style.display = "none";
-		const id = document.getElementsByClassName('userId')[0];
-		const pw = document.getElementsByClassName('userPw')[0];
-		id.readOnly = true;
-		id.style.backgroundColor= '#7FE8D5';
-		pw.focus();
-	}
-}
-//전화번호 입력을 안 했을 경우 알림
-function phoneAlert(){
-	var secPhone = document.getElementById("secPhone").value;
-    var trdPhone = document.getElementById("trdPhone").value;
-    var phoneAlert = document.getElementById("phoneAlert");
-
-    // secPhone과 trdPhone 둘 중 하나라도 값이 없으면 알림을 보여줌
-    if (!secPhone || !trdPhone) {
-        phoneAlert.style.display = "block";
-    } else {
-        phoneAlert.style.display = "none";
-    }
-}
-
-//회원가입
-function join() {
-		    const userName = document.getElementsByClassName('userName')[0];
-		    const firstPart = document.getElementsByClassName('firstPart')[0];
-		    const secondPart = document.getElementsByClassName('secondPart')[0];
-		    const firstPhone = document.getElementsByClassName('firstPhone')[0];
-		    const secondPhone = document.getElementsByClassName('secondPhone')[0];
-		    const thirdPhone = document.getElementsByClassName('thirdPhone')[0];
-		    const userAddr = document.getElementsByClassName('userAddr')[0];
-		    const userZip = document.getElementsByClassName('userZip')[0];
-		    const addrDetail = document.getElementsByClassName('addrDetail')[0];
-		    const userEmail = document.getElementsByClassName('userEmail')[0];
-		    const userId = document.getElementsByClassName('userId')[0];
-		    const userPw = document.getElementsByClassName('userPw')[0];
-		    const pwResult = document.getElementsByClassName('pwResult')[0];
-		    const dirrhks1Checkbox = document.getElementById("checkAgree1");
-		    const dirrhks2Checkbox = document.getElementById("checkAgree2");
-
-		    if (
-		        userName.value.trim() === '' ||
-		        firstPart.value.trim() === '' ||
-		        secondPart.value.trim() === '' ||
-		        firstPhone.value.trim() === '' ||
-		        secondPhone.value.trim() === '' ||
-		        thirdPhone.value.trim() === '' ||
-		        userAddr.value.trim() === '' ||
-		        userZip.value.trim() === '' ||
-		        addrDetail.value.trim() === '' ||
-		        userEmail.value.trim() === '' ||
-		        userId.value.trim() === '' ||
-		        userPw.value.trim() === '' ||
-		        pwResult.value.trim() === ''
-		    ) {
-		        let emptyField = null;
-		        if (userId.value.trim() === '') emptyField = userId;
-		        else if (firstPart.value.trim() === '') emptyField = firstPart;
-		        else if (secondPart.value.trim() === '') emptyField = secondPart;
-		        else if (firstPhone.value.trim() === '') emptyField = firstPhone;
-		        else if (secondPhone.value.trim() === '') emptyField = secondPhone;
-		        else if (thirdPhone.value.trim() === '') emptyField = thirdPhone;
-		        else if (userAddr.value.trim() === '') emptyField = userAddr;
-		        else if (userZip.value.trim() === '') emptyField = userZip;
-		        else if (addrDetail.value.trim() === '') emptyField = addrDetail;
-		        else if (userEmail.value.trim() === '') emptyField = userEmail;
-		        else if (userName.value.trim() === '') emptyField = userName;
-		        else if (userPw.value.trim() === '') emptyField = userPw;
-		        else if (pwResult.value.trim() === '') emptyField = pwResult;
-
-		        alert('필수 입력 항목을 모두 입력해주세요.');
-		        emptyField.focus();
-		    } else {
-		    	if(dirrhks1Checkbox.checked){
-		    		if(dirrhks2Checkbox.checked){
-		    			const userCode = firstPart.value + secondPart.value;
-						const userPhone = firstPhone.value + secondPhone.value + thirdPhone.value;
-				    	let formData = new FormData;
-				    	formData.append(userName.name, userName.value);
-				    	formData.append("userCode", userCode);
-				    	formData.append("userPhone", userPhone);
-				    	formData.append(userAddr.name, userAddr.value);
-				    	formData.append(userZip.name, userZip.value);
-				    	formData.append(addrDetail.name, addrDetail.value);
-				    	formData.append(userEmail.name, userEmail.value);
-				    	formData.append(userId.name, userId.value);
-				    	formData.append(userPw.name, userPw.value);
-				    	serverCallByFetchAjax(formData, "joinMember", "post","joinMemberResult");
-		    		}else{
-		    			alert("필수 선택 항목입니다.");
-		    			dirrhks2Checkbox.focus();
-		    		}
-		    	}else{
-		    		alert("필수 선택 항목입니다.");
-		    		dirrhks1Checkbox.focus();
-		    	}
-		    }
-		}
-	
-//회원가입 콜백
-function joinMemberResult(jsonData){
-	alert(jsonData.message);
-	if(jsonData.message == "성공적으로 회원가입이 되었습니다!"){
-		serverCallByRequest('pageTest','get','');
-	}else{
-		// 모든 입력 필드의 값을 지웁니다
-        const inputFields = document.querySelectorAll('input[type="text"], input[type="password"], input[type="email"], input[type="checkbox"]');
-        inputFields.forEach(input => {
-            input.value = '';
-        });
-
-        // "이름" 텍스트 상자에 포커스를 맞춥니다
-        const userName = document.getElementsByClassName('userId')[0];
-        userName.focus();
-	}
-}
 
 //메뉴바 카테고리 클릭
 function clickCate(index) {
@@ -849,26 +679,6 @@ function toggleExit(){
         exitButton.value = "열기";
     }
 }
-
-var swiper = new Swiper('.swiper-container', {
-	pagination: {
-		el: ".swiper-pagination",
-        clickable : true,
-        },
-        paginationClickable: '.swiper-pagination',
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-          
-        spaceBetween: 0,
-        effect: 'fade',
-		autoplay:{
-			delay:2500, //슬라이드 바뀌는 시간
-			disableOnInteraction : false,
-		},
-		loop : true,
-    });
     
 function getProductPage(data){
 	let formChild = [[]];

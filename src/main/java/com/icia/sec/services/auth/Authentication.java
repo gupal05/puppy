@@ -113,7 +113,7 @@ public class Authentication extends TransactionAssistant {
 			this.modifyAfter(mav);
 			break;
 		}
-	}
+	} 
 	
 	private void modifyAfter(ModelAndView mav) {
 		session.removeAttribute("userInfo");
@@ -274,7 +274,7 @@ public class Authentication extends TransactionAssistant {
 	}
 	
 	private void naverLogin(ModelAndView mav) {
-		String page = "afterPage";
+		String page = "index";
 		UserBean user = (UserBean) mav.getModel().get("user");
 		CouponBean cou = new CouponBean();
 		ArrayList<CouponBean> cpList = new ArrayList<CouponBean>();
@@ -372,7 +372,7 @@ public class Authentication extends TransactionAssistant {
 					List = this.sqlSession.selectList("getPageCate");
 					bestPro = this.sqlSession.selectList("getBestProduct");
 					newPro = this.sqlSession.selectList("getNewProduct");
-					page = "afterPage";
+					page = "index";
 				}else {
 					map.put("totalOrderCount", this.sqlSession.selectOne("getTotlaOrderCount"));
 					int totalOrderPrice = this.sqlSession.selectOne("getTotalOrderPrice");
@@ -406,8 +406,6 @@ public class Authentication extends TransactionAssistant {
 					}
 					page = "admin_index";
 				}
-			}else {
-				page = "index";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -442,20 +440,15 @@ public class Authentication extends TransactionAssistant {
 			System.out.println(e);
 		}finally {
 			this.tranManager.tranEnd();
-			if(user != null) {
-				page = "afterPage";
-			}else {
-				page = "index";
-			}
 			mav.addObject("newItem", newPro);
 			mav.addObject("bestItem", bestPro);
 			mav.addObject("cate", List);
-			mav.setViewName(page);
+			mav.setViewName("index");
 		}
 	}
 	
 	private void kakaoLogin(ModelAndView mav) {
-		String page = "afterPage";
+		String page = "index";
 		UserBean user = (UserBean) mav.getModel().get("user");
 		CouponBean cou = new CouponBean();
 		ArrayList<CouponBean> cpList = new ArrayList<CouponBean>();
@@ -628,7 +621,7 @@ public class Authentication extends TransactionAssistant {
 			mav.addObject("newItem", newPro);
 			mav.addObject("bestItem", bestPro);
 			mav.addObject("cate", List);
-			mav.setViewName("logoutPage");
+			mav.addObject("logOut", "out");
 		}
 	}
 	

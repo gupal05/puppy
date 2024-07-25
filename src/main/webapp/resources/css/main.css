@@ -133,7 +133,7 @@ body {
 	display: flex;
 	justify-content: right;
 }
-#ci{
+.ci{
 	font-family: 'Dongle', sans-serif;
 	font-family: 'IBM Plex Sans KR', sans-serif;
 	font-family: 'Jua', sans-serif;
@@ -503,6 +503,7 @@ span.swiper-pagination-bullet {
 #bestProduct{
 	float: left;
 	width: 25%;
+	height: 25%;
 	box-sizing: border-box; /* padding과 border를 포함하여 요소의 크기를 계산하도록 설정 */
 	padding: 20px;
 }
@@ -539,10 +540,16 @@ span.swiper-pagination-bullet {
 	border-left: 0.5px solid #ccc;
 }
 
-.cateText-in{
+.cateText-in {
 	padding: 4px 0px;
 	font-weight: bold;
 	color: #999999;
+}
+
+@media (max-width: 1744px) {
+	.cateText-in {
+		font-size: 12px;
+	}
 }
 .cateText-in:hover{
 	background-color: #eee;

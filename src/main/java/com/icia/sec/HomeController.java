@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -137,10 +138,6 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/loginPage", method = RequestMethod.GET)
-	public String loginPage(ModelAndView mav) {
-		return "loginPage";
-	}
 	
 	@RequestMapping(value="/afterLogin", method = RequestMethod.POST)
 	public ModelAndView afterLogin(ModelAndView mav) {
@@ -202,8 +199,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/logOut", method = RequestMethod.GET)
-	public ModelAndView logOut(ModelAndView mav) {
+	public ModelAndView logOut(ModelAndView mav, HttpServletResponse response) {
 		this.auth.backController("LO", mav);
+//		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+//	    response.setHeader("Pragma", "no-cache");
+//	    response.setHeader("Expires", "0");
+	    mav.setViewName("index");
 		return mav;
 	}
 	
@@ -284,12 +285,6 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/showProductNone", method = RequestMethod.GET)
-	public ModelAndView showProductNone(ModelAndView mav, @ModelAttribute ProductsBean product) {
-		mav.addObject("product", product);
-		pro.backController("SPN", mav);
-		return mav;
-	}
 	@RequestMapping(value="/showProduct", method = RequestMethod.POST)
 	public ModelAndView showProduct(ModelAndView mav, @ModelAttribute ProductsBean product) {
 		mav.addObject("product", product);

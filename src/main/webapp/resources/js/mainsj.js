@@ -10,9 +10,6 @@ document.onkeydown = function(event){
 };
 */
 
-
-
-
 function beforeLogout(Data){
 	const Info = Data;
 	const accessToken = getJWT();

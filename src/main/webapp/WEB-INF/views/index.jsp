@@ -178,10 +178,50 @@
 		<div id="cc">
 		</div>
 		<div id="rr">
-			<input type="button" id="rr-btn" value="회원가입" onClick="serverCallByRequest('join','get','')">
-			<div id="rr-icon">/</div>
-			<input type="button" id="rr-btn" value="로그인" onclick="serverCallByRequest('login','get','')">
-		</div>
+				<c:choose>
+					<c:when test="${empty userInfo}">
+						<input type="button" id="rr-btn" value="회원가입"
+							onClick="serverCallByRequest('join','get','')">
+						<div id="rr-icon">/</div>
+						<input type="button" id="rr-btn" value="로그인"
+							onclick="serverCallByRequest('login','get','')">
+					</c:when>
+					<c:otherwise>
+						<input type="button" id="rr-btn" value="로그아웃" onClick="logOut()">
+						<div id="rr-icon">/</div>
+						<div id="rr-tooltip" onmouseover="flexToolTip()"
+							onmouseout="noneToolTip()">
+							<div id="in-myBox">
+								<div id="myList"
+									onclick="serverCallByRequest('modifyUserInfo', 'post', '')">
+									내 정보 수정</div>
+								<div id="myList"
+									onclick="serverCallByRequest('cartPage','post','')">장바구니
+								</div>
+								<div id="myList"
+									onclick="serverCallByRequest('orderViewPage', 'post', '')">
+									주문목록</div>
+								<div id="myList"
+									onclick="serverCallByRequest('couponPage','post','')">쿠폰
+									/ 적립</div>
+								<div id="myList"
+									onclick="serverCallByRequest('wishPage','post','')">찜 상품
+								</div>
+							</div>
+						</div>
+						<c:if test="${userInfo.userGrade eq '0'}">
+							<button onclick="serverCallByRequest('afterPage','get','')"
+								style="font-weight: bold; border: none; background-color: red; cursor: pointer;">관리자
+								페이지 이동</button>
+						</c:if>
+						<c:if test="${userInfo.userGrade eq '1'}">
+							<input type="button" value="${userInfo.userName}"
+								style="color: #31CAAE;" id="rr-btn" onmouseover="flexToolTip()"
+								onmouseout="noneToolTip()">
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+			</div>
 </div>
 <div id="line"></div>
 <div id="logoArea">
@@ -193,15 +233,15 @@
 		<div id="menuArea">
 			<i class="fa-solid fa-bars" id="menuBar" onclick="aa()"></i>
 		</div>
-		<div id="ci" class="snackCate" onmouseover="flexToggle()" onmouseout="noneToggle()">간식</div>
-		<div id="ci" class="toyCate" onmouseover="flexToggle()" onmouseout="noneToggle()">장난감/훈련용품</div>
-		<div id="ci" class="feedCate" onmouseover="flexToggle()" onmouseout="noneToggle()">사료/영양제</div>
-		<div id="ci" class="hairCate" onmouseover="flexToggle()" onmouseout="noneToggle()">미용용품</div>
-		<div id="ci" class="cleanCate" onmouseover="flexToggle()" onmouseout="noneToggle()">위생용품</div>
-		<div id="ci" class="dishCate" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
-		<div id="ci" class="walkCate" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
-		<div id="ci" class="houseCate" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
-		<div id="ci" class="etc" onmouseover="flexToggle()" onmouseout="noneToggle()" >기타</div>
+		<div id="snackCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">간식</div>
+		<div id="toyCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">장난감/훈련용품</div>
+		<div id="feedCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">사료/영양제</div>
+		<div id="hairCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">미용용품</div>
+		<div id="cleanCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">위생용품</div>
+		<div id="dishCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
+		<div id="walkCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
+		<div id="houseCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
+		<div id="etc" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()" >기타</div>
 	</div>
 </div>
 <div id="navLine"></div>
@@ -344,48 +384,99 @@
 	<div id="bestProductArea">
 		<div id="bestItemText">BEST ITME</div>
 	</div>
-	<div id="best">
-	<c:forEach var="best" items="${bestItem}">
-	<c:forEach var="img" items="${best.imgList}">
-		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${best.productsCode}')">
-			<img alt="test" src="resources/productImg/${img.img}" width="300px" height="300px" style="border: 1px solid black;">
-			<div style="padding: 12.5px;"></div>
-			<div id="bestTitle">
-			${best.productsName}
-			</div>
-			<input type="hidden" value="${best.productsCode}">
-			<div id="line"></div>
-			<div id="bestPrice">
-				<fmt:formatNumber value="${best.productsPrice}" pattern="#,###원" var="formattedPrice" />
-                <c:out value="${formattedPrice}" />
-			</div>
+		<div id="best">
+			<c:choose>
+				<c:when test="${empty userInfo}">
+					<c:forEach var="best" items="${bestItem}">
+						<c:forEach var="img" items="${best.imgList}">
+							<div id="bestProduct" style="cursor: pointer;"
+								onclick="showProduct('${best.productsCode}')">
+								<img alt="test" src="resources/productImg/${img.img}"
+									width="100%" height="80.28%" style="border: 1px solid black;">
+								<div style="padding: 12.5px;"></div>
+								<div id="bestTitle">${best.productsName}</div>
+								<input type="hidden" value="${best.productsCode}">
+								<div id="line"></div>
+								<div id="bestPrice">
+									<fmt:formatNumber value="${best.productsPrice}"
+										pattern="#,###원" var="formattedPrice" />
+									<c:out value="${formattedPrice}" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="best" items="${bestItem}">
+						<c:forEach var="img" items="${best.imgList}">
+							<div id="bestProduct" style="cursor: pointer;"
+								onclick="showProduct('${best.productsCode}')">
+								<img alt="test" src="resources/productImg/${img.img}"
+									width="100%" height="300px">
+								<div style="padding: 12.5px;"></div>
+								<div id="bestTitle">
+									${best.productsName}
+									<div style="display: none;">${best.productsCode}</div>
+								</div>
+								<div id="line"></div>
+								<div id="bestPrice">
+									<fmt:formatNumber value="${best.productsPrice}"
+										pattern="#,###원" var="formattedPrice" />
+									<c:out value="${formattedPrice}" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
-		</c:forEach>
-		</c:forEach>
-	</div>
 	<div id="line" style="margin-top: 30px;"></div>
 	<div id="bestProductArea">
 		<div id="bestItemText">NEW ITME</div>
 	</div>
 	<div id="best">
-	<c:forEach var="newItem" items="${newItem}">
-	<c:forEach var="image" items="${newItem.imgList}">
-		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${newItem.productsCode}')">
-			<img alt="test" src="resources/productImg/${image.img}" width="100%" height="80.28%">
-			<div style="padding: 12.5px;"></div>
-			<div id="bestTitle">
-			${newItem.productsName}
-			</div>
-			<input type="hidden" value="${newItem.productsCode}">
-			<div id="line"></div>
-			<div id="bestPrice">
-				<fmt:formatNumber value="${newItem.productsPrice}" pattern="#,###원" var="formattedPrice" />
-                <c:out value="${formattedPrice}" />
-			</div>
+			<c:choose>
+				<c:when test="${empty userInfo}">
+					<c:forEach var="newItem" items="${newItem}">
+						<c:forEach var="image" items="${newItem.imgList}">
+							<div id="bestProduct" style="cursor: pointer;"
+								onclick="showProduct('${newItem.productsCode}')">
+								<img alt="test" src="resources/productImg/${image.img}"
+									width="100%" height="80.28%">
+								<div style="padding: 12.5px;"></div>
+								<div id="bestTitle">${newItem.productsName}</div>
+								<input type="hidden" value="${newItem.productsCode}">
+								<div id="line"></div>
+								<div id="bestPrice">
+									<fmt:formatNumber value="${newItem.productsPrice}"
+										pattern="#,###원" var="formattedPrice" />
+									<c:out value="${formattedPrice}" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="newItem" items="${newItem}">
+						<c:forEach var="image" items="${newItem.imgList}">
+							<div id="bestProduct" style="cursor: pointer;"
+								onclick="showProduct('${newItem.productsCode}')">
+								<img alt="test" src="resources/productImg/${image.img}"
+									width="100%" height="300px">
+								<div style="padding: 12.5px;"></div>
+								<div id="bestTitle">${newItem.productsName}</div>
+								<div id="line"></div>
+								<div id="bestPrice">
+									<fmt:formatNumber value="${newItem.productsPrice}"
+										pattern="#,###원" var="formattedPrice" />
+									<c:out value="${formattedPrice}" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
-		</c:forEach>
-		</c:forEach>
-	</div>
 </section>
 <div id="menuBackground"></div>
 <div id="menuSidebar">
@@ -579,35 +670,24 @@
 </div>
 
 <!-- Swiper JS -->
- <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <!-- Initialize Swiper -->
 <script>
-//전체 페이지의 width를 출력합니다.
+
+
+var l = '${logOut}';
+
 console.log("Document width: " + document.documentElement.scrollWidth + "px");
 console.log("Window inner width: " + window.innerWidth + "px");
 
-
-document.addEventListener('DOMContentLoaded', function() {
-	var user = '${userInfo}';
-	if(user == null || user == ''){
-		console.log("y");
-	}else{
-		serverCallByRequest('afterPage', 'get', '');
-	}
-});
-
-
-
-
-
-
 history.replaceState(null, null, '/'); // 현재 페이지의 URL을 루트(/)로 변경
-function showProductNone(obj){
+
+function showProduct(obj, type){
 	const data = [
         ["productsCode", obj]
     ];
-	serverCallByRequest("showProductNone","get",data);
+	serverCallByRequest("showProduct","post",data);
 }
 
 function getProductPage(data){
@@ -804,9 +884,28 @@ var swiper = new Swiper('.swiper-container', {
 		},
 		loop : true,
     });
-    function aTT(){
-    	alert("s");
-    }
+function aTT(){
+	alert("s");
+}
+    
+function flexToolTip(){
+	var tool = document.getElementById('rr-tooltip');
+	tool.style.display = 'block';
+}
+
+function noneToolTip(){
+	var tool = document.getElementById('rr-tooltip');
+	tool.style.display = 'none';
+}
+//로그아웃
+function logOut(){
+	alert("로그아웃 되었습니다.");
+	serverCallByRequest('logOut','get','');
+}
+
+function tl(){
+	alert(l);
+}
 </script>
 
 </body>
