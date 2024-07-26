@@ -97,6 +97,29 @@
 	padding: 0px 15px;
 	margin-top: 7px;
 }
+
+.item {
+            flex: 1;
+            height: 100%;
+            text-align: center;
+            box-shadow: 
+                -1px 0 0 0 #ccc, /* 왼쪽 테두리 */
+                1px 0 0 0 #eee, /* 오른쪽 테두리 */
+                0 1px 0 0 #ccc, /* 아래쪽 테두리 */
+                0 -1px 0 0 #ccc; /* 위쪽 테두리 */
+        }
+        .item:first-child {
+            box-shadow: 
+                1px 0 0 0 #eee, /* 첫 번째 자식 요소의 왼쪽 테두리 제거 */
+                0 1px 0 0 #ccc, /* 아래쪽 테두리 */
+                0 -1px 0 0 #ccc; /* 위쪽 테두리 */
+        }
+        .item:last-child {
+            box-shadow: 
+                -1px 0 0 0 #ccc, /* 마지막 자식 요소의 오른쪽 테두리 제거 */
+                0 1px 0 0 #ccc, /* 아래쪽 테두리 */
+                0 -1px 0 0 #ccc; /* 위쪽 테두리 */
+        }
 </style>
 
 
@@ -197,7 +220,56 @@
 			<div id="secChart" style="height:500px; border:1px solid #ccc;padding:10px; background-color: white; width: 49%;"></div>
 		</div>
 	</div>
-	
+	<div style="width: 80%; margin: 0 auto; border: 0.5px solid #ccc; margin-top: 2%;">
+		<div style="width: 100%; height: 35px; background-color: #ccc; display: flex; justify-content: space-between;">
+			<div class="item">거래일</div>
+			<div class="item">판매 수량</div>
+			<div class="item">환불 수량</div>
+			<div class="item">총 수익</div>
+			<div class="item">순수익</div>
+			<div class="item">환불 금액</div>
+		</div>
+		<div style="width: 100%; height: 5%; background-color: white; display: flex; justify-content: space-between;">
+			<div class="item">거래일</div>
+			<div class="item">판매 수량</div>
+			<div class="item">환불 수량</div>
+			<div class="item">총 수익</div>
+			<div class="item">순수익</div>
+			<div class="item">환불 금액</div>
+		</div>
+		<div style="width: 100%; height: 5%; background-color: white; display: flex; justify-content: space-between;">
+			<div class="item">거래일</div>
+			<div class="item">판매 수량</div>
+			<div class="item">환불 수량</div>
+			<div class="item">총 수익</div>
+			<div class="item">순수익</div>
+			<div class="item">환불 금액</div>
+		</div>
+		<div style="width: 100%; height: 5%; background-color: white; display: flex; justify-content: space-between;">
+			<div class="item">거래일</div>
+			<div class="item">판매 수량</div>
+			<div class="item">환불 수량</div>
+			<div class="item">총 수익</div>
+			<div class="item">순수익</div>
+			<div class="item">환불 금액</div>
+		</div>
+		<div style="width: 100%; height: 5%; background-color: white; display: flex; justify-content: space-between;">
+			<div class="item">거래일</div>
+			<div class="item">판매 수량</div>
+			<div class="item">환불 수량</div>
+			<div class="item">총 수익</div>
+			<div class="item">순수익</div>
+			<div class="item">환불 금액</div>
+		</div>
+		<div style="width: 100%; height: 5%; background-color: white; display: flex; justify-content: space-between;">
+			<div class="item">거래일</div>
+			<div class="item">판매 수량</div>
+			<div class="item">환불 수량</div>
+			<div class="item">총 수익</div>
+			<div class="item">순수익</div>
+			<div class="item">환불 금액</div>
+		</div>
+	</div>
 	<!-- footer -->
 	<div style="width: 100%; height: 50px; padding: 30px 0px;">
 		<div id="joinLine"><i class="fa-solid fa-diamond" id="diaIcon"></i></div>

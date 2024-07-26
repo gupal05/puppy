@@ -674,10 +674,25 @@
 
 <!-- Initialize Swiper -->
 <script>
-console.log("Document width: " + document.documentElement.scrollWidth + "px");
-console.log("Window inner width: " + window.innerWidth + "px");
+window.onload = function() {
+    history.pushState({ page: 'index' }, "Index", "index.html");
+    // 처음 상태 추가 시 index 페이지로 이동
+    history.pushState({ page: 'product' }, "Product", "product.html");
+};
 
-history.replaceState(null, null, '/'); // 현재 페이지의 URL을 루트(/)로 변경
+// popstate 이벤트 리스너 추가
+window.addEventListener('popstate', function(event) {
+    if (event.state) {
+        // 상태 객체에 따라 알림을 띄우고 페이지 이동
+        if (event.state.page === 'product') {
+            alert('진입');
+            // 현재 페이지를 강제로 index 페이지로 이동
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 0);
+        }
+    }
+});
 
 function showProduct(obj, type){
 	const data = [

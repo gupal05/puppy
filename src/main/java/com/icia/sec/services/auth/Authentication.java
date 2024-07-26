@@ -602,9 +602,6 @@ public class Authentication extends TransactionAssistant {
 	
 	private void logOut(ModelAndView mav) {
 		session.removeAttribute("userInfo");
-		String page = null;
-		String message = null;
-		UserBean user = (UserBean) session.getAttribute("userInfo");
 		List<CategoriesBean> List = null;
 		List<ProductsBean> bestPro = null;
 		List<ProductsBean> newPro = null;

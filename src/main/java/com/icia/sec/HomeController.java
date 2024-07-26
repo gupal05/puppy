@@ -16,11 +16,13 @@ import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.icia.sec.beans.CategoriesBean;
 import com.icia.sec.beans.CategoriesDetailBean;
@@ -199,7 +201,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/logOut", method = RequestMethod.GET)
-	public ModelAndView logOut(ModelAndView mav, HttpServletResponse response) {
+	public ModelAndView logOut(ModelAndView mav) {
 		this.auth.backController("LO", mav);
 //		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 //	    response.setHeader("Pragma", "no-cache");
@@ -461,4 +463,10 @@ public class HomeController {
 		return mav;
 	}
 	
+
+    @GetMapping("/specific-page")
+    public String specificPage() {
+        // 특정 페이지의 내용을 반환
+        return "login"; // `specificPage.html` 등의 뷰 이름
+    }
 }
