@@ -147,6 +147,7 @@ body {
 	text-align: center;
 	line-height: 45px;
 	cursor: pointer;
+	position: relative; /* 부모 요소를 기준으로 하위 요소 위치 설정 */
 }
 #menuArea{
 width: 10%;
