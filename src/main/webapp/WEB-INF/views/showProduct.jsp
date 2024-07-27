@@ -185,28 +185,49 @@
 		<div id="cc">
 		</div>
 		<div id="rr">
-			<input type="button" id="rr-btn" value="로그아웃" onClick="logOut()">
-			<div id="rr-icon">/</div>
-			<div id="rr-tooltip"  onmouseover="flexToolTip()" onmouseout="noneToolTip()">
-  				<div id="in-myBox">
-      				<div id="myList" onclick="serverCallByRequest('modifyUserInfo', 'post', '')">
-        				내 정보 수정
-      				</div>
-	      			<div id="myList" onclick="serverCallByRequest('cartPage','post','')">
-	      				장바구니
-	      			</div>
-	      			<div id="myList">
-	        			주문목록
-	      			</div>
-	      			<div id="myList" onclick="serverCallByRequest('couponPage','post','')">
-	        			쿠폰 / 적립
-	      			</div>
-	      			<div id="myList">
-	        			찜 상품
-	      			</div>
-  				</div>
-			</div>
-			<input type="button" value="${userInfo.userName}" style="color: #31CAAE;" id="rr-btn" onmouseover="flexToolTip()" onmouseout="noneToolTip()">
+			<c:choose>
+					<c:when test="${empty userInfo}">
+						<input type="button" id="rr-btn" value="회원가입"
+							onClick="serverCallByRequest('join','get','')">
+						<div id="rr-icon">/</div>
+						<input type="button" id="rr-btn" value="로그인"
+							onclick="serverCallByRequest('login','get','')">
+					</c:when>
+					<c:otherwise>
+						<input type="button" id="rr-btn" value="로그아웃" onClick="logOut()">
+						<div id="rr-icon">/</div>
+						<div id="rr-tooltip" onmouseover="flexToolTip()"
+							onmouseout="noneToolTip()">
+							<div id="in-myBox">
+								<div id="myList"
+									onclick="serverCallByRequest('modifyUserInfo', 'post', '')">
+									내 정보 수정</div>
+								<div id="myList"
+									onclick="serverCallByRequest('cartPage','post','')">장바구니
+								</div>
+								<div id="myList"
+									onclick="serverCallByRequest('orderViewPage', 'post', '')">
+									주문목록</div>
+								<div id="myList"
+									onclick="serverCallByRequest('couponPage','post','')">쿠폰
+									/ 적립</div>
+								<div id="myList"
+									onclick="serverCallByRequest('wishPage','post','')">찜 상품
+								</div>
+							</div>
+						</div>
+						<c:if test="${userInfo.userGrade eq '0'}">
+							<button onclick="serverCallByRequest('afterPage','get','')"
+								style="font-weight: bold; border: none; background-color: red; cursor: pointer;">관리자
+								페이지 이동</button>
+						</c:if>
+						<c:if test="${userInfo.userGrade eq '1'}">
+							<input type="button" value="${userInfo.userName}"
+								style="color: #31CAAE;" id="rr-btn" onmouseover="flexToolTip()"
+								onmouseout="noneToolTip()">
+						</c:if>
+					</c:otherwise>
+				</c:choose>
 		</div>
 </div>
 <div id="line"></div>
@@ -221,15 +242,15 @@
 		<div id="menuArea">
 			<i class="fa-solid fa-bars" id="menuBar" onclick="aa()"></i>
 		</div>
-		<div id="ci" class="snackCate" onmouseover="flexToggle()" onmouseout="noneToggle()">간식</div>
-		<div id="ci" class="toyCate" onmouseover="flexToggle()" onmouseout="noneToggle()">장난감/훈련용품</div>
-		<div id="ci" class="feedCate" onmouseover="flexToggle()" onmouseout="noneToggle()">사료/영양제</div>
-		<div id="ci" class="hairCate" onmouseover="flexToggle()" onmouseout="noneToggle()">미용용품</div>
-		<div id="ci" class="cleanCate" onmouseover="flexToggle()" onmouseout="noneToggle()">위생용품</div>
-		<div id="ci" class="dishCate" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
-		<div id="ci" class="walkCate" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
-		<div id="ci" class="houseCate" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
-		<div id="ci">검색</div>
+		<div id="snackCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">간식</div>
+		<div id="toyCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">장난감/훈련용품</div>
+		<div id="feedCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">사료/영양제</div>
+		<div id="hairCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">미용용품</div>
+		<div id="cleanCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">위생용품</div>
+		<div id="dishCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
+		<div id="walkCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
+		<div id="houseCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
+		<div id="etc" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()" >기타</div>
 	</div>
 </div>
 <div id="navLine"></div>
@@ -312,6 +333,12 @@
 		<div class="cateText-in" onclick="getProductPage('7-5')">하우스/텐트</div>
 		<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
 		<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
+	</div>
+	<div class="cateText" id="etc" style="height: 370px;" onmouseover="flexToggle()" onmouseout="noneToggle()">
+		<div class="cateText-in" onclick="serverCallByRequest('search', 'get', '')"> 상품 검색</div>
+		<div class="cateText-in" onclick="serverCallByRequest('QnA')">상품 문의</div>
+		<div class="cateText-in" onclick="serverCallByRequest('review')">상품 후기</div>
+		<div class="cateText-in" onclick="serverCallByRequest('notice')">공지사항</div>
 	</div>
 </div>
 <div id="miniText">
@@ -728,31 +755,6 @@
 		</div>
 	</div>
 </div>
-<!-- <footer id="footer">
-   <div id="footerWrap">
-       <div class="logo">
-            <img alt="logo" src="resources/img/puppy logo.jpg">
-       </div>
-       <hr class="footer-line">
-       <div id="footerContent">
-           <div id="storeInfo" class="info">
-               <p>매장 이름: Puppy</p>
-               <p>주소: 인천광역시 미추홀수 매소홀로 488번길 6-32 태승빌딩 5층</p>
-               <p>대표: 황영호</p>
-               <p>사업자번호: 000-00-00000</p>
-           </div>
-           <div id="contactInfo" class="info">
-               <p>고객센터: 010-2349-1054</p>
-               <p>운영시간:</p>
-               <p>평일: 오전 10:00 ~ 오후 6:00</p>
-               <p>점심시간: 오후 12:00 ~ 오후 1:00</p>
-               <p>토 / 일 / 공휴일: 휴무</p>
-           </div>
-       </div>
-   </div>
-</footer> -->
-
-
 
 
 <div id="menuBackground"></div>
@@ -803,36 +805,41 @@
 </div>
 
 <!-- Swiper JS -->
- <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- Initialize Swiper -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-	var user = '${userInfo}';
-	if(user == null || user == ''){
-		alert("로그인이 만료 되었습니다.")
-		serverCallByRequest("login","get",'');
-	}else{
-		console.log("y");
-	}
-});
+window.onload = function() {
+    // 페이지가 로드될 때 실행될 함수
+    if (!sessionStorage.getItem('refreshed')) {
+        // 상태를 세션 저장소에 기록
+        sessionStorage.setItem('refreshed', 'true');
+        // 1초 후에 페이지를 새로고침
+        setTimeout(function() {
+            window.location.reload();
+        }, 0); // 1000 밀리초 = 1초
+    } else {
+        // 새로고침 후에는 상태를 세션 저장소에서 삭제
+        sessionStorage.removeItem('refreshed');
+    }
+};
 
 function clickLogo(){
-	var user = '${userInfo}';
-	if(user == null || user == ''){
-		serverCallByRequest("index","get",'');
-	}else{
-		serverCallByRequest('afterPage','get','');
-	}
+		serverCallByRequest('goLogo','get','');
 }
 
 function insCart(){
-	let formData = new FormData;
-	const code = document.getElementById('productsCode');
-	const count = document.getElementById('count-num-box');
-	formData.append(code.name, code.value);
-	formData.append(count.name, count.value);
-	serverCallByFetchAjax(formData, 'insCart', 'post', 'addCartResult');
+	var user = '${userInfo}';
+	if(user != ''){
+		let formData = new FormData;
+		const code = document.getElementById('productsCode');
+		const count = document.getElementById('count-num-box');
+		formData.append(code.name, code.value);
+		formData.append(count.name, count.value);
+		serverCallByFetchAjax(formData, 'insCart', 'post', 'addCartResult');
+	}else{
+		alert("로그인 후 이용이 가능합니다.");
+		serverCallByRequest('login','get','');
+	}
 }
 
 function addCartResult(jsonData){
@@ -841,10 +848,16 @@ function addCartResult(jsonData){
 }
 
 function insWish(){
-	let formData = new FormData;
-	const code = document.getElementById('productsCode');
-	formData.append(code.name, code.value);
-	serverCallByFetchAjax(formData, 'insWish', 'post', 'addWishResult');
+	var user = '${userInfo}';
+	if(user != ''){
+		let formData = new FormData;
+		const code = document.getElementById('productsCode');
+		formData.append(code.name, code.value);
+		serverCallByFetchAjax(formData, 'insWish', 'post', 'addWishResult');
+	}else{
+		alert("로그인 후 이용이 가능합니다.");
+		serverCallByRequest('login','get','');
+	}
 }
 
 function addWishResult(jsonData){
@@ -1123,25 +1136,6 @@ function clickCate(index) {
 		}
 	}
 
-	var swiper = new Swiper('.swiper-container', {
-		pagination : {
-			el : ".swiper-pagination",
-			clickable : true,
-		},
-		paginationClickable : '.swiper-pagination',
-		navigation : {
-			nextEl : '.swiper-button-next',
-			prevEl : '.swiper-button-prev',
-		},
-
-		spaceBetween : 0,
-		effect : 'fade',
-		autoplay : {
-			delay : 2500, //슬라이드 바뀌는 시간
-			disableOnInteraction : false,
-		},
-		loop : true,
-	});
 	
 	function getProductPage(data){
 		let formChild = [[]];
@@ -1243,14 +1237,20 @@ function clickCate(index) {
 	}
 	
 	function buyProduct(){
-		var formChild = [];
-		var puCode = document.getElementById('productsCode');
-		var puCount = document.getElementById('count-num-box');
-		var data = [puCode.name, puCode.value];
-		var data2 = ['cartList[0].cartCount', puCount.value];
-		formChild.push(data);
-		formChild.push(data2);
-		serverCallByRequest('buyOrderPage','post',formChild);
+		var user = '${userInfo}';
+		if(user != ''){
+			var formChild = [];
+			var puCode = document.getElementById('productsCode');
+			var puCount = document.getElementById('count-num-box');
+			var data = [puCode.name, puCode.value];
+			var data2 = ['cartList[0].cartCount', puCount.value];
+			formChild.push(data);
+			formChild.push(data2);
+			serverCallByRequest('buyOrderPage','post',formChild);
+		}else{
+			alert("로그인 후 이용이 가능합니다.");
+			serverCallByRequest('login','get','');
+		}
 	}
 </script>
 

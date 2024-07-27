@@ -82,9 +82,6 @@ public class Product extends TransactionAssistant {
 		case "GPC":
 			this.getPageCate(mav);
 			break;
-		case "SPN":
-			this.showProductNone(mav);
-			break;
 		case "SPU":
 			this.showProductUser(mav);
 			break;
@@ -272,14 +269,22 @@ public class Product extends TransactionAssistant {
 		this.tranManager = this.getTransaction(true);
 		try {
 			this.tranManager.tranStart();
-			pro.setProductsDate(user.getUserCode());
-			if(this.convertToBoolean(this.sqlSession.selectOne("isWishCount", pro))) {
-				wish = "y";
+			if(user != null) {
+				pro.setProductsDate(user.getUserCode());
+				if(this.convertToBoolean(this.sqlSession.selectOne("isWishCount", pro))) {
+					wish = "y";
+				}
+				pro = this.sqlSession.selectOne("getProductInfo", pro);
+				titleImg = this.sqlSession.selectOne("getTitleImg", pro);
+				contentImg = this.sqlSession.selectOne("getContentImg", pro);
+				List = this.sqlSession.selectList("getPageCate");
+				mav.addObject("wish", wish);
+			}else {
+				pro = this.sqlSession.selectOne("getProductInfo", pro);
+				titleImg = this.sqlSession.selectOne("getTitleImg", pro);
+				contentImg = this.sqlSession.selectOne("getContentImg", pro);
+				List = this.sqlSession.selectList("getPageCate");
 			}
-			pro = this.sqlSession.selectOne("getProductInfo", pro);
-			titleImg = this.sqlSession.selectOne("getTitleImg", pro);
-			contentImg = this.sqlSession.selectOne("getContentImg", pro);
-			List = this.sqlSession.selectList("getPageCate");
 		}catch (Exception e) {
 			System.out.println(e);
 		}finally {
@@ -289,36 +294,7 @@ public class Product extends TransactionAssistant {
 			mav.addObject("pro", pro);
 			mav.addObject("title", titleImg);
 			mav.addObject("content", contentImg);
-			mav.addObject("wish", wish);
 			mav.setViewName("showProduct");
-		}
-	}
-	
-	private void showProductNone(ModelAndView mav) {
-		String titleImg = null;
-		String contentImg = null;
-		String acc = null;
-		UserBean user = new UserBean();
-		List<CategoriesBean> List = null;
-		ProductsBean pro = (ProductsBean) mav.getModel().get("product");
-		this.tranManager = this.getTransaction(true);
-		try {
-			this.tranManager.tranStart();
-			pro = this.sqlSession.selectOne("getProductInfo", pro);
-			titleImg = this.sqlSession.selectOne("getTitleImg", pro);
-			contentImg = this.sqlSession.selectOne("getContentImg", pro);
-			List = this.sqlSession.selectList("getPageCate");
-		}catch (Exception e) {
-			System.out.println(e);
-		}finally {
-			acc = Integer.toString((int) (Integer.parseInt(pro.getProductsPrice()) * 0.01));
-			System.out.println(acc);
-			mav.addObject("cate", List);
-			mav.addObject("acc", acc);
-			mav.addObject("pro", pro);
-			mav.addObject("title", titleImg);
-			mav.addObject("content", contentImg);
-			mav.setViewName("productNone");
 		}
 	}
 	

@@ -39,7 +39,11 @@
 	<script src="resources/js/mainsj.js"></script>
 	<link href="resources/css/main.css" rel="stylesheet" />
 <style>
-
+    .toggle {
+        width: 160px;
+        height: 100px;
+        /* 토글의 스타일 설정 */
+    }
 </style>
 
 </head>
@@ -56,15 +60,93 @@
 			<i class="fa-solid fa-chevron-up"></i>
 		</div>
 	</div>
-	<div style="width: 80%; display: flex; justify-content: center; line-height: 33.875px; cursor: pointer;">
-		<div class="cate-content" onclick="cateDTop(this, 'topSnackCateDetail')">간식</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topToyCateDetail')">장난감/훈련용품</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topFeedCateDetail')">사료/영양제</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topHairCateDetail')">미용용품</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topCleanCateDetail')">위생용품</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topDishCateDetail')">식기</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topWalkCateDetail')">외출용품</div>
-		<div class="cate-content" onclick="cateDTop(this, 'topHouseCateDetail')">집/쿠션</div>
+	<div style="width: 80%; display: flex; justify-content: center; line-height: 33.875px; cursor: pointer; position: relative;">
+		<div class="cate-content" onclick="cateDTop(this, 'topSnackCateDetail')" style=" position: relative;">간식
+		<div class="top-fix-bar" id="topSnackCateDetail" style="width: 234.4%; height: 293.16px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('1')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('1-0')">강아지껌</div>
+			<div class="cateText-in" onclick="getProductPage('1-1')">비스킷/스낵</div>
+			<div class="cateText-in" onclick="getProductPage('1-2')">수제간식</div>
+			<div class="cateText-in" onclick="getProductPage('1-3')">육류</div>
+			<div class="cateText-in" onclick="getProductPage('1-4')">시저/캔</div>
+			<div class="cateText-in" onclick="getProductPage('1-5')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topToyCateDetail')" style=" position: relative;">장난감/훈련용품
+		<div class="top-fix-bar" id="topToyCateDetail" style="width: 102.6%; height: 251.28px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('0')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('0-0')">공/원반</div>
+			<div class="cateText-in" onclick="getProductPage('0-1')">인형</div>
+			<div class="cateText-in" onclick="getProductPage('0-2')">노즈워크</div>
+			<div class="cateText-in" onclick="getProductPage('0-3')">간식볼</div>
+			<div class="cateText-in" onclick="getProductPage('0-4')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topFeedCateDetail')" style=" position: relative;">사료/영양제
+		<div class="top-fix-bar" id="topFeedCateDetail" style="width: 128.8%; height: 251.28px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('2')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('2-0')">건식사료</div>
+			<div class="cateText-in" onclick="getProductPage('2-1')">습식사료</div>
+			<div class="cateText-in" onclick="getProductPage('2-2')">우유/분유</div>
+			<div class="cateText-in" onclick="getProductPage('2-3')">영양제</div>
+			<div class="cateText-in" onclick="getProductPage('2-4')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topHairCateDetail')" style=" position: relative;">미용용품
+		<div class="top-fix-bar" id="topHairCateDetail" style="width: 158.8%; height: 335.04px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('3')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('3-0')">드라이기</div>
+			<div class="cateText-in" onclick="getProductPage('3-1')">발톱관리</div>
+			<div class="cateText-in" onclick="getProductPage('3-2')">브러시</div>
+			<div class="cateText-in" onclick="getProductPage('3-3')">샤워기/타월</div>
+			<div class="cateText-in" onclick="getProductPage('3-4')">샴푸/린스</div>
+			<div class="cateText-in" onclick="getProductPage('3-5')">이발기/가위</div>
+			<div class="cateText-in" onclick="getProductPage('3-6')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topCleanCateDetail')" style=" position: relative;">위생용품
+		<div class="top-fix-bar" id="topCleanCateDetail" style="width: 158.8%; height: 418.8px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('4')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('4-0')">구강위생용품</div>
+			<div class="cateText-in" onclick="getProductPage('4-1')">기저귀</div>
+			<div class="cateText-in" onclick="getProductPage('4-2')">배변봉투</div>
+			<div class="cateText-in" onclick="getProductPage('4-3')">배변판</div>
+			<div class="cateText-in" onclick="getProductPage('4-4')">배변패드</div>
+			<div class="cateText-in" onclick="getProductPage('4-5')">탈취/소독제</div>
+			<div class="cateText-in" onclick="getProductPage('4-6')">눈/귀 위생용품</div>
+			<div class="cateText-in" onclick="getProductPage('4-7')">넥카라</div>
+			<div class="cateText-in" onclick="getProductPage('4-8')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topDishCateDetail')" style=" position: relative;">식기
+		<div class="top-fix-bar" id="topDishCateDetail" style="width: 234.4%; height: 251.28px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('5')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('5-0')">급수기</div>
+			<div class="cateText-in" onclick="getProductPage('5-1')">급식기</div>
+			<div class="cateText-in" onclick="getProductPage('5-2')">정수기</div>
+			<div class="cateText-in" onclick="getProductPage('5-3')">사료보관통</div>
+			<div class="cateText-in" onclick="getProductPage('5-4')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topWalkCateDetail')" style=" position: relative;">외출용품
+		<div class="top-fix-bar" id="topWalkCateDetail" style="width: 158.8%; height: 418.8px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('6')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('6-0')">가슴줄</div>
+			<div class="cateText-in" onclick="getProductPage('6-1')">리드줄</div>
+			<div class="cateText-in" onclick="getProductPage('6-2')">목걸이/인식표</div>
+			<div class="cateText-in" onclick="getProductPage('6-3')">목줄</div>
+			<div class="cateText-in" onclick="getProductPage('6-4')">유모차</div>
+			<div class="cateText-in" onclick="getProductPage('6-5')">이동가방/이동장</div>
+			<div class="cateText-in" onclick="getProductPage('6-6')">차량용캐리어/시트</div>
+			<div class="cateText-in" onclick="getProductPage('6-7')">입마개</div>
+			<div class="cateText-in" onclick="getProductPage('6-8')">기타</div>
+    	</div></div>
+		<div class="cate-content" onclick="cateDTop(this, 'topHouseCateDetail')" style=" position: relative;">집/쿠션
+		<div class="top-fix-bar" id="topHouseCateDetail" style="width: 174.6%; height: 376.92px; position: absolute; left: 0; z-index: 998; display: none; text-align: center; left: 50%; transform: translateX(-50%);">
+    		<div class="cateText-in" onclick="getProductPage('7')">전체</div>
+			<div class="cateText-in" onclick="getProductPage('7-0')">계단/스텝</div>
+			<div class="cateText-in" onclick="getProductPage('7-1')">매트</div>
+			<div class="cateText-in" onclick="getProductPage('7-2')">안전문</div>
+			<div class="cateText-in" onclick="getProductPage('7-3')">울타리</div>
+			<div class="cateText-in" onclick="getProductPage('7-4')">쿠션/방석</div>
+			<div class="cateText-in" onclick="getProductPage('7-5')">하우스/텐트</div>
+			<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
+			<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
+    	</div></div>
 		<div></div>
 		<div class="cate-content">Q & A</div>
 		<div class="cate-content">REVIEW</div>
@@ -83,88 +165,6 @@
 	</div>
 <div style="width: 100%; height: 0.5px; margin-top: 50px; position: fixed; background-color: #eee;"></div>
 </div>
-<div id="top-fix-toggle" style="width: 100%; position: fixed; top: 50px; left: 0; z-index: 998; display: flex; justify-content: center; align-items: center; cursor: pointer;">
-    <div style="width: 61.5%; position: absolute; z-index: 998; text-align: center;">
-    	<div class="top-fix-bar" id="topSnackCateDetail" style="width: 15%; height: 259px; position: absolute; left: 0; z-index: 998; display: none;">
-    		<div class="cateText-in" onclick="getProductPage('1')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('1-0')">강아지껌</div>
-			<div class="cateText-in" onclick="getProductPage('1-1')">비스킷/스낵</div>
-			<div class="cateText-in" onclick="getProductPage('1-2')">수제간식</div>
-			<div class="cateText-in" onclick="getProductPage('1-3')">육류</div>
-			<div class="cateText-in" onclick="getProductPage('1-4')">시저/캔</div>
-			<div class="cateText-in" onclick="getProductPage('1-5')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topToyCateDetail" style="width: 15%; height: 222px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 9%;">
-    		<div class="cateText-in" onclick="getProductPage('0')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('0-0')">공/원반</div>
-			<div class="cateText-in" onclick="getProductPage('0-1')">인형</div>
-			<div class="cateText-in" onclick="getProductPage('0-2')">노즈워크</div>
-			<div class="cateText-in" onclick="getProductPage('0-3')">간식볼</div>
-			<div class="cateText-in" onclick="getProductPage('0-4')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topFeedCateDetail" style="width: 15%; height: 222px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 21%;">
-    		<div class="cateText-in" onclick="getProductPage('2')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('2-0')">건식사료</div>
-			<div class="cateText-in" onclick="getProductPage('2-1')">습식사료</div>
-			<div class="cateText-in" onclick="getProductPage('2-2')">우유/분유</div>
-			<div class="cateText-in" onclick="getProductPage('2-3')">영양제</div>
-			<div class="cateText-in" onclick="getProductPage('2-4')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topHairCateDetail" style="width: 15%; height: 296px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 30.8%;">
-    		<div class="cateText-in" onclick="getProductPage('3')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('3-0')">드라이기</div>
-			<div class="cateText-in" onclick="getProductPage('3-1')">발톱관리</div>
-			<div class="cateText-in" onclick="getProductPage('3-2')">브러시</div>
-			<div class="cateText-in" onclick="getProductPage('3-3')">샤워기/타월</div>
-			<div class="cateText-in" onclick="getProductPage('3-4')">샴푸/린스</div>
-			<div class="cateText-in" onclick="getProductPage('3-5')">이발기/가위</div>
-			<div class="cateText-in" onclick="getProductPage('3-6')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topCleanCateDetail" style="width: 15%; height: 370px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 39%;">
-    		<div class="cateText-in" onclick="getProductPage('4')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('4-0')">구강위생용품</div>
-			<div class="cateText-in" onclick="getProductPage('4-1')">기저귀</div>
-			<div class="cateText-in" onclick="getProductPage('4-2')">배변봉투</div>
-			<div class="cateText-in" onclick="getProductPage('4-3')">배변판</div>
-			<div class="cateText-in" onclick="getProductPage('4-4')">배변패드</div>
-			<div class="cateText-in" onclick="getProductPage('4-5')">탈취/소독제</div>
-			<div class="cateText-in" onclick="getProductPage('4-6')">눈/귀 위생용품</div>
-			<div class="cateText-in" onclick="getProductPage('4-7')">넥카라</div>
-			<div class="cateText-in" onclick="getProductPage('4-8')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topDishCateDetail" style="width: 15%; height: 222px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 46.3%;">
-    		<div class="cateText-in" onclick="getProductPage('5')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('5-0')">급수기</div>
-			<div class="cateText-in" onclick="getProductPage('5-1')">급식기</div>
-			<div class="cateText-in" onclick="getProductPage('5-2')">정수기</div>
-			<div class="cateText-in" onclick="getProductPage('5-3')">사료보관통</div>
-			<div class="cateText-in" onclick="getProductPage('5-4')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topWalkCateDetail" style="width: 15%; height: 370px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 53.5%;">
-    		<div class="cateText-in" onclick="getProductPage('6')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('6-0')">가슴줄</div>
-			<div class="cateText-in" onclick="getProductPage('6-1')">리드줄</div>
-			<div class="cateText-in" onclick="getProductPage('6-2')">목걸이/인식표</div>
-			<div class="cateText-in" onclick="getProductPage('6-3')">목줄</div>
-			<div class="cateText-in" onclick="getProductPage('6-4')">유모차</div>
-			<div class="cateText-in" onclick="getProductPage('6-5')">이동가방/이동장</div>
-			<div class="cateText-in" onclick="getProductPage('6-6')">차량용캐리어/시트</div>
-			<div class="cateText-in" onclick="getProductPage('6-7')">입마개</div>
-			<div class="cateText-in" onclick="getProductPage('6-8')">기타</div>
-    	</div>
-    	<div class="top-fix-bar" id="topHouseCateDetail" style="width: 15%; height: 333px; position: absolute; left: 0; z-index: 998; display: none; margin-left: 61.7%;">
-    		<div class="cateText-in" onclick="getProductPage('7')">전체</div>
-			<div class="cateText-in" onclick="getProductPage('7-0')">계단/스텝</div>
-			<div class="cateText-in" onclick="getProductPage('7-1')">매트</div>
-			<div class="cateText-in" onclick="getProductPage('7-2')">안전문</div>
-			<div class="cateText-in" onclick="getProductPage('7-3')">울타리</div>
-			<div class="cateText-in" onclick="getProductPage('7-4')">쿠션/방석</div>
-			<div class="cateText-in" onclick="getProductPage('7-5')">하우스/텐트</div>
-			<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
-			<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
-    	</div>
-    </div>
-</div>
 <div id="firstLine">
 	<a>신규가입 하고 10% 쿠폰 받기! </a>
 </div>
@@ -178,14 +178,54 @@
 		<div id="cc">
 		</div>
 		<div id="rr">
-			<input type="button" id="rr-btn" value="회원가입" onClick="serverCallByRequest('join','get','')">
-			<div id="rr-icon">/</div>
-			<input type="button" id="rr-btn" value="로그인" onclick="serverCallByRequest('login','get','')">
-		</div>
+				<c:choose>
+					<c:when test="${empty userInfo}">
+						<input type="button" id="rr-btn" value="회원가입"
+							onClick="serverCallByRequest('join','get','')">
+						<div id="rr-icon">/</div>
+						<input type="button" id="rr-btn" value="로그인"
+							onclick="serverCallByRequest('login','get','')">
+					</c:when>
+					<c:otherwise>
+						<input type="button" id="rr-btn" value="로그아웃" onClick="logOut()">
+						<div id="rr-icon">/</div>
+						<div id="rr-tooltip" onmouseover="flexToolTip()"
+							onmouseout="noneToolTip()">
+							<div id="in-myBox">
+								<div id="myList"
+									onclick="serverCallByRequest('modifyUserInfo', 'post', '')">
+									내 정보 수정</div>
+								<div id="myList"
+									onclick="serverCallByRequest('cartPage','post','')">장바구니
+								</div>
+								<div id="myList"
+									onclick="serverCallByRequest('orderViewPage', 'post', '')">
+									주문목록</div>
+								<div id="myList"
+									onclick="serverCallByRequest('couponPage','post','')">쿠폰
+									/ 적립</div>
+								<div id="myList"
+									onclick="serverCallByRequest('wishPage','post','')">찜 상품
+								</div>
+							</div>
+						</div>
+						<c:if test="${userInfo.userGrade eq '0'}">
+							<button onclick="serverCallByRequest('afterPage','get','')"
+								style="font-weight: bold; border: none; background-color: red; cursor: pointer;">관리자
+								페이지 이동</button>
+						</c:if>
+						<c:if test="${userInfo.userGrade eq '1'}">
+							<input type="button" value="${userInfo.userName}"
+								style="color: #31CAAE;" id="rr-btn" onmouseover="flexToolTip()"
+								onmouseout="noneToolTip()">
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+			</div>
 </div>
 <div id="line"></div>
 <div id="logoArea">
-<img alt="logo" src="resources/img/puppy logo.jpg" width="100px" height="100px">
+<img alt="logo" src="resources/img/puppy logo.jpg" width="100px" height="100px" onclick="serverCallByRequest('goLogo','get','')"  style="cursor: pointer;">
 </div>
 <div id="line"></div>
 <div id="categories">
@@ -193,15 +233,15 @@
 		<div id="menuArea">
 			<i class="fa-solid fa-bars" id="menuBar" onclick="aa()"></i>
 		</div>
-		<div id="ci" class="snackCate" onmouseover="flexToggle()" onmouseout="noneToggle()">간식</div>
-		<div id="ci" class="toyCate" onmouseover="flexToggle()" onmouseout="noneToggle()">장난감/훈련용품</div>
-		<div id="ci" class="feedCate" onmouseover="flexToggle()" onmouseout="noneToggle()">사료/영양제</div>
-		<div id="ci" class="hairCate" onmouseover="flexToggle()" onmouseout="noneToggle()">미용용품</div>
-		<div id="ci" class="cleanCate" onmouseover="flexToggle()" onmouseout="noneToggle()">위생용품</div>
-		<div id="ci" class="dishCate" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
-		<div id="ci" class="walkCate" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
-		<div id="ci" class="houseCate" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
-		<div id="ci">검색</div>
+		<div id="snackCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">간식</div>
+		<div id="toyCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">장난감/훈련용품</div>
+		<div id="feedCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">사료/영양제</div>
+		<div id="hairCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">미용용품</div>
+		<div id="cleanCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">위생용품</div>
+		<div id="dishCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">식기</div>
+		<div id="walkCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">외출용품</div>
+		<div id="houseCate" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()">집/쿠션</div>
+		<div id="etc" class="ci" onmouseover="flexToggle()" onmouseout="noneToggle()" >기타</div>
 	</div>
 </div>
 <div id="navLine"></div>
@@ -286,8 +326,14 @@
 		<div class="cateText-in" onclick="getProductPage('7-6')">해먹</div>
 		<div class="cateText-in" onclick="getProductPage('7-7')">기타</div>
 	</div>
+	<div class="cateText" id="etc" style="height: 370px;" onmouseover="flexToggle()" onmouseout="noneToggle()">
+		<div class="cateText-in" onclick="serverCallByRequest('search', 'get', '')"> 상품 검색</div>
+		<div class="cateText-in" onclick="serverCallByRequest('QnA')">상품 문의</div>
+		<div class="cateText-in" onclick="serverCallByRequest('review')">상품 후기</div>
+		<div class="cateText-in" onclick="serverCallByRequest('notice')">공지사항</div>
+	</div>
 </div>
-	<div class="swiper-wrapper">
+	<div class="swiper-wrapper" style="cursor: pointer;" onclick="aTT()" id="slide-area">
 		<div class="swiper-slide" id="https://puppydog.co.kr/category/%EA%B8%89%EC%8B%9D%EA%B8%B0/82/" onclick="onclickMainBanner()">
 				<a>
 					<img 
@@ -338,48 +384,99 @@
 	<div id="bestProductArea">
 		<div id="bestItemText">BEST ITME</div>
 	</div>
-	<div id="best">
-	<c:forEach var="best" items="${bestItem}">
-	<c:forEach var="img" items="${best.imgList}">
-		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${best.productsCode}')">
-			<img alt="test" src="resources/productImg/${img.img}" width="100%" height="300px">
-			<div style="padding: 12.5px;"></div>
-			<div id="bestTitle">
-			${best.productsName}
-			</div>
-			<input type="hidden" value="${best.productsCode}">
-			<div id="line"></div>
-			<div id="bestPrice">
-				<fmt:formatNumber value="${best.productsPrice}" pattern="#,###원" var="formattedPrice" />
-                <c:out value="${formattedPrice}" />
-			</div>
+		<div id="best">
+			<c:choose>
+				<c:when test="${empty userInfo}">
+					<c:forEach var="best" items="${bestItem}">
+						<c:forEach var="img" items="${best.imgList}">
+							<div id="bestProduct" style="cursor: pointer;"
+								onclick="showProduct('${best.productsCode}')">
+								<img alt="test" src="resources/productImg/${img.img}"
+									width="100%" height="80.28%" style="border: 1px solid black;">
+								<div style="padding: 12.5px;"></div>
+								<div id="bestTitle">${best.productsName}</div>
+								<input type="hidden" value="${best.productsCode}">
+								<div id="line"></div>
+								<div id="bestPrice">
+									<fmt:formatNumber value="${best.productsPrice}"
+										pattern="#,###원" var="formattedPrice" />
+									<c:out value="${formattedPrice}" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="best" items="${bestItem}">
+						<c:forEach var="img" items="${best.imgList}">
+							<div id="bestProduct" style="cursor: pointer;"
+								onclick="showProduct('${best.productsCode}')">
+								<img alt="test" src="resources/productImg/${img.img}"
+									width="100%" height="300px">
+								<div style="padding: 12.5px;"></div>
+								<div id="bestTitle">
+									${best.productsName}
+									<div style="display: none;">${best.productsCode}</div>
+								</div>
+								<div id="line"></div>
+								<div id="bestPrice">
+									<fmt:formatNumber value="${best.productsPrice}"
+										pattern="#,###원" var="formattedPrice" />
+									<c:out value="${formattedPrice}" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
-		</c:forEach>
-		</c:forEach>
-	</div>
 	<div id="line" style="margin-top: 30px;"></div>
 	<div id="bestProductArea">
 		<div id="bestItemText">NEW ITME</div>
 	</div>
 	<div id="best">
-	<c:forEach var="newItem" items="${newItem}">
-	<c:forEach var="image" items="${newItem.imgList}">
-		<div id="bestProduct" style="cursor: pointer;" onclick="showProductNone('${newItem.productsCode}')">
-			<img alt="test" src="resources/productImg/${image.img}" width="100%" height="300px">
-			<div style="padding: 12.5px;"></div>
-			<div id="bestTitle">
-			${newItem.productsName}
-			</div>
-			<input type="hidden" value="${newItem.productsCode}">
-			<div id="line"></div>
-			<div id="bestPrice">
-				<fmt:formatNumber value="${newItem.productsPrice}" pattern="#,###원" var="formattedPrice" />
-                <c:out value="${formattedPrice}" />
-			</div>
+			<c:choose>
+				<c:when test="${empty userInfo}">
+					<c:forEach var="newItem" items="${newItem}">
+						<c:forEach var="image" items="${newItem.imgList}">
+							<div id="bestProduct" style="cursor: pointer;"
+								onclick="showProduct('${newItem.productsCode}')">
+								<img alt="test" src="resources/productImg/${image.img}"
+									width="100%" height="80.28%">
+								<div style="padding: 12.5px;"></div>
+								<div id="bestTitle">${newItem.productsName}</div>
+								<input type="hidden" value="${newItem.productsCode}">
+								<div id="line"></div>
+								<div id="bestPrice">
+									<fmt:formatNumber value="${newItem.productsPrice}"
+										pattern="#,###원" var="formattedPrice" />
+									<c:out value="${formattedPrice}" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="newItem" items="${newItem}">
+						<c:forEach var="image" items="${newItem.imgList}">
+							<div id="bestProduct" style="cursor: pointer;"
+								onclick="showProduct('${newItem.productsCode}')">
+								<img alt="test" src="resources/productImg/${image.img}"
+									width="100%" height="300px">
+								<div style="padding: 12.5px;"></div>
+								<div id="bestTitle">${newItem.productsName}</div>
+								<div id="line"></div>
+								<div id="bestPrice">
+									<fmt:formatNumber value="${newItem.productsPrice}"
+										pattern="#,###원" var="formattedPrice" />
+									<c:out value="${formattedPrice}" />
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
-		</c:forEach>
-		</c:forEach>
-	</div>
 </section>
 <div id="menuBackground"></div>
 <div id="menuSidebar">
@@ -573,39 +670,37 @@
 </div>
 
 <!-- Swiper JS -->
- <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <!-- Initialize Swiper -->
 <script>
-history.replaceState(null, null, '/'); // 현재 페이지의 URL을 루트(/)로 변경
-document.addEventListener('DOMContentLoaded', function() {
-    // 페이지가 로드되었을 때 실행되는 코드
-    // 여기에 새로고침을 막는 코드를 추가합니다.
+window.onload = function() {
+    history.pushState({ page: 'index' }, "Index", "index.html");
+    // 처음 상태 추가 시 index 페이지로 이동
+    history.pushState({ page: 'product' }, "Product", "product.html");
+};
 
-    // 예제로서 아래의 코드는 새로고침을 막습니다.
-    document.addEventListener('keydown', function(event) {
-        // F5 키와 새로고침 버튼 클릭 시 새로고침을 막음
-        if (event.key === 'F5' || (event.ctrlKey === true && (event.key === 'r' || event.key === 'R'))) {
-            event.preventDefault();
+// popstate 이벤트 리스너 추가
+window.addEventListener('popstate', function(event) {
+    if (event.state) {
+        // 상태 객체에 따라 알림을 띄우고 페이지 이동
+        if (event.state.page === 'product') {
+            alert('진입');
+            // 현재 페이지를 강제로 index 페이지로 이동
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 0);
         }
-    });
-
-    // 또는 다음과 같이 사용자가 직접 새로고침을 수행하는 경우를 막을 수 있습니다.
-    // window.onbeforeunload = function() {
-    //     return "페이지를 떠나시겠습니까?";
-    // };
+    }
 });
 
-history.pushState(null, null, document.URL);
-window.addEventListener('popstate', function () {
-    history.pushState(null, null, document.URL);
-});
-function showProductNone(obj){
+function showProduct(obj, type){
 	const data = [
         ["productsCode", obj]
     ];
-	serverCallByRequest("showProductNone","get",data);
+	serverCallByRequest("showProduct","post",data);
 }
+
 function getProductPage(data){
 	let formChild = [[]];
 	if(data.includes('-')) {
@@ -645,39 +740,6 @@ function cateDTop(element, data){
         element.style.fontWeight = 'normal';
     }
 }
-
-//window에 스크롤 이벤트를 추가하여 스크롤이 발생할 때마다 함수를 실행합니다.
-window.addEventListener('scroll', function() {
-    // 현재 스크롤 위치를 가져옵니다.
-    var scrollPosition = window.scrollY;
-
-    // 특정 스크롤 위치를 설정합니다. 이 값은 .navBar-area가 보이기 시작할 스크롤 위치입니다.
-    var triggerPosition = 500; // 예: 스크롤 위치가 200px 지점을 지나치면 .navBar-area를 보이도록 설정
-	var snack = document.getElementById('topSnackCateDetail');
-	var toy = document.getElementById('topToyCateDetail');
-	var feed = document.getElementById('topFeedCateDetail');
-	var hair = document.getElementById('topHairCateDetail');
-	var clean = document.getElementById('topCleanCateDetail');
-	var dish = document.getElementById('topDishCateDetail');
-	var walk = document.getElementById('topWalkCateDetail');
-	var house = document.getElementById('topHouseCateDetail');
-    // 만약 스크롤 위치가 트리거 위치를 지나쳤다면
-    if (scrollPosition > triggerPosition) {
-        // .navBar-area 요소를 보이도록 설정합니다.
-        document.querySelector('.navBar-area').style.display = 'flex';
-    } else {
-        // 그렇지 않으면 숨깁니다.
-        document.querySelector('.navBar-area').style.display = 'none';
-        snack.style.display = 'none';
-        toy.style.display = 'none';
-        feed.style.display = 'none';
-        hair.style.display = 'none';
-        clean.style.display = 'none';
-        dish.style.display = 'none';
-        walk.style.display = 'none';
-        house.style.display = 'none';
-    }
-});
 
 //메뉴바 카테고리 클릭
 function clickCate(index) {
@@ -748,6 +810,58 @@ function noneToggle(){
 	toggle.style.display = 'none';
 }
 
+function cateD(category) {
+    var selectedCate = document.getElementById(category);		 //고른거
+    var cateTexts = document.getElementsByClassName('cateText'); //전체영역
+    for (var i = 0; i < cateTexts.length; i++) {
+        cateTexts[i].style.visibility = 'hidden';
+    }
+    selectedCate.style.visibility = 'visible';
+}
+
+function hideCate(category) {
+    var selectedCate = document.getElementById(category);
+    selectedCate.style.visibility = 'hidden';
+}
+
+function showCate(category) {
+    var selectedCate = document.getElementById(category);
+    selectedCate.style.visibility = 'visible';
+}
+
+
+//window에 스크롤 이벤트를 추가하여 스크롤이 발생할 때마다 함수를 실행합니다.
+window.addEventListener('scroll', function() {
+    // 현재 스크롤 위치를 가져옵니다.
+    var scrollPosition = window.scrollY;
+
+    // 특정 스크롤 위치를 설정합니다. 이 값은 .navBar-area가 보이기 시작할 스크롤 위치입니다.
+    var triggerPosition = 500; // 예: 스크롤 위치가 200px 지점을 지나치면 .navBar-area를 보이도록 설정
+	var snack = document.getElementById('topSnackCateDetail');
+	var toy = document.getElementById('topToyCateDetail');
+	var feed = document.getElementById('topFeedCateDetail');
+	var hair = document.getElementById('topHairCateDetail');
+	var clean = document.getElementById('topCleanCateDetail');
+	var dish = document.getElementById('topDishCateDetail');
+	var walk = document.getElementById('topWalkCateDetail');
+	var house = document.getElementById('topHouseCateDetail');
+    // 만약 스크롤 위치가 트리거 위치를 지나쳤다면
+    if (scrollPosition > triggerPosition) {
+        // .navBar-area 요소를 보이도록 설정합니다.
+        document.querySelector('.navBar-area').style.display = 'flex';
+    } else {
+        // 그렇지 않으면 숨깁니다.
+        document.querySelector('.navBar-area').style.display = 'none';
+        snack.style.display = 'none';
+        toy.style.display = 'none';
+        feed.style.display = 'none';
+        hair.style.display = 'none';
+        clean.style.display = 'none';
+        dish.style.display = 'none';
+        walk.style.display = 'none';
+        house.style.display = 'none';
+    }
+});
 
 function toggleExit(){
 	const firstLine = document.getElementById("firstLine");
@@ -781,6 +895,28 @@ var swiper = new Swiper('.swiper-container', {
 		},
 		loop : true,
     });
+function aTT(){
+	alert("s");
+}
+    
+function flexToolTip(){
+	var tool = document.getElementById('rr-tooltip');
+	tool.style.display = 'block';
+}
+
+function noneToolTip(){
+	var tool = document.getElementById('rr-tooltip');
+	tool.style.display = 'none';
+}
+//로그아웃
+function logOut(){
+	alert("로그아웃 되었습니다.");
+	serverCallByRequest('logOut','get','');
+}
+
+function tl(){
+	alert(l);
+}
 </script>
 
 </body>

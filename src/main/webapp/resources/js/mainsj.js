@@ -10,10 +10,25 @@ document.onkeydown = function(event){
 };
 */
 
-
-
+// 페이지가 보여질 때 실행되는 이벤트 리스너
+window.addEventListener('pageshow', function(event) {
+    // 브라우저의 뒤로 가기 버튼을 통해 페이지가 보여졌는지 확인
+    if (event.persisted) {
+        // 세션 스토리지에 'reloaded' 플래그가 있는지 확인
+        if (!sessionStorage.getItem('reloaded')) {
+            // 'reloaded' 플래그가 없으면 설정하고 페이지 새로고침
+            sessionStorage.setItem('reloaded', 'true');
+            location.reload();
+        } else {
+            // 'reloaded' 플래그가 있으면 메시지 띄우기
+            // 플래그 제거
+            sessionStorage.removeItem('reloaded');
+        }
+    }
+});
 
 function beforeLogout(Data){
+
 	const Info = Data;
 	const accessToken = getJWT();
 	let formData = new FormData;
