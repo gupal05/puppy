@@ -552,6 +552,19 @@ span.swiper-pagination-bullet {
 		font-size: 12px;
 	}
 }
+
+.footer-a {
+    width: 80%;
+    background-color: #FBFBFB;
+}
+
+/* JavaScript를 사용하여 이 스타일을 적용합니다 */
+.footer-a.dynamic {
+    width: 100%;
+    background-color: #FBFBFB;
+    margin-left: 40px;
+}
+
 .cateText-in:hover{
 	background-color: #eee;
 	color: black;
