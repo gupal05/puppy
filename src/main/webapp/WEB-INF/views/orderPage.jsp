@@ -1193,6 +1193,7 @@ var IMP = window.IMP;
         		if(cu.includes("%")){
             		//전체 가격의 10% 구하는 allPriceResult / couper
             		cuArea.innerText = cu;
+            		alert(cu);
             		couper = cu.replace('%', '');
             		var formattedValue4 = parseFloat(rePrice -(allPriceResult / couper)).toLocaleString();
             		var formattedValue2 = parseFloat(discount.value - (allPriceResult / couper)).toLocaleString();

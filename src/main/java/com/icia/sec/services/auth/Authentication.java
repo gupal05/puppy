@@ -308,7 +308,7 @@ public class Authentication extends TransactionAssistant {
 					session.setAttribute("userInfo", user);
 					joinCoupon = generateRandomString();
 					cou.setCouponCode(joinCoupon);
-					cou.setCouponBenefit("10% 할인");
+					cou.setCouponBenefit("10%y");
 					cou.setCouponApply("모든 상품");
 					cou.setCouponIs("o");
 					cou.setCouponName("회원가입 축하 쿠폰");
@@ -316,6 +316,7 @@ public class Authentication extends TransactionAssistant {
 					cou.setCouponEndDate(formattedEndDate);
 					cpList.add(cou);
 					user.setCoupon(cpList);
+					System.out.println("쿠폰 확인 : "+user);
 					if(this.convertToBoolean(this.sqlSession.insert("insJoinCoupon", user))) {
 						this.tranManager.commit();
 						mav.setViewName(page);
@@ -469,7 +470,7 @@ public class Authentication extends TransactionAssistant {
 					session.setAttribute("userInfo", user);
 					joinCoupon = generateRandomString();
 					cou.setCouponCode(joinCoupon);
-					cou.setCouponBenefit("10% 할인");
+					cou.setCouponBenefit("10%");
 					cou.setCouponApply("모든 상품");
 					cou.setCouponIs("o");
 					cou.setCouponName("회원가입 축하 쿠폰");
@@ -735,7 +736,7 @@ public class Authentication extends TransactionAssistant {
 			if (convertToBoolean(this.sqlSession.insert("joinMember", user))) {
 				joinCoupon = generateRandomString();
 				cou.setCouponCode(joinCoupon);
-				cou.setCouponBenefit("10% 할인");
+				cou.setCouponBenefit("10%");
 				cou.setCouponApply("모든 상품");
 				cou.setCouponIs("o");
 				cou.setCouponName("회원가입 축하 쿠폰");

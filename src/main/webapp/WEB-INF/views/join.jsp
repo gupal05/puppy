@@ -375,9 +375,12 @@
 <div id="joinInputLineArea">
 	<div id="joinInputLine"></div>
 </div>
+<<<<<<< HEAD
 <div id="joinInputLineArea">
 	<div id="joinInputLine"></div>
 </div>
+=======
+>>>>>>> b76013a0977db3d45b87bee0f7550c25b0dbdd3b
 <div id="joinInfoInputHead">
 	<div id="joinInputBody">
 		<div id="idText">휴대전화<i class="fa-solid fa-star-of-life" id="starIcon"></i></div>
@@ -941,8 +944,11 @@ document.getElementById("closeButton").addEventListener("click", function() {
 
 
 //첫 번째 입력란에 이벤트 리스너 추가
+<<<<<<< HEAD
 
 //첫 번째 입력란에 이벤트 리스너 추가
+=======
+>>>>>>> b76013a0977db3d45b87bee0f7550c25b0dbdd3b
 document.querySelector(".secondPhone").addEventListener("input", function() {
     const firstPart = this.value;
 

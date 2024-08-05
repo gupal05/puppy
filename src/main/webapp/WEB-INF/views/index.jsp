@@ -37,6 +37,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 <!-- Core theme JS-->
 	<script src="resources/js/mainsj.js"></script>
+	<script src="resources/js/footer.js"></script>
 	<link href="resources/css/main.css" rel="stylesheet" />
 <style>
     .toggle {
@@ -532,7 +533,7 @@
 <div style="width: 100%; height: 503px;">
 	<div style="width: 100%; height: 1px; background-color: #F0F0F0;"></div>
 	<div style="width: 100%; height: 314.06px; padding-top: 60px; background-color: #FBFBFB; display: flex; justify-content: center;">
-		<div style="width: 80%; background-color: #FBFBFB;">
+		<div class="footer-a">
 			<div style="height: 28.06px; display: flex;">
 				<div style="display: flex; width: 20%;">
 					<img alt="logo" src="resources/img/puppy logo.jpg" width="28.05px" height="28.05px">
@@ -681,6 +682,8 @@
 
 <!-- Initialize Swiper -->
 <script>
+
+
 console.log("Document width: " + document.documentElement.scrollWidth + "px");
 console.log("Window inner width: " + window.innerWidth + "px");
 
