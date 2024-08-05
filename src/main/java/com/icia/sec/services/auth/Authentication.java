@@ -308,7 +308,7 @@ public class Authentication extends TransactionAssistant {
 					session.setAttribute("userInfo", user);
 					joinCoupon = generateRandomString();
 					cou.setCouponCode(joinCoupon);
-					cou.setCouponBenefit("10%y");
+					cou.setCouponBenefit("10%");
 					cou.setCouponApply("모든 상품");
 					cou.setCouponIs("o");
 					cou.setCouponName("회원가입 축하 쿠폰");
