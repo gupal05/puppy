@@ -183,22 +183,22 @@
 			<div id="rr-icon">/</div>
 			<div id="rr-tooltip"  onmouseover="flexToolTip()" onmouseout="noneToolTip()">
   				<div id="in-myBox">
-      				<div id="myList" style="cursor: default; background-color: #eee; color: #424000;">
-        				내 정보 수정
-      				</div>
-	      			<div id="myList" onclick="serverCallByRequest('cartPage','post','')">
-	      				장바구니
-	      			</div>
-	      			<div id="myList">
-	        			주문목록
-	      			</div>
-	      			<div id="myList" onclick="serverCallByRequest('couponPage','post','')">
-	        			쿠폰 / 적립
-	      			</div>
-	      			<div id="myList">
-	        			찜 상품
-	      			</div>
-  				</div>
+								<div id="myList"
+									onclick="serverCallByRequest('modifyUserInfo', 'post', '')">
+									내 정보 수정</div>
+								<div id="myList"
+									onclick="serverCallByRequest('cartPage','post','')">장바구니
+								</div>
+								<div id="myList"
+									onclick="serverCallByRequest('orderViewPage', 'post', '')">
+									주문목록</div>
+								<div id="myList"
+									onclick="serverCallByRequest('couponPage','post','')">쿠폰
+									/ 적립</div>
+								<div id="myList"
+									onclick="serverCallByRequest('wishPage','post','')">찜 상품
+								</div>
+							</div>
 			</div>
 			<input type="button" value="${userInfo.userName}" style="color: #31CAAE;" id="rr-btn" onmouseover="flexToolTip()" onmouseout="noneToolTip()">
 		</div>

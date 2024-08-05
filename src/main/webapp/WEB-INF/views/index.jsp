@@ -165,11 +165,20 @@
 	</div>
 <div style="width: 100%; height: 0.5px; margin-top: 50px; position: fixed; background-color: #eee;"></div>
 </div>
-<div id="firstLine">
-	<a>신규가입 하고 10% 쿠폰 받기! </a>
-</div>
-	<input type="button" value="닫기" id="exit" onclick="toggleExit()">
-<nav>
+<c:choose>
+	<c:when test="${not empty userInfo.userName}">
+		<div id="firstLine" style="display: none;">
+			<a>신규가입 하고 10% 쿠폰 받기! </a>
+		</div>
+		<input type="button" value="닫기" id="exit" onclick="toggleExit()" style="visibility: hidden;">
+	</c:when>
+	<c:when test="${empty userInfo.userName}">
+		<div id="firstLine">
+			<a>신규가입 하고 10% 쿠폰 받기! </a>
+		</div>
+		<input type="button" value="닫기" id="exit" onclick="toggleExit()">
+	</c:when>
+</c:choose>
 <div id="secLine">
 		<div id="tt">
 		<i class="fa-solid fa-microphone" style="color: #666;"></i>
@@ -245,8 +254,6 @@
 	</div>
 </div>
 <div id="navLine"></div>
-</nav>
-<div class="swiper-container n">
 <div class="toggleCate" id="toggle-area-cate">
 	<div class="cateText" id="snack" style="height: 370px; border: none;" onmouseover="flexToggle()" onmouseout="noneToggle()">
 		<div class="cateText-in" onclick="getProductPage('1')">전체</div>
@@ -333,7 +340,7 @@
 		<div class="cateText-in" onclick="serverCallByRequest('notice')">공지사항</div>
 	</div>
 </div>
-	<div class="swiper-wrapper" style="cursor: pointer;" onclick="aTT()" id="slide-area">
+	<div class="swiper-wrapper" style="cursor: pointer;" id="slide-area">
 		<div class="swiper-slide" id="https://puppydog.co.kr/category/%EA%B8%89%EC%8B%9D%EA%B8%B0/82/" onclick="onclickMainBanner()">
 				<a>
 					<img 
@@ -880,9 +887,6 @@ var swiper = new Swiper('.swiper-container', {
 		},
 		loop : true,
     });
-function aTT(){
-	alert("s");
-}
     
 function flexToolTip(){
 	var tool = document.getElementById('rr-tooltip');

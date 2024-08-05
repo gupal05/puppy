@@ -375,16 +375,6 @@
 <div id="joinInputLineArea">
 	<div id="joinInputLine"></div>
 </div>
-<div id="joinInfoInputHead">
-	<div id="joinInputBody">
-		<div id="idText">주민번호<i class="fa-solid fa-star-of-life" id="starIcon"></i></div>
-	</div>
-	<div id="userCode-inputArea">
-		<input type="text" id="userCode-input" class="firstPart" maxlength="6">
-		<div id="userCode-hypen">-</div>
-		<input type="password" id="userCode-input" class="secondPart" maxlength="7">
-	</div>
-</div>
 <div id="joinInputLineArea">
 	<div id="joinInputLine"></div>
 </div>
@@ -800,8 +790,6 @@ function phoneAlert(){
 //회원가입
 function join() {
 		    const userName = document.getElementsByClassName('userName')[0];
-		    const firstPart = document.getElementsByClassName('firstPart')[0];
-		    const secondPart = document.getElementsByClassName('secondPart')[0];
 		    const firstPhone = document.getElementsByClassName('firstPhone')[0];
 		    const secondPhone = document.getElementsByClassName('secondPhone')[0];
 		    const thirdPhone = document.getElementsByClassName('thirdPhone')[0];
@@ -818,8 +806,6 @@ function join() {
 			
 		    if (
 		        userName.value.trim() === '' ||
-		        firstPart.value.trim() === '' ||
-		        secondPart.value.trim() === '' ||
 		        firstPhone.value.trim() === '' ||
 		        secondPhone.value.trim() === '' ||
 		        thirdPhone.value.trim() === '' ||
@@ -833,8 +819,6 @@ function join() {
 		    ) {
 		        let emptyField = null;
 		        if (userId.value.trim() === '') emptyField = userId;
-		        else if (firstPart.value.trim() === '') emptyField = firstPart;
-		        else if (secondPart.value.trim() === '') emptyField = secondPart;
 		        else if (firstPhone.value.trim() === '') emptyField = firstPhone;
 		        else if (secondPhone.value.trim() === '') emptyField = secondPhone;
 		        else if (thirdPhone.value.trim() === '') emptyField = thirdPhone;
@@ -851,7 +835,7 @@ function join() {
 		    } else {
 		    	if(dirrhks1Checkbox.checked){
 		    		if(dirrhks2Checkbox.checked){
-		    			const userCode = firstPart.value + secondPart.value;
+		    			const userCode = generateRandom13DigitNumber();
 						const userPhone = firstPhone.value + secondPhone.value + thirdPhone.value;
 				    	let formData = new FormData;
 				    	formData.append(userName.name, userName.value);
@@ -957,14 +941,6 @@ document.getElementById("closeButton").addEventListener("click", function() {
 
 
 //첫 번째 입력란에 이벤트 리스너 추가
-document.querySelector(".firstPart").addEventListener("input", function() {
-    const firstPart = this.value;
-
-    // 입력란의 길이가 6이 되면 두 번째 입력란으로 포커스 이동
-    if (firstPart.length === 6) {
-        document.querySelector(".secondPart").focus();
-    }
-});
 
 //첫 번째 입력란에 이벤트 리스너 추가
 document.querySelector(".secondPhone").addEventListener("input", function() {
@@ -1091,6 +1067,11 @@ window.addEventListener('scroll', function() {
         house.style.display = 'none';
     }
 });
+
+function generateRandom13DigitNumber() {
+    // Generate a random number between 1e12 and 1e13
+    return Math.floor(Math.random() * 9e12) + 1e12;
+}
 </script>
 
 </body>
